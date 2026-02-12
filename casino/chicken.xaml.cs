@@ -16,14 +16,13 @@ using System.Windows.Shapes;
 namespace casino
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for chicken.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class chicken : Page
     {
-        public MainWindow()
+        public chicken()
         {
             InitializeComponent();
-            MainFrame.Navigate(new home());
         }
     }
 }

@@ -55,6 +55,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="blackjack.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="chicken.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="dice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="hilo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="lezeus.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,12 +87,37 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="blackjack.xaml.cs">
+      <DependentUpon>blackjack.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="chicken.xaml.cs">
+      <DependentUpon>chicken.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="dice.xaml.cs">
+      <DependentUpon>dice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="hilo.xaml.cs">
+      <DependentUpon>hilo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="home.xaml.cs">
+      <DependentUpon>home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="lezeus.xaml.cs">
+      <DependentUpon>lezeus.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="mines.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="mines.xaml.cs">
+      <DependentUpon>mines.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -93,6 +142,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="blackjack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="chicken.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="dice.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="hilo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="lezeus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="mines.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

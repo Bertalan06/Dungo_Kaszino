@@ -16,14 +16,13 @@ using System.Windows.Shapes;
 namespace casino
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for lezeus.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class lezeus : Page
     {
-        public MainWindow()
+        public lezeus()
         {
             InitializeComponent();
-            MainFrame.Navigate(new home());
         }
     }
 }

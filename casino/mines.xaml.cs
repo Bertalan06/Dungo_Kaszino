@@ -16,14 +16,13 @@ using System.Windows.Shapes;
 namespace casino
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for mines.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class mines : Page
     {
-        public MainWindow()
+        public mines()
         {
             InitializeComponent();
-            MainFrame.Navigate(new home());
         }
     }
 }

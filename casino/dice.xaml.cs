@@ -16,14 +16,13 @@ using System.Windows.Shapes;
 namespace casino
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for dice.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class dice : Page
     {
-        public MainWindow()
+        public dice()
         {
             InitializeComponent();
-            MainFrame.Navigate(new home());
         }
     }
 }

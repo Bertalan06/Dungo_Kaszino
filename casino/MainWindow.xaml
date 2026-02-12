@@ -6,7 +6,12 @@
         xmlns:local="clr-namespace:casino"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+    <Grid Margin="35">
+        <Frame x:Name="MainFrame"
+Grid.Row="0"
+Grid.Column="0"
+Grid.RowSpan="4"
+Grid.ColumnSpan="3"
+NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

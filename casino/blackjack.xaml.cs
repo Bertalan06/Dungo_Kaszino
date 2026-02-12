@@ -16,14 +16,21 @@ using System.Windows.Shapes;
 namespace casino
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for blackjack.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class blackjack : Page
     {
-        public MainWindow()
+        public blackjack()
         {
             InitializeComponent();
-            MainFrame.Navigate(new home());
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService.CanGoBack)
+            {
+                NavigationService.GoBack();
+            }
         }
     }
 }
