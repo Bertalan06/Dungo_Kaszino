@@ -31,12 +31,12 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </Page.Resources>
-    <Grid>
+    <Grid Margin="0,2,0,0">
         <Grid.Background>
             <ImageBrush ImageSource="bj_hatter.png" Stretch="UniformToFill">
                 <ImageBrush.RelativeTransform>
                     <TransformGroup>
-                        <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1"/>
+                        <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1" ScaleY="1"/>
                         <SkewTransform CenterX="0.5" CenterY="0.5"/>
                         <RotateTransform CenterX="0.5" CenterY="0.5"/>
                         <TranslateTransform Y="0" X="0"/>
