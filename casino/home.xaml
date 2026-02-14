@@ -10,6 +10,7 @@
 
     <Grid Margin="35">
         <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="3*"/>
@@ -20,17 +21,24 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="blackjack" Content="Játék!" Grid.Row="1" Grid.Column="0" Margin="53,0,53,0" Click="blackjack_Click"/>
-        <Button Content="Játék!" Grid.Row="1" Grid.Column="1"/>
-        <Button Content="Játék!" Grid.Row="1" Grid.Column="2"/>
-        <Button Content="Játék!" Grid.Row="3" Grid.Column="0"/>
-        <Button Content="Játék!" Grid.Row="3" Grid.Column="1"/>
-        <Button Content="Játék!" Grid.Row="3" Grid.Column="2"/>
-        <Image Grid.Row="0" Grid.Column="0" Source="/blackjack.png"/>
-        <Image Grid.Row="0" Grid.Column="1" Source="/chicken.png"/>
-        <Image Grid.Row="0" Grid.Column="2" Source="/dice.png"/>
-        <Image Grid.Row="2" Grid.Column="0" Source="/hilo.png"/>
-        <Image Grid.Row="2" Grid.Column="1" Source="/lezeus.png"/>
-        <Image Grid.Row="2" Grid.Column="2" Source="/mines.png"/>
+        <Button x:Name="blackjack" Content="Játék!" Grid.Row="2" Grid.Column="0" Margin="53,0,53,0" Width="120" Click="blackjack_Click"/>
+        <Button x:Name="chickenroad" Content="Játék!" Grid.Row="2" Grid.Column="1" Margin="53,0,53,0" Width="120" Click="chickenroad_Click"/>
+        <Button x:Name="dice" Content="Játék!" Grid.Row="2" Grid.Column="2" Margin="53,0,53,0" Width="120" Click="dice_Click"/>
+        <Button x:Name="hilo" Content="Játék!" Grid.Row="4" Grid.Column="0" Margin="53,0,53,0" Width="120" Click="hilo_Click"/>
+        <Button x:Name="lezeus" Content="Játék!" Grid.Row="4" Grid.Column="1" Margin="53,0,53,0" Width="120" Click="lezeus_Click"/>
+        <Button x:Name="mines" Content="Játék!" Grid.Row="4" Grid.Column="2" Margin="53,0,53,0" Width="120" Click="mines_Click"/>
+        <Image Grid.Row="1" Grid.Column="0" Source="/blackjack.png" Height="120" Width="200"/>
+        <Image Grid.Row="1" Grid.Column="1" Source="/chicken.png" Height="120" Width="200"/>
+        <Image Grid.Row="1" Grid.Column="2" Source="/dice.png" Height="120" Width="200"/>
+        <Image Grid.Row="3" Grid.Column="0" Source="/hilo.png" Height="120" Width="200"/>
+        <Image Grid.Row="3" Grid.Column="1" Source="/lezeus.png" Height="120" Width="200"/>
+        <Image Grid.Row="3" Grid.Column="2" Source="/mines.png" Height="120" Width="200"/>
+        <TextBlock x:Name="egyenlegTB" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White" FontSize="14">
+            <Run Text="Egyenleg: " Foreground="White"/>
+            <Run x:Name="egyenlegertek" Text="50 000 Ft" Foreground="White"/>
+        </TextBlock>
+        <Button x:Name="feltoltes" Grid.Column="1" Content="Feltöltés" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="60" Height="25" Click="feltoltes_Click"/>
+        <Button x:Name="kifizetes" Grid.Column="1" Content="Kifizetés" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center" Width="60" Height="25" Click="kifizetes_Click"/>
+        <TextBlock x:Name="idoTB" Grid.Column="2" Text="Legutóbbi frissítés" HorizontalAlignment="Center" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="14"/>
     </Grid>
 </Page>

@@ -67,11 +67,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="feltoltesablak.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="hilo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="kifizetes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -96,11 +104,17 @@
     <Compile Include="dice.xaml.cs">
       <DependentUpon>dice.xaml</DependentUpon>
     </Compile>
+    <Compile Include="feltoltesablak.xaml.cs">
+      <DependentUpon>feltoltesablak.xaml</DependentUpon>
+    </Compile>
     <Compile Include="hilo.xaml.cs">
       <DependentUpon>hilo.xaml</DependentUpon>
     </Compile>
     <Compile Include="home.xaml.cs">
       <DependentUpon>home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="kifizetes.xaml.cs">
+      <DependentUpon>kifizetes.xaml</DependentUpon>
     </Compile>
     <Compile Include="lezeus.xaml.cs">
       <DependentUpon>lezeus.xaml</DependentUpon>

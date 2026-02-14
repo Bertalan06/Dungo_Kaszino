@@ -9,6 +9,7 @@
       Title="dice">
 
     <Grid>
-        
+        <Image Source="/dice.png"/>
+        <Button Content="Vissza" Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Click="Button_Click" />
     </Grid>
 </Page>
