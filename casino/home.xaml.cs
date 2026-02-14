@@ -95,7 +95,7 @@ namespace casino
         {
             egyenlegertek.Text = $"{Egyenleg:N0} Ft";
 
-            if(Egyenleg < 0)
+            if(Egyenleg <= 0)
             {
                 egyenlegertek.Foreground = new SolidColorBrush(Colors.Red);
             }
@@ -110,6 +110,5 @@ namespace casino
 
             idoTB.Text = "Legutóbbi frissítés: " + DateTime.Now.ToString("HH:mm");
         }
-
     }
 }
