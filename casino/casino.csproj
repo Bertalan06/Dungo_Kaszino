@@ -55,23 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="blackjack.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="chicken.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="dice.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="feltoltesablak.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="hilo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -79,11 +63,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="kifizetes.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="jatekok\blackjack\blackjack.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="lezeus.xaml">
+    <Page Include="jatekok\chicken\chicken.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="jatekok\dice\dice.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="jatekok\hilo\hilo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="jatekok\lezeus\lezeus.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="jatekok\mines\mines.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="kifizetes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -95,43 +99,39 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="blackjack.xaml.cs">
-      <DependentUpon>blackjack.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="chicken.xaml.cs">
-      <DependentUpon>chicken.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="dice.xaml.cs">
-      <DependentUpon>dice.xaml</DependentUpon>
-    </Compile>
     <Compile Include="feltoltesablak.xaml.cs">
       <DependentUpon>feltoltesablak.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="hilo.xaml.cs">
-      <DependentUpon>hilo.xaml</DependentUpon>
     </Compile>
     <Compile Include="home.xaml.cs">
       <DependentUpon>home.xaml</DependentUpon>
     </Compile>
+    <Compile Include="jatekok\blackjack\blackjack.xaml.cs">
+      <DependentUpon>blackjack.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="jatekok\chicken\chicken.xaml.cs">
+      <DependentUpon>chicken.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="jatekok\dice\dice.xaml.cs">
+      <DependentUpon>dice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="jatekok\hilo\hilo.xaml.cs">
+      <DependentUpon>hilo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="jatekok\lezeus\lezeus.xaml.cs">
+      <DependentUpon>lezeus.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="jatekok\mines\mines.xaml.cs">
+      <DependentUpon>mines.xaml</DependentUpon>
+    </Compile>
     <Compile Include="kifizetes.xaml.cs">
       <DependentUpon>kifizetes.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="lezeus.xaml.cs">
-      <DependentUpon>lezeus.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="mines.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="mines.xaml.cs">
-      <DependentUpon>mines.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -158,22 +158,71 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="blackjack.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="chicken.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="dice.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="hilo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="lezeus.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="mines.png" />
+    <Resource Include="jatekok\blackjack\bj_hatter.png" />
+    <Resource Include="jatekok\blackjack\blackjack.png" />
+    <Content Include="jatekok\blackjack\cards\10C.svg" />
+    <Content Include="jatekok\blackjack\cards\10D.svg" />
+    <Content Include="jatekok\blackjack\cards\10H.svg" />
+    <Content Include="jatekok\blackjack\cards\10S.svg" />
+    <Content Include="jatekok\blackjack\cards\2C.svg" />
+    <Content Include="jatekok\blackjack\cards\2D.svg" />
+    <Content Include="jatekok\blackjack\cards\2H.svg" />
+    <Content Include="jatekok\blackjack\cards\2S.svg" />
+    <Content Include="jatekok\blackjack\cards\3C.svg" />
+    <Content Include="jatekok\blackjack\cards\3D.svg" />
+    <Content Include="jatekok\blackjack\cards\3H.svg" />
+    <Content Include="jatekok\blackjack\cards\3S.svg" />
+    <Content Include="jatekok\blackjack\cards\4C.svg" />
+    <Content Include="jatekok\blackjack\cards\4D.svg" />
+    <Content Include="jatekok\blackjack\cards\4H.svg" />
+    <Content Include="jatekok\blackjack\cards\4S.svg" />
+    <Content Include="jatekok\blackjack\cards\5C.svg" />
+    <Content Include="jatekok\blackjack\cards\5D.svg" />
+    <Content Include="jatekok\blackjack\cards\5H.svg" />
+    <Content Include="jatekok\blackjack\cards\5S.svg" />
+    <Content Include="jatekok\blackjack\cards\6C.svg" />
+    <Content Include="jatekok\blackjack\cards\6D.svg" />
+    <Content Include="jatekok\blackjack\cards\6H.svg" />
+    <Content Include="jatekok\blackjack\cards\6S.svg" />
+    <Content Include="jatekok\blackjack\cards\7C.svg" />
+    <Content Include="jatekok\blackjack\cards\7D.svg" />
+    <Content Include="jatekok\blackjack\cards\7H.svg" />
+    <Content Include="jatekok\blackjack\cards\7S.svg" />
+    <Content Include="jatekok\blackjack\cards\8C.svg" />
+    <Content Include="jatekok\blackjack\cards\8D.svg" />
+    <Content Include="jatekok\blackjack\cards\8H.svg" />
+    <Content Include="jatekok\blackjack\cards\8S.svg" />
+    <Content Include="jatekok\blackjack\cards\9C.svg" />
+    <Content Include="jatekok\blackjack\cards\9D.svg" />
+    <Content Include="jatekok\blackjack\cards\9H.svg" />
+    <Content Include="jatekok\blackjack\cards\9S.svg" />
+    <Content Include="jatekok\blackjack\cards\AC.svg" />
+    <Content Include="jatekok\blackjack\cards\AD.svg" />
+    <Content Include="jatekok\blackjack\cards\AH.svg" />
+    <Content Include="jatekok\blackjack\cards\AS.svg" />
+    <Content Include="jatekok\blackjack\cards\JC.svg" />
+    <Content Include="jatekok\blackjack\cards\JD.svg" />
+    <Content Include="jatekok\blackjack\cards\JH.svg" />
+    <Content Include="jatekok\blackjack\cards\Joker1.svg" />
+    <Content Include="jatekok\blackjack\cards\Joker2.svg" />
+    <Content Include="jatekok\blackjack\cards\JS.svg" />
+    <Content Include="jatekok\blackjack\cards\KC.svg" />
+    <Content Include="jatekok\blackjack\cards\KD.svg" />
+    <Content Include="jatekok\blackjack\cards\KH.svg" />
+    <Content Include="jatekok\blackjack\cards\KS.svg" />
+    <Content Include="jatekok\blackjack\cards\QC.svg" />
+    <Content Include="jatekok\blackjack\cards\QD.svg" />
+    <Content Include="jatekok\blackjack\cards\QH.svg" />
+    <Content Include="jatekok\blackjack\cards\QS.svg" />
+    <Resource Include="jatekok\blackjack\icon\deal.png" />
+    <Resource Include="jatekok\blackjack\icon\double.png" />
+    <Resource Include="jatekok\blackjack\icon\hit.png" />
+    <Resource Include="jatekok\blackjack\icon\stand.png" />
+    <Resource Include="jatekok\chicken\chicken.png" />
+    <Resource Include="jatekok\dice\dice.png" />
+    <Resource Include="jatekok\hilo\hilo.png" />
+    <Resource Include="jatekok\lezeus\lezeus.png" />
+    <Resource Include="jatekok\mines\mines.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

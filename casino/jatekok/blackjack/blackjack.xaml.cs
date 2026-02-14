@@ -23,6 +23,7 @@ namespace casino
         public blackjack()
         {
             InitializeComponent();
+            // Ensure buttons exist before trying to use 
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

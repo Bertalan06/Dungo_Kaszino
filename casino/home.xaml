@@ -27,12 +27,12 @@
         <Button x:Name="hilo" Content="Játék!" Grid.Row="4" Grid.Column="0" Margin="53,0,53,0" Width="120" Click="hilo_Click"/>
         <Button x:Name="lezeus" Content="Játék!" Grid.Row="4" Grid.Column="1" Margin="53,0,53,0" Width="120" Click="lezeus_Click"/>
         <Button x:Name="mines" Content="Játék!" Grid.Row="4" Grid.Column="2" Margin="53,0,53,0" Width="120" Click="mines_Click"/>
-        <Image Grid.Row="1" Grid.Column="0" Source="/blackjack.png" Height="120" Width="200"/>
-        <Image Grid.Row="1" Grid.Column="1" Source="/chicken.png" Height="120" Width="200"/>
-        <Image Grid.Row="1" Grid.Column="2" Source="/dice.png" Height="120" Width="200"/>
-        <Image Grid.Row="3" Grid.Column="0" Source="/hilo.png" Height="120" Width="200"/>
-        <Image Grid.Row="3" Grid.Column="1" Source="/lezeus.png" Height="120" Width="200"/>
-        <Image Grid.Row="3" Grid.Column="2" Source="/mines.png" Height="120" Width="200"/>
+        <Image Grid.Row="1" Grid.Column="0" Source="jatekok/blackjack/blackjack.png" Height="120" Width="200"/>
+        <Image Grid.Row="1" Grid.Column="1" Source="jatekok/chicken/chicken.png" Height="120" Width="200"/>
+        <Image Grid.Row="1" Grid.Column="2" Source="jatekok/dice/dice.png" Height="120" Width="200"/>
+        <Image Grid.Row="3" Grid.Column="0" Source="jatekok/hilo/hilo.png" Height="120" Width="200"/>
+        <Image Grid.Row="3" Grid.Column="1" Source="jatekok/lezeus/lezeus.png" Height="120" Width="200"/>
+        <Image Grid.Row="3" Grid.Column="2" Source="jatekok/mines/mines.png" Height="120" Width="200"/>
         <TextBlock x:Name="egyenlegTB" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White" FontSize="14">
             <Run Text="Egyenleg: " Foreground="White"/>
             <Run x:Name="egyenlegertek" Text="50 000 Ft" Foreground="White"/>
