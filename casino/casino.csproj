@@ -206,16 +206,25 @@
     <Resource Include="jatekok\blackjack\plus.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="jatekok\blackjack\swipe-icon-set-swipe-up-arrow-icons-arrow-buttons-for-social-media-scroll-pictogram-web%281%29.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="jatekok\blackjack\swipe-icon-set-swipe-up-arrow-icons-arrow-buttons-for-social-media-scroll-pictogram-web.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="jatekok\blackjack\plusx.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="jatekok\blackjack\minusx.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\blackjack\reset.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\blackjack\double.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\blackjack\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\blackjack\chips.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\blackjack\chip.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

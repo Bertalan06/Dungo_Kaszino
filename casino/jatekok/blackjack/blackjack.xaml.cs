@@ -24,8 +24,8 @@ namespace casino
     {
         public blackjack()
         {
-        InitializeComponent();
-        egyenlegTB.Text = "Egyenleg: " +  home.Egyenleg.ToString("N0") + " Ft";
+            InitializeComponent();
+            egyenlegTB.Text = "Egyenleg: " +  home.Egyenleg.ToString("N0") + " Ft";
         }
         private void vissza_Click(object sender, RoutedEventArgs e)
         {
@@ -37,11 +37,8 @@ namespace casino
 
         private int GetBetValue()
         {
-            if (bet?.Content == null)
-                return 0;
-
             int value;
-            string content = bet.Content.ToString().Replace("Ft","");
+            string content = bet.Content.ToString().Replace(" Ft", "");
             if (int.TryParse(content, NumberStyles.AllowThousands, CultureInfo.CurrentCulture, out value))
                 return value;
 
@@ -50,40 +47,71 @@ namespace casino
 
         private void SetBetValue(int value)
         {
-            if (value < 0)
-                value = 0;
-            else if (value > home.Egyenleg)
-                bet.Content = home.Egyenleg.ToString("N0") + " Ft";
-            else
-                bet.Content = value.ToString("N0") + " Ft";
+            if (value <0)
+                value =0;
+
+            int egyenleg = (int)home.Egyenleg;
+            if (value > egyenleg)
+                value = egyenleg;
+
+            bet.Content = value.ToString("N0") + " Ft";
+            chip.Content = value.ToString("N0");
+            if (value != 0)
+            {
+                chip.Visibility = Visibility.Visible;
+            }
+            else            {
+                chip.Visibility = Visibility.Hidden;
+            }
         }
 
         private void minus_Click(object sender, RoutedEventArgs e)
         {
             int val = GetBetValue();
-            val -= 100;
+            val -=100;
             SetBetValue(val);
         }
 
         private void minusx_Click(object sender, RoutedEventArgs e)
         {
             int val = GetBetValue();
-            val -= 500;
+            val -=500;
             SetBetValue(val);
         }
 
         private void plus_Click(object sender, RoutedEventArgs e)
         {
             int val = GetBetValue();
-            val += 100;
+            val +=100;
             SetBetValue(val);
         }
 
         private void plusx_Click(object sender, RoutedEventArgs e)
         {
             int val = GetBetValue();
-            val += 500;
+            val +=500;
             SetBetValue(val);
+        }
+
+        private void reset_Click(object sender, RoutedEventArgs e)
+        {
+            bet.Content = "0 Ft";
+            chip.Visibility = Visibility.Hidden;
+        }
+
+        private void deal_Click(object sender, RoutedEventArgs e)
+        {
+            int tet;
+            int.TryParse(bet.Content.ToString().Replace(" Ft", ""), NumberStyles.AllowThousands, CultureInfo.CurrentCulture, out tet);
+            if (tet != 0)
+            {
+                tetkezelo.Visibility = Visibility.Hidden;
+                vissza.Visibility = Visibility.Hidden;
+                kezelo.Visibility = Visibility.Visible;
+                egyenlegTB.Text = "Egyenleg: " + (home.Egyenleg - GetBetValue()).ToString("N0") + " Ft";
+                
+            }
+            
         }
     }
 }
