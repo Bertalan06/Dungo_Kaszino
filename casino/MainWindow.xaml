@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:casino"
         mc:Ignorable="d"
+        MinHeight="600" MinWidth="800"
         Title="MainWindow" Height="1080" Width="1920">
     <Grid Margin="35">
         <Frame x:Name="MainFrame"

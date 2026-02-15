@@ -26,7 +26,7 @@ namespace casino
             InitializeComponent();
         }
 
-        private void Ok_Click(object sender, RoutedEventArgs e)
+        private void Feltoltes_Click(object sender, RoutedEventArgs e)
         {
             if (decimal.TryParse(osszegTB.Text, out decimal osszeg) && osszeg > 0)
             {
@@ -38,6 +38,10 @@ namespace casino
             {
                 MessageBox.Show("Kérlek, adj meg egy pozitív számot!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+        }
+        private void Megse_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

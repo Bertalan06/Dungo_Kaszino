@@ -108,7 +108,7 @@ namespace casino
                 egyenlegertek.Foreground = new SolidColorBrush(Colors.Green);
             }
 
-            idoTB.Text = "Legutóbbi frissítés: " + DateTime.Now.ToString("HH:mm");
+            idoTB.Text = DateTime.Now.ToString("HH:mm");
         }
     }
 }
