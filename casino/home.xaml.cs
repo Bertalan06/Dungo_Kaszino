@@ -120,8 +120,6 @@ namespace casino
             {
                 egyenlegertek.Foreground = new SolidColorBrush(Colors.Green);
             }
-
-            idoTB.Text = DateTime.Now.ToString("HH:mm");
         }
     }
 }

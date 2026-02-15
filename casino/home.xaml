@@ -37,8 +37,8 @@
             <Run Text="Egyenleg: " Foreground="Black"/>
             <Run x:Name="egyenlegertek" Text="50 000 Ft" Foreground="Black"/>
         </TextBlock>
-        <Button x:Name="feltoltes" Grid.Column="1" Content="Feltöltés" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="60" Height="25" Click="feltoltes_Click"/>
-        <Button x:Name="kifizetes" Grid.Column="1" Content="Kifizetés" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center" Width="60" Height="25" Click="kifizetes_Click"/>
-        <TextBlock x:Name="idoTB" Grid.Column="2" HorizontalAlignment="Center" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="Black" FontSize="14"/>
+        <Button x:Name="feltoltes" Grid.Column="2" Content="Feltöltés" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="60" Height="25" Click="feltoltes_Click"/>
+        <Button x:Name="kifizetes" Grid.Column="2" Content="Kifizetés" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center" Width="60" Height="25" Click="kifizetes_Click"/>
+        <local:ido Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </Page>

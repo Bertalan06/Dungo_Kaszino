@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace casino
 {
@@ -23,8 +24,8 @@ namespace casino
     {
         public blackjack()
         {
-            InitializeComponent();
-            egyenlegTB.Text = "Egyenleg: " +  home.Egyenleg.ToString("N0") + " Ft";            // Ensure buttons exist before trying to use 
+        InitializeComponent();
+        egyenlegTB.Text = "Egyenleg: " +  home.Egyenleg.ToString("N0") + " Ft";
         }
         private void vissza_Click(object sender, RoutedEventArgs e)
         {

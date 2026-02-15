@@ -69,9 +69,19 @@
                 <RowDefinition Height="209*"/>
                 <RowDefinition Height="61*"/>
             </Grid.RowDefinitions>
-
-            <Button Content="Vissza" Height="80" Width="190" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,20,0,0" Click="vissza_Click"  />
-
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Vissza" Height="40" Width="120" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20" FontSize="25" Click="vissza_Click"  />
+                <TextBlock Grid.Column="2" x:Name="egyenlegTB" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20" Foreground="Black" FontSize="25" Background="White">
+                    <Run Text="Egyenleg: " Foreground="Black"/>
+                    <Run x:Name="egyenlegertek" Text="50 000 Ft" Foreground="Black"/>
+                </TextBlock>
+                <local:ido Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20" Background="White"/>
+            </Grid>
             <Grid Grid.Row="1" RenderTransformOrigin="0.497,0.477" Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3.8*"/>
@@ -88,38 +98,9 @@
                         <RowDefinition Height="2*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <Image Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Height="auto" VerticalAlignment="Center" Width="auto" x:Name="Jatekos_lapjai" Source="/jatekok/blackjack/cards/2C.png" Stretch="Uniform">
+                    <Image Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Height="auto" VerticalAlignment="Center" Width="auto" x:Name="Jatekos_lapjai" Source="/jatekok/blackjack/cards/2C.png" Stretch="Uniform" RenderTransformOrigin="0.452,0.574">
                     </Image>
-
-                </Grid>
-                <TextBlock Grid.Row="1" x:Name="egyenlegTB" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="Black" FontSize="18" Background="White">
-                    <Run Text="Egyenleg: " Foreground="Black"/>
-                    <Run x:Name="egyenlegertek" Text="50 000 Ft" Foreground="Black"/>
-                </TextBlock>
-                <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Button Template="{DynamicResource BJ_gombok}" x:Name="hit" Width="50" Height="50" Margin="10" ToolTip="Húzás" ToolTipService.Placement="Top">
-                            <Button.Background>
-                                <ImageBrush ImageSource="icon/hit.png"/>
-                            </Button.Background>
-                        </Button>
-                        <Button Template="{DynamicResource BJ_gombok}" x:Name="stand" Width="50" Height="50" Margin="10" ToolTip="Megáll" ToolTipService.Placement="Top">
-                            <Button.Background>
-                                <ImageBrush ImageSource="icon/stand.png"/>
-                            </Button.Background>
-                        </Button>
-                        <Button Template="{DynamicResource BJ_gombok}" x:Name="double" Width="50" Height="50" Margin="10" ToolTip="Duplázás" ToolTipService.Placement="Top">
-                            <Button.Background>
-                                <ImageBrush ImageSource="icon/double.png"/>
-                            </Button.Background>
-                        </Button>
-                        <Button Template="{DynamicResource BJ_gombok}" x:Name="deal" Width="100" Height="50" Margin="10" ToolTip="Kiosztás" ToolTipService.Placement="Top">
-                            <Button.Background>
-                                <ImageBrush ImageSource="icon/deal.png"/>
-                            </Button.Background>
-                        </Button>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                    <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Button Template="{DynamicResource BetBtn}" x:Name="minusx" Width="50" Height="50" Margin="10" ToolTip="-500" ToolTipService.Placement="Top" Click="minusx_Click">
                             <Button.Background>
                                 <ImageBrush ImageSource="/jatekok/blackjack/minusx.png"/>
@@ -142,9 +123,31 @@
                             </Button.Background>
                         </Button>
                     </StackPanel>
+                </Grid>
+                <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible">
+                        <Button Template="{DynamicResource BJ_gombok}" x:Name="hit" Width="50" Height="50" Margin="10" ToolTip="Húzás" ToolTipService.Placement="Top">
+                            <Button.Background>
+                                <ImageBrush ImageSource="icon/hit.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Button Template="{DynamicResource BJ_gombok}" x:Name="stand" Width="50" Height="50" Margin="10" ToolTip="Megáll" ToolTipService.Placement="Top">
+                            <Button.Background>
+                                <ImageBrush ImageSource="icon/stand.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Button Template="{DynamicResource BJ_gombok}" x:Name="double" Width="50" Height="50" Margin="10" ToolTip="Duplázás" ToolTipService.Placement="Top">
+                            <Button.Background>
+                                <ImageBrush ImageSource="icon/double.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Button Template="{DynamicResource BJ_gombok}" x:Name="deal" Width="100" Height="50" Margin="10" ToolTip="Kiosztás" ToolTipService.Placement="Top">
+                            <Button.Background>
+                                <ImageBrush ImageSource="icon/deal.png"/>
+                            </Button.Background>
+                        </Button>
+                    </StackPanel>
                 </StackPanel>
-
-
             </Grid>
         </Grid>
     </Viewbox>

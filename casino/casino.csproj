@@ -63,6 +63,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ido.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="jatekok\blackjack\blackjack.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -104,6 +108,9 @@
     </Compile>
     <Compile Include="home.xaml.cs">
       <DependentUpon>home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ido.xaml.cs">
+      <DependentUpon>ido.xaml</DependentUpon>
     </Compile>
     <Compile Include="jatekok\blackjack\blackjack.xaml.cs">
       <DependentUpon>blackjack.xaml</DependentUpon>
