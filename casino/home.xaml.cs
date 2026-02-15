@@ -20,7 +20,20 @@ namespace casino
     /// </summary>
     
 
-
+    public class EgyenlegManager
+    {
+        private decimal egyenleg;
+        public decimal Egyenleg
+        {
+            get => egyenleg;
+            set
+            {
+                egyenleg = value;
+                OnEgyenlegChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+        public event EventHandler OnEgyenlegChanged;
+    }
     public partial class home : Page
     {
 

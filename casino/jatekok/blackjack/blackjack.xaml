@@ -5,10 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:casino"
       mc:Ignorable="d" 
-      d:DesignHeight="1080" d:DesignWidth="1920"
-      MinHeight="600" MinWidth="800"
+      d:DesignHeight="720" d:DesignWidth="1280"
       Title="blackjack">
-    
+
     <Page.Resources>
         <ControlTemplate x:Key="BJ_gombok" TargetType="{x:Type Button}">
             <Border x:Name="border"
@@ -30,9 +29,29 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+        <ControlTemplate x:Key="BetBtn" TargetType="{x:Type Button}">
+            <Border x:Name="border"
+            Background="{TemplateBinding Background}"
+            BorderBrush="Transparent"
+            BorderThickness="3"
+            CornerRadius="90">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="border" Property="BorderBrush" Value="#FF1E90FF" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="border" Property="Opacity" Value="0.8" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="border" Property="Opacity" Value="0.5" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
     </Page.Resources>
     <Viewbox Stretch="Uniform">
-        <Grid Width="1920" Height="1080">
+        <Grid Width="1280" Height="720">
             <Grid.Background>
                 <ImageBrush ImageSource="bj_hatter.png" Stretch="UniformToFill">
                     <ImageBrush.RelativeTransform>
@@ -46,13 +65,14 @@
                 </ImageBrush>
             </Grid.Background>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="90*"/>
+                <RowDefinition Height="209*"/>
+                <RowDefinition Height="61*"/>
             </Grid.RowDefinitions>
 
-            <Button Content="Vissza" Height="80" Width="190" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,20,0,0" Click="Button_Click"  />
+            <Button Content="Vissza" Height="80" Width="190" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,20,0,0" Click="vissza_Click"  />
 
-            <Grid Grid.Row="1" Grid.Column="1" RenderTransformOrigin="0.497,0.477">
+            <Grid Grid.Row="1" RenderTransformOrigin="0.497,0.477" Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3.8*"/>
                     <RowDefinition Height="1*"/>
@@ -72,30 +92,59 @@
                     </Image>
 
                 </Grid>
-                <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" >
-                    <Button Template="{DynamicResource BJ_gombok}" x:Name="hit" Width="50" Height="50" Margin="10" ToolTip="Húzás" ToolTipService.Placement="Top">
-                        <Button.Background>
-                            <ImageBrush ImageSource="icon/hit.png"/>
-                        </Button.Background>
-                    </Button>
-                    <Button Template="{DynamicResource BJ_gombok}" x:Name="stand" Width="50" Height="50" Margin="10" ToolTip="Megáll" ToolTipService.Placement="Top">
-                        <Button.Background>
-                            <ImageBrush ImageSource="icon/stand.png"/>
-                        </Button.Background>
-                    </Button>
-                    <Button Template="{DynamicResource BJ_gombok}" x:Name="double" Width="50" Height="50" Margin="10" ToolTip="Duplázás" ToolTipService.Placement="Top">
-                        <Button.Background>
-                            <ImageBrush ImageSource="icon/double.png"/>
-                        </Button.Background>
-                    </Button>
-                    <Button Template="{DynamicResource BJ_gombok}" x:Name="deal" Width="100" Height="50" Margin="10" ToolTip="Kiosztás" ToolTipService.Placement="Top">
-                        <Button.Background>
-                            <ImageBrush ImageSource="icon/deal.png"/>
-                        </Button.Background>
-                    </Button>
+                <TextBlock Grid.Row="1" x:Name="egyenlegTB" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="Black" FontSize="18" Background="White">
+                    <Run Text="Egyenleg: " Foreground="Black"/>
+                    <Run x:Name="egyenlegertek" Text="50 000 Ft" Foreground="Black"/>
+                </TextBlock>
+                <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button Template="{DynamicResource BJ_gombok}" x:Name="hit" Width="50" Height="50" Margin="10" ToolTip="Húzás" ToolTipService.Placement="Top">
+                            <Button.Background>
+                                <ImageBrush ImageSource="icon/hit.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Button Template="{DynamicResource BJ_gombok}" x:Name="stand" Width="50" Height="50" Margin="10" ToolTip="Megáll" ToolTipService.Placement="Top">
+                            <Button.Background>
+                                <ImageBrush ImageSource="icon/stand.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Button Template="{DynamicResource BJ_gombok}" x:Name="double" Width="50" Height="50" Margin="10" ToolTip="Duplázás" ToolTipService.Placement="Top">
+                            <Button.Background>
+                                <ImageBrush ImageSource="icon/double.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Button Template="{DynamicResource BJ_gombok}" x:Name="deal" Width="100" Height="50" Margin="10" ToolTip="Kiosztás" ToolTipService.Placement="Top">
+                            <Button.Background>
+                                <ImageBrush ImageSource="icon/deal.png"/>
+                            </Button.Background>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                        <Button Template="{DynamicResource BetBtn}" x:Name="minusx" Width="50" Height="50" Margin="10" ToolTip="-500" ToolTipService.Placement="Top" Click="minusx_Click">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/jatekok/blackjack/minusx.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Button Template="{DynamicResource BetBtn}" x:Name="minus" Width="50" Height="50" Margin="10" ToolTip="-100" ToolTipService.Placement="Top" Click="minus_Click">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/jatekok/blackjack/minus.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Label x:Name="bet" Content="0 Ft" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,10,0" Foreground="Black" FontSize="18" Background="White"/>
+                        <Button Template="{DynamicResource BetBtn}" x:Name="plus" Width="50" Height="50" Margin="10" ToolTip="+100" ToolTipService.Placement="Top" Click="plus_Click">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/jatekok/blackjack/plus.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Button Template="{DynamicResource BetBtn}" x:Name="plusx" Width="50" Height="50" Margin="10" ToolTip="+500" ToolTipService.Placement="Top" Click="plusx_Click">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/jatekok/blackjack/plusx.png"/>
+                            </Button.Background>
+                        </Button>
+                    </StackPanel>
                 </StackPanel>
-            
-            
+
+
             </Grid>
         </Grid>
     </Viewbox>
