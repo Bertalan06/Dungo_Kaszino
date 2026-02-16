@@ -115,17 +115,35 @@ namespace casino
                 randomPathGenerator();
             }
             
+            
         }
 
         string[] suits = { "C", "D", "H", "S" };
         string[] ranks = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+        Random rand = new Random();
+        List<string> voltak = new List<string>();
         private void randomPathGenerator()
         {
-            Random rand = new Random();
+            
             string suit = suits[rand.Next(suits.Length)];
             string rank = ranks[rand.Next(ranks.Length)];
-            string path = $"./cards/{rank}{suit}.png";                
-            DealCardFromDeck(path);
+            string path = System.IO.Path.Combine(System.IO.Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName, "jatekok", "blackjack", "cards", $"{rank}{suit}.png");
+            while (true) { 
+                if (!voltak.Contains(path))
+                {
+                    DealCardFromDeck(path);
+                    MessageBox.Show(System.IO.Path.GetFullPath(path));
+                    voltak.Add(path);
+                    break;
+                }
+                else
+                {
+                    suit = suits[rand.Next(suits.Length)];
+                    rank = ranks[rand.Next(ranks.Length)];
+                    path = System.IO.Path.Combine(System.IO.Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName,"jatekok", "blackjack", "cards", $"{rank}{suit}.png");
+                }
+            }
+            
         }
 
         int x = 325;
@@ -151,7 +169,8 @@ namespace casino
         {
             _cardOffsetX += 20;
 
-            Uri dungo = new Uri(path, UriKind.Relative);
+            string absolutePath = System.IO.Path.GetFullPath(path);
+            Uri dungo = new Uri(absolutePath, UriKind.Absolute);
             ImageSource bitmap = new BitmapImage(dungo);
 
             Image animatedCard = new Image
