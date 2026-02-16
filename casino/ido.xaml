@@ -8,6 +8,6 @@
     <Grid Background="{Binding Background, RelativeSource={RelativeSource AncestorType=UserControl}}">
         <TextBlock x:Name="idoTB" 
                FontSize="24"
-               Foreground="Black"/>
+               Foreground="White"/>
     </Grid> 
 </UserControl>

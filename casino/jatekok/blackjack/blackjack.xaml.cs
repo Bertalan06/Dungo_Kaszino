@@ -30,6 +30,7 @@ namespace casino
             InitializeComponent();
             egyenlegTB.Text = "Egyenleg: " +  home.Egyenleg.ToString("N0") + " Ft";
         }
+        //gombok müködése
         private void vissza_Click(object sender, RoutedEventArgs e)
         {
             if (NavigationService != null && NavigationService.CanGoBack)
@@ -37,7 +38,7 @@ namespace casino
                 NavigationService.GoBack();
             }
         }
-
+        
         private int GetBetValue()
         {
             int value;
@@ -101,7 +102,7 @@ namespace casino
             bet.Content = "0 Ft";
             chip.Visibility = Visibility.Hidden;
         }
-
+        //játék indítása
         private void deal_Click(object sender, RoutedEventArgs e)
         {
             int tet;
@@ -112,28 +113,73 @@ namespace casino
                 vissza.Visibility = Visibility.Hidden;
                 kezelo.Visibility = Visibility.Visible;
                 egyenlegTB.Text = "Egyenleg: " + (home.Egyenleg - GetBetValue()).ToString("N0") + " Ft";
-                randomPathGenerator();
+                randomPathGenerator("Játékos");
+                randomPathGenerator("Osztó");
+                randomPathGenerator("Játékos");
+                randomPathGenerator("Osztó");
             }
-            
-            
         }
+        //kártya számítás
+        private int GetCardValue(string rank)
+        {
+            if (int.TryParse(rank, out int value))
+                return value; // 2-10 esetén a szám értéke
+            if (rank == "J" || rank == "Q" || rank == "K")
+                return 10;
+            if (rank == "A")
+                return 11; // Ásznak először 11-et adunk, majd ha kell visszaváltjuk 1-re
+            return 0;
+        }
+        private int CalculateHandValue(List<string> cards)
+        {
+            int ossz = 0;
+            int aszok = 0;
+
+            foreach (string card in cards)
+            {
+                string rank = System.IO.Path.GetFileNameWithoutExtension(card).TrimEnd('C', 'D', 'H', 'S');
+                int value = GetCardValue(rank);
+                if (rank == "A") aszok++;
+                ossz += value;
+            }
+
+            // Ha túlmegy 21-en és van ász, visszaváltjuk 1-re
+            while (ossz > 21 && aszok > 0)
+            {
+                ossz -= 10;
+                aszok--;
+            }
+
+            return ossz;
+        }
+
 
         string[] suits = { "C", "D", "H", "S" };
         string[] ranks = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
         Random rand = new Random();
-        List<string> voltak = new List<string>();
-        private void randomPathGenerator()
+        List<string> voltakJatekos = new List<string>();
+        List<string> voltakOszto = new List<string>();
+        private void randomPathGenerator(string JatekosVOszto)
         {
             
             string suit = suits[rand.Next(suits.Length)];
             string rank = ranks[rand.Next(ranks.Length)];
             string path = System.IO.Path.Combine(System.IO.Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName, "jatekok", "blackjack", "cards", $"{rank}{suit}.png");
             while (true) { 
-                if (!voltak.Contains(path))
+                if (!voltakJatekos.Contains(path) || !voltakOszto.Contains(path))
                 {
-                    DealCardFromDeck(path);
-                    MessageBox.Show(System.IO.Path.GetFullPath(path));
-                    voltak.Add(path);
+                    
+                    if (JatekosVOszto == "Játékos") {
+                        voltakJatekos.Add(path);
+                        JatekosKartyakOsszge.Content = CalculateHandValue(voltakJatekos);
+                    }
+                    else
+                    {
+                        voltakOszto.Add(path);
+                        OsztoKartyakOsszge.Content = CalculateHandValue(voltakOszto);
+                    }
+                    DealCardFromDeck(path, JatekosVOszto);
+                    //MessageBox.Show(System.IO.Path.GetFullPath(path));
                     break;
                 }
                 else
@@ -145,9 +191,9 @@ namespace casino
             }
             
         }
-
+        //kártya animációja
         int x = 325;
-        private void ShowCardAtFinalPosition(string path)
+        private void ShowCardAtFinalPosition(string path, string JatekosVOszto)
         {
             Uri dungo = new Uri(path, UriKind.Absolute);
             ImageSource bitmap = new BitmapImage(dungo);
@@ -160,12 +206,20 @@ namespace casino
             double finalTop = 237;
             Canvas.SetLeft(finalCard, x);
             Canvas.SetTop(finalCard, finalTop);
-            GameCanvas.Children.Add(finalCard);
+            if (JatekosVOszto == "Játékos")
+            {
+                JatekosCanva.Children.Add(finalCard);
+            }
+            else
+            {
+                OsztoCanva.Children.Add(finalCard); 
+            }
+
             x += 20;
         }
-        private double _cardOffsetX = 0;
+        private double _cardOffsetX = -10;
 
-        private void DealCardFromDeck(string path)
+        private void DealCardFromDeck(string path, string JatekosVOszto)
         {
             _cardOffsetX += 20;
 
@@ -184,10 +238,19 @@ namespace casino
             var translateTransform = new TranslateTransform();
             transformGroup.Children.Add(translateTransform);
             animatedCard.RenderTransform = transformGroup;
+            if (JatekosVOszto == "Játékos")
+            {
+                Canvas.SetLeft(animatedCard, 1120);
+                Canvas.SetTop(animatedCard, 0);
+                JatekosCanva.Children.Add(animatedCard);
+            }
+            else {                 
+                Canvas.SetLeft(animatedCard, 1100);
+                Canvas.SetTop(animatedCard, 0);
+                OsztoCanva.Children.Add(animatedCard);
+            }
 
-            Canvas.SetLeft(animatedCard, 1120);
-            Canvas.SetTop(animatedCard, 225);
-            GameCanvas.Children.Add(animatedCard);
+
 
             var xAnimation = new DoubleAnimation
             {
@@ -210,15 +273,24 @@ namespace casino
 
             xAnimation.Completed += (s, e) =>
             {
-                GameCanvas.Children.Remove(animatedCard);
-                ShowCardAtFinalPosition(path);
+                if (JatekosVOszto == "Játékos")
+                {
+                    JatekosCanva.Children.Remove(animatedCard);
+                }
+                else
+                {
+                    OsztoCanva.Children.Remove(animatedCard);
+                }
+                
+               
+                ShowCardAtFinalPosition(path, JatekosVOszto);
             };
         }
 
-
+        //huzás gomb
         private void hit_Click(object sender, RoutedEventArgs e)
         {
-            randomPathGenerator();
+            randomPathGenerator("Játékos");
         }
     }
 }
