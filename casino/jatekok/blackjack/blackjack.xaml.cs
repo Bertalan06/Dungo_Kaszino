@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,10 +11,12 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+
 
 namespace casino
 {
@@ -109,9 +112,94 @@ namespace casino
                 vissza.Visibility = Visibility.Hidden;
                 kezelo.Visibility = Visibility.Visible;
                 egyenlegTB.Text = "Egyenleg: " + (home.Egyenleg - GetBetValue()).ToString("N0") + " Ft";
-                
+                randomPathGenerator();
             }
             
+        }
+
+        string[] suits = { "C", "D", "H", "S" };
+        string[] ranks = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+        private void randomPathGenerator()
+        {
+            Random rand = new Random();
+            string suit = suits[rand.Next(suits.Length)];
+            string rank = ranks[rand.Next(ranks.Length)];
+            string path = $"./cards/{rank}{suit}.png";                
+            DealCardFromDeck(path);
+        }
+
+        int x = 325;
+        private void ShowCardAtFinalPosition(string path)
+        {
+            Uri dungo = new Uri(path, UriKind.Absolute);
+            ImageSource bitmap = new BitmapImage(dungo);
+            Image finalCard = new Image
+            {
+                Source = bitmap,
+                Height = 160,
+                RenderTransformOrigin = new Point(0.5, 0.5)
+            };
+            double finalTop = 237;
+            Canvas.SetLeft(finalCard, x);
+            Canvas.SetTop(finalCard, finalTop);
+            GameCanvas.Children.Add(finalCard);
+            x += 20;
+        }
+        private double _cardOffsetX = 0;
+
+        private void DealCardFromDeck(string path)
+        {
+            _cardOffsetX += 20;
+
+            Uri dungo = new Uri(path, UriKind.Relative);
+            ImageSource bitmap = new BitmapImage(dungo);
+
+            Image animatedCard = new Image
+            {
+                Source = bitmap,
+                Height = 160,
+                RenderTransformOrigin = new Point(0.5, 0.5)
+            };
+
+            var transformGroup = new TransformGroup();
+            var translateTransform = new TranslateTransform();
+            transformGroup.Children.Add(translateTransform);
+            animatedCard.RenderTransform = transformGroup;
+
+            Canvas.SetLeft(animatedCard, 1120);
+            Canvas.SetTop(animatedCard, 225);
+            GameCanvas.Children.Add(animatedCard);
+
+            var xAnimation = new DoubleAnimation
+            {
+                From = 0,
+                To = -549 + _cardOffsetX,
+                Duration = TimeSpan.FromSeconds(0.8),
+                EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseOut }
+            };
+
+            var yAnimation = new DoubleAnimation
+            {
+                From = 0,
+                To = 30,
+                Duration = TimeSpan.FromSeconds(0.8),
+                EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseOut }
+            };
+
+            translateTransform.BeginAnimation(TranslateTransform.XProperty, xAnimation);
+            translateTransform.BeginAnimation(TranslateTransform.YProperty, yAnimation);
+
+            xAnimation.Completed += (s, e) =>
+            {
+                GameCanvas.Children.Remove(animatedCard);
+                ShowCardAtFinalPosition(path);
+            };
+        }
+
+
+        private void hit_Click(object sender, RoutedEventArgs e)
+        {
+            randomPathGenerator();
         }
     }
 }

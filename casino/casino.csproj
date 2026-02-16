@@ -200,31 +200,31 @@
     <Resource Include="jatekok\blackjack\cards\6S.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="jatekok\blackjack\minus.png" />
+    <Resource Include="jatekok\blackjack\chip.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="jatekok\blackjack\plus.png" />
+    <Resource Include="jatekok\blackjack\icon\chip.png" />
+    <Resource Include="jatekok\blackjack\icon\minus.png" />
+    <Resource Include="jatekok\blackjack\icon\minusx.png" />
+    <Resource Include="jatekok\blackjack\icon\plus.png" />
+    <Resource Include="jatekok\blackjack\icon\plusx.png" />
+    <Resource Include="jatekok\blackjack\icon\rebet.png" />
+    <Resource Include="jatekok\blackjack\icon\reset.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="jatekok\blackjack\plusx.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="jatekok\blackjack\minusx.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="jatekok\blackjack\reset.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <Resource Include="jatekok\blackjack\deal.png" />
     <Resource Include="jatekok\blackjack\double.png" />
+    <Resource Include="jatekok\blackjack\hit.png" />
+    <Resource Include="jatekok\blackjack\minus.png" />
+    <Resource Include="jatekok\blackjack\minusx.png" />
+    <Resource Include="jatekok\blackjack\plus.png" />
+    <Resource Include="jatekok\blackjack\plusx.png" />
+    <Resource Include="jatekok\blackjack\rebet.png" />
+    <Resource Include="jatekok\blackjack\reset.png" />
+    <Resource Include="jatekok\blackjack\stand.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="jatekok\blackjack\back.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="jatekok\blackjack\chips.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="jatekok\blackjack\chip.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

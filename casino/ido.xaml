@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <TextBlock x:Name="idoTB" 
+    <Grid Background="{Binding Background, RelativeSource={RelativeSource AncestorType=UserControl}}">
+        <TextBlock x:Name="idoTB" 
                FontSize="24"
                Foreground="Black"/>
+    </Grid> 
 </UserControl>
