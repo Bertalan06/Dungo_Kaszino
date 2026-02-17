@@ -63,7 +63,7 @@
             <Button x:Name="vissza" Content="Vissza" Height="40" Width="120" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20" FontSize="25" Click="vissza_Click"/>
             <Canvas Grid.Row="1">
                 <Image Source="/jatekok/chicken/easy.png" Stretch="UniformToFill" MinHeight="450" MinWidth="1280" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Image Source="/jatekok/chicken/chicken.png" Stretch="Uniform" Canvas.Bottom="0"/>
+                <Image Source="/jatekok/chicken/csirke.png" Stretch="Uniform" Canvas.Bottom="0"/>
             </Canvas>
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
