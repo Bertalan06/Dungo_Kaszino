@@ -93,7 +93,7 @@
                 </TextBlock>
                 <local:ido Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20" Background="#80000000" Foreground="White"/>
             </Grid>
-            
+
             <Grid Grid.Row="1" RenderTransformOrigin="0.497,0.477" Grid.RowSpan="3">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3.8*"/>
@@ -109,7 +109,7 @@
                     <Canvas x:Name="OsztoCanva" Grid.Row="0">
 
                         <ItemsControl x:Name="OsztoLapjai" Canvas.Left="580" Canvas.Top="25">
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" x:Name="OsztoKartyaSP">
                                 <!-- Itt jelennek meg az osztó kártyái -->
                             </StackPanel>
                         </ItemsControl>
@@ -122,7 +122,7 @@
 
                         <!-- Játékban lévő kártyák -->
                         <ItemsControl x:Name="JatekosKartyai" Canvas.Left="580" Canvas.Top="20">
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" x:Name="JatekosKartyaSP">
                                 <!-- Itt jelennek meg a játékos kártyái -->
                             </StackPanel>
                         </ItemsControl>
@@ -139,6 +139,11 @@
                     <Button Template="{DynamicResource BJ_gombok}" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" x:Name="reset" Width="106" Height="50" Margin="10" ToolTip="Reset" ToolTipService.Placement="Top" Click="reset_Click">
                         <Button.Background>
                             <ImageBrush ImageSource="/jatekok/blackjack/reset.png"/>
+                        </Button.Background>
+                    </Button>
+                    <Button Template="{DynamicResource BetBtn}" x:Name="min" Width="50" Height="50" Margin="10" ToolTip="100" ToolTipService.Placement="Top" Click="min_Click">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/jatekok/blackjack/min.png"/>
                         </Button.Background>
                     </Button>
                     <Button Template="{DynamicResource BetBtn}" x:Name="minusx" Width="50" Height="50" Margin="10" ToolTip="-500" ToolTipService.Placement="Top" Click="minusx_Click">
@@ -162,12 +167,22 @@
                             <ImageBrush ImageSource="/jatekok/blackjack/icon/plusx.png"/>
                         </Button.Background>
                     </Button>
+                    <Button Template="{DynamicResource BetBtn}" x:Name="max" Width="50" Height="50" Margin="10" ToolTip="500 000" ToolTipService.Placement="Top" Click="max_Click">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/jatekok/blackjack/max.png"/>
+                        </Button.Background>
+                    </Button>
                     <Button Template="{DynamicResource BJ_gombok}" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="right" x:Name="deal" Width="100" Height="50" Margin="10" ToolTip="Kiosztás" ToolTipService.Placement="Top" Click="deal_Click">
                         <Button.Background>
                             <ImageBrush ImageSource="icon/deal.png"/>
                         </Button.Background>
                     </Button>
                 </StackPanel>
+                <Button Template="{DynamicResource BetBtn}" Canvas.Top="80" Canvas.Left="410" Visibility="Hidden" Content="0" Foreground="White" FontSize="18" VerticalAlignment="Top" x:Name="rebet" Width="120" Height="120" ToolTip="rebet" ToolTipService.Placement="Top" Margin="300,314,860,0" Click="rebet_Click" Grid.RowSpan="2">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/jatekok/blackjack/rebet.png"/>
+                    </Button.Background>
+                </Button>
                 <!-- alsó sor(a játékban) -->
                 <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
                     <StackPanel x:Name="kezelo" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden">
@@ -176,7 +191,7 @@
                                 <ImageBrush ImageSource="icon/hit.png"/>
                             </Button.Background>
                         </Button>
-                        <Button Template="{DynamicResource BJ_gombok}" x:Name="stand" Width="50" Height="50" Margin="10" ToolTip="Megáll" ToolTipService.Placement="Top">
+                        <Button Template="{DynamicResource BJ_gombok}" x:Name="stand" Width="50" Height="50" Margin="10" ToolTip="Megáll" ToolTipService.Placement="Top" Click="stand_Click">
                             <Button.Background>
                                 <ImageBrush ImageSource="icon/stand.png"/>
                             </Button.Background>
@@ -190,7 +205,12 @@
                 </StackPanel>
             </Grid>
             <Label x:Name="JatekosKartyakOsszge" Content="" HorizontalAlignment="center" Margin="0,0,0,0" Grid.Row="2" VerticalAlignment="Top"  FontSize="18" Foreground="White"/>
-            <Label x:Name="OsztoKartyakOsszge" Content="Osztó lapjainak összege: " HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="18" Foreground="white" Background="Black"/>
+            <Label x:Name="OsztoKartyakOsszge" Content="" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="18" Foreground="white"/>
+            <Label x:Name="eredmenyLabel" Content=""
+                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                   FontSize="32" FontWeight="Bold"
+                   Foreground="Yellow"
+                   Padding="20,10"/>
         </Grid>
     </Viewbox>
 </Page>

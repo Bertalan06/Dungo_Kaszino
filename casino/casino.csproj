@@ -226,5 +226,11 @@
   <ItemGroup>
     <Resource Include="jatekok\blackjack\back.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\blackjack\max.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\blackjack\min.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -18,22 +18,8 @@ namespace casino
     /// <summary>
     /// Interaction logic for home.xaml
     /// </summary>
-    
 
-    public class EgyenlegManager
-    {
-        private decimal egyenleg;
-        public decimal Egyenleg
-        {
-            get => egyenleg;
-            set
-            {
-                egyenleg = value;
-                OnEgyenlegChanged?.Invoke(this, EventArgs.Empty);
-            }
-        }
-        public event EventHandler OnEgyenlegChanged;
-    }
+    public class EgyenlegManager { public static EgyenlegManager Balance = new EgyenlegManager { Egyenleg = 50000 }; private decimal egyenleg; public decimal Egyenleg { get => egyenleg; set { egyenleg = value; OnEgyenlegChanged?.Invoke(this, EventArgs.Empty); } } public event EventHandler OnEgyenlegChanged; }
     public partial class home : Page
     {
 
@@ -42,6 +28,7 @@ namespace casino
         public home()
         {
             InitializeComponent();
+            EgyenlegManager.Balance.OnEgyenlegChanged += (s, e) => FrissEgyenleg();
             FrissEgyenleg();
         }
         private void blackjack_Click(object sender, RoutedEventArgs e)
@@ -81,7 +68,7 @@ namespace casino
 
             if(feltolt.ShowDialog() == true)
             {
-                Egyenleg += feltolt.FeltoltottOsszeg;
+                EgyenlegManager.Balance.Egyenleg += feltolt.FeltoltottOsszeg;
                 FrissEgyenleg();
             }
         }
@@ -99,27 +86,21 @@ namespace casino
                     return;
                 }
 
-                Egyenleg -= kifizet.KivettOsszeg;
+                EgyenlegManager.Balance.Egyenleg -= kifizet.KivettOsszeg;
                 FrissEgyenleg();
             }
         }
 
-        private void FrissEgyenleg()
+        public void FrissEgyenleg()
         {
-            egyenlegertek.Text = $"{Egyenleg:N0} Ft";
+            egyenlegertek.Text = $"{EgyenlegManager.Balance.Egyenleg:N0} Ft";
 
-            if(Egyenleg <= 0)
-            {
+            if (EgyenlegManager.Balance.Egyenleg <= 0)
                 egyenlegertek.Foreground = new SolidColorBrush(Colors.Red);
-            }
-            else if(Egyenleg <= 10000)
-            {
+            else if (EgyenlegManager.Balance.Egyenleg <= 10000)
                 egyenlegertek.Foreground = new SolidColorBrush(Colors.Orange);
-            }
             else
-            {
                 egyenlegertek.Foreground = new SolidColorBrush(Colors.Green);
-            }
         }
     }
 }
