@@ -232,5 +232,17 @@
   <ItemGroup>
     <Resource Include="jatekok\blackjack\min.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\chicken\easy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\chicken\minusx.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\chicken\minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\chicken\plusx.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
