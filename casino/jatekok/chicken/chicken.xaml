@@ -58,12 +58,20 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="10*"/>
                 <RowDefinition Height="50*"/>
-                <RowDefinition Height="20*"/>
+                <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
             <Button x:Name="vissza" Content="Vissza" Height="40" Width="120" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20" FontSize="25" Click="vissza_Click"/>
-            <Canvas Grid.Row="1">
-                <Image Source="/jatekok/chicken/easy.png" Stretch="UniformToFill" MinHeight="450" MinWidth="1280" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Image Source="/jatekok/chicken/csirke.png" Stretch="Uniform" Canvas.Bottom="0"/>
+            <Canvas Grid.Row="1" ClipToBounds="True">
+                <Image x:Name="hatter" Source="/jatekok/chicken/easy.png" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Bottom="0">
+                    <Image.RenderTransform>
+                        <TranslateTransform x:Name="hatterTransform" X="0"/>
+                    </Image.RenderTransform>
+                </Image>
+                <Image x:Name="csirke" Source="/jatekok/chicken/csirke.png" Height="200" Canvas.Bottom="0">
+                    <Image.RenderTransform>
+                        <TranslateTransform x:Name="csirkeTransform" X="0"/>
+                    </Image.RenderTransform>
+                </Image>
             </Canvas>
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -95,14 +103,19 @@
                         </Button>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel VerticalAlignment="Center" Margin="40,0">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Template="{DynamicResource squareBtn}" x:Name="Easy" Content="Könnyű" FontSize="20" Margin="10"/>
-                        <Button Template="{DynamicResource squareBtn}" x:Name="Normal" Content="Normál" FontSize="20" Margin="10"/>
-                        <Button Template="{DynamicResource squareBtn}" x:Name="Hard" Content="Nehéz" FontSize="20" Margin="10"/>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="40,0">
+                    <Label x:Name="nehezseg" Content="Nehézség: Könnyű" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="40,0"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="40,0">
+                        <Button Template="{DynamicResource squareBtn}" x:Name="Easy" Content="Könnyű" FontSize="20" Margin="10" Click="Easy_Click"/>
+                        <Button Template="{DynamicResource squareBtn}" x:Name="Normal" Content="Normál" FontSize="20" Margin="10" Click="Normal_Click"/>
+                        <Button Template="{DynamicResource squareBtn}" x:Name="Hard" Content="Nehéz" FontSize="20" Margin="10" Click="Hard_Click"/>
                     </StackPanel>
                 </StackPanel>
-                <Button Template="{DynamicResource squareBtn}" Content="Játék" Height="50" Width="150"/>
+                <StackPanel x:Name="kezelo" Orientation="Horizontal" Visibility="Hidden">
+                    <Button x:Name="cahsout" Template="{DynamicResource squareBtn}" Content="Cash out" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left" Click="cahsout_Click"/>
+                    <Button x:Name="go" Template="{DynamicResource squareBtn}" Content="Go" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left" Click="go_Click"/>
+                </StackPanel>
+                    <Button x:Name="jatek" Visibility="Visible" Template="{DynamicResource squareBtn}" Content="Játék" Height="50" Width="150" Click="Jatek_Click"/>
             </StackPanel>
         </Grid>
     </Viewbox>
