@@ -30,14 +30,12 @@
             </Border>
         </ControlTemplate>
 
-
-
     </Page.Resources>
       
     <Viewbox Stretch="Uniform">
         <Grid Width="1280" Height="720">
             <Grid.Background>
-                <ImageBrush ImageSource="dice_bg.png" Stretch="UniformToFill">
+                <ImageBrush ImageSource="dice_bg.png"  Stretch="UniformToFill" Opacity="0.4">
                     <ImageBrush.RelativeTransform>
                         <TransformGroup>
                             <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1" ScaleY="1"/>
@@ -52,7 +50,10 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
-            <Button Template="{DynamicResource VisszaGomb}" Content="Vissza" Height="40" Width="120" Margin="20" VerticalAlignment="Top" HorizontalAlignment="Left"  FontSize="25" Click="Button_Click"  Background="Transparent" Foreground="White"/>
+            <Button Template="{DynamicResource VisszaGomb}" Content="Vissza" Height="40" Width="120" Padding="12" Margin="20" VerticalAlignment="Top" HorizontalAlignment="Left"  FontSize="25" Click="Button_Click"  Background="Transparent" Foreground="White"/>
+            <Border Background="#2a2a3e"  CornerRadius="12"  Margin="10,10,10,5"  Padding="12" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <local:ido Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top"  Foreground="White"/>
+            </Border>
             <Border Background="#2a2a3e"  CornerRadius="12"  Margin="10,10,10,5"  Padding="12" VerticalAlignment="Center" HorizontalAlignment="Right">
                 <TextBlock x:Name="egyenlegTB" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="White" FontSize="25" FontWeight="Bold">
                     <Run Text="Egyenleg: " Foreground="White"/>
@@ -86,15 +87,12 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBox Template="{DynamicResource Irasosmezo}" x:Name="FeltettOsszeg" Grid.Column="0" Text="100" Foreground="White" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" Background="#3a3a4e"/>
+                                    <TextBox Template="{DynamicResource Irasosmezo}" x:Name="FeltettOsszeg" Grid.Column="0" Text="100" Foreground="White" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" Background="#3a3a4e" TextChanged="FeltettOsszeg_TextChanged"/>
                                     <Label Content="Ft" FontSize="20" Foreground="white" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                 </StackPanel>
 
-                                <Button Grid.Column="1" Content="−" Width="36" Height="36" Margin="4,0" Background="#3a3a4e"  Foreground="White" FontSize="18" BorderThickness="0" Template="{StaticResource Nagygombok}"/>
-
-
-
-                                <Button Grid.Column="2" Content="+"  Width="36" Height="36"  Background="#3a3a4e"  Foreground="White"  FontSize="18" BorderThickness="0" Template="{StaticResource Nagygombok}" />
+                                <Button x:Name="Minusz" Grid.Column="1" Content="−" Width="36" Height="36" Margin="4,0" Background="#3a3a4e"  Foreground="White" FontSize="18" BorderThickness="0" Template="{StaticResource Nagygombok}" Click="Minusz_Click"/>
+                                <Button x:Name="Plusz" Grid.Column="2" Content="+"  Width="36" Height="36"  Background="#3a3a4e"  Foreground="White"  FontSize="18" BorderThickness="0" Template="{StaticResource Nagygombok}" Click="Plusz_Click" />
 
                             </Grid>
 
@@ -110,7 +108,7 @@
                             </Grid>
 
                             <!-- BET gomb -->
-                            <Button Content="Dobás!" Height="52" FontSize="18" FontWeight="Bold" Foreground="#1a1a1a" BorderThickness="0" Click="Dobas">
+                            <Button x:Name="Dob" Content="Dobás!" Height="52" FontSize="18" FontWeight="Bold" Foreground="#1a1a1a" BorderThickness="0" Click="Dobas">
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
                                         <Border CornerRadius="10">
@@ -149,7 +147,7 @@
                                             <Grid>
                                                 <Track x:Name="PART_Track">
                                                     <Track.DecreaseRepeatButton>
-                                                        <RepeatButton Background="#e05555" BorderThickness="0" Height="6">
+                                                        <RepeatButton Background="{DynamicResource BalSzin}" BorderThickness="0" Height="6">
                                                             <RepeatButton.Template>
                                                                 <ControlTemplate TargetType="RepeatButton">
                                                                     <Border Background="{TemplateBinding Background}" CornerRadius="3"/>
@@ -158,7 +156,7 @@
                                                         </RepeatButton>
                                                     </Track.DecreaseRepeatButton>
                                                     <Track.IncreaseRepeatButton>
-                                                        <RepeatButton Background="#4caf50" BorderThickness="0" Height="6">
+                                                        <RepeatButton Background="{DynamicResource JobbSzin}" BorderThickness="0" Height="6">
                                                             <RepeatButton.Template>
                                                                 <ControlTemplate TargetType="RepeatButton">
                                                                     <Border Background="{TemplateBinding Background}" CornerRadius="3"/>
@@ -216,14 +214,14 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <CheckBox Grid.Column="0" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <CheckBox x:Name="AutoBet" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,8,0" Checked="AutoBet_Checked"/>
                                 <TextBlock Grid.Column="1" Text="Autobet" Foreground="#aaaaaa" FontSize="14" VerticalAlignment="Center" Margin="0,0,12,0"/>
 
-                                <TextBox Template="{DynamicResource Irasosmezo}" Grid.Column="2" Text="5" Background="#3a3a4e" Foreground="White" BorderThickness="0" FontSize="14" FontWeight="Bold"  Padding="8,6" MaxWidth="60" HorizontalAlignment="Left"/>
+                                <TextBox x:Name="AutoBetDB" Template="{DynamicResource Irasosmezo}" Grid.Column="2" Text="5" Background="#3a3a4e" Foreground="White" BorderThickness="0" FontSize="14" FontWeight="Bold"  Padding="8,6" MaxWidth="60" HorizontalAlignment="Left"/>
 
-                                <Button Template="{DynamicResource Kisgombok}" Grid.Column="3" Content="5" Width="38" Height="32" Margin="4,0" Background="#3d3d50" Foreground="White" FontSize="13" BorderThickness="0"/>
-                                <Button Template="{DynamicResource Kisgombok}" Grid.Column="4" Content="10" Width="38" Height="32" Margin="0,0,4,0"  Background="#3d3d50" Foreground="White" FontSize="13" BorderThickness="0"/>
-                                <Button Template="{DynamicResource Kisgombok}" Grid.Column="5" Content="∞" Width="38" Height="32" Background="#3d3d50" Foreground="White" FontSize="16" BorderThickness="0"/>
+                                <Button Template="{DynamicResource Kisgombok}" x:Name="Pluszot" Grid.Column="3" Content="5" Width="38" Height="32" Margin="4,0" Background="#3d3d50" Foreground="White" FontSize="13" BorderThickness="0" Click="Pluszot_Click"/>
+                                <Button Template="{DynamicResource Kisgombok}" x:Name="Plusztiz" Grid.Column="4" Content="10" Width="38" Height="32" Margin="0,0,4,0"  Background="#3d3d50" Foreground="White" FontSize="13" BorderThickness="0" Click="Plusztiz_Click"/>
+                                <Button Template="{DynamicResource Kisgombok}" x:Name="Vegtelen" Grid.Column="5" Content="∞" Width="38" Height="32" Background="#3d3d50" Foreground="White" FontSize="16" BorderThickness="0" Click="Vegtelen_Click"/>
                             </Grid>
                             
                         </Grid>
@@ -263,9 +261,6 @@
                                         </RadialGradientBrush>
                                     </Ellipse.Fill>
                                 </Ellipse>
-                                <Rectangle Canvas.Left="35" Canvas.Top="25" Width="12" Height="12" Fill="#1a1a1a" RadiusX="3" RadiusY="3"/>
-                                <Rectangle Canvas.Left="55" Canvas.Top="45" Width="12" Height="12" Fill="#1a1a1a" RadiusX="3" RadiusY="3"/>
-                                <Rectangle Canvas.Left="35" Canvas.Top="63" Width="12" Height="12" Fill="#1a1a1a" RadiusX="3" RadiusY="3"/>
                             </Canvas>
                         </Viewbox>
 
@@ -304,7 +299,7 @@
 
                                 <!-- Possible payout -->
                                 <StackPanel Grid.Column="2" HorizontalAlignment="Center">
-                                    <TextBlock Text="0.39$" Foreground="White" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="LehetFizet" Text="196 Ft" Foreground="White" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
                                     <TextBlock Text="Lehetséges kifizetés" Foreground="#888899" FontSize="13" HorizontalAlignment="Center"/>
                                 </StackPanel>
 
