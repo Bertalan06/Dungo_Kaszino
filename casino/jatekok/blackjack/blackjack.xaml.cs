@@ -27,7 +27,6 @@ namespace casino
     public partial class blackjack : Page
     {
         private int _lastBet = 0;
-        int tet;
         public blackjack()
         {
             InitializeComponent();

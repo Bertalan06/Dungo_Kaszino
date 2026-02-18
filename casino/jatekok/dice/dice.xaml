@@ -7,6 +7,32 @@
       mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="1280"
       Title="dice">
+    <!-- Template-ek -->
+    <Page.Resources>
+        <ControlTemplate x:Key="Nagygombok" TargetType="{x:Type Button}">
+            <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="Kisgombok" TargetType="{x:Type Button}">
+            <Border Background="{TemplateBinding Background}" CornerRadius="6">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="Irasosmezo" TargetType="{x:Type TextBox}">
+            <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                <ScrollViewer x:Name="PART_ContentHost"/>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="VisszaGomb" TargetType="{x:Type Button}">
+            <Border Background="#3a3a4e" CornerRadius="8" >
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </ControlTemplate>
+
+
+
+    </Page.Resources>
       
     <Viewbox Stretch="Uniform">
         <Grid Width="1280" Height="720">
@@ -26,7 +52,13 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
-            <Button Content="Vissza" Height="40" Width="120" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20" FontSize="25" Click="Button_Click" Background="#80000000" Foreground="White" BorderBrush="White"/>
+            <Button Template="{DynamicResource VisszaGomb}" Content="Vissza" Height="40" Width="120" Margin="20" VerticalAlignment="Top" HorizontalAlignment="Left"  FontSize="25" Click="Button_Click"  Background="Transparent" Foreground="White"/>
+            <Border Background="#2a2a3e"  CornerRadius="12"  Margin="10,10,10,5"  Padding="12" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <TextBlock x:Name="egyenlegTB" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="White" FontSize="25" FontWeight="Bold">
+                    <Run Text="Egyenleg: " Foreground="White"/>
+                    <Run x:Name="egyenlegertek" Text="50 000 Ft" Foreground="White"/>
+                </TextBlock>
+            </Border>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -54,29 +86,16 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBox Grid.Column="0" Text="100" Foreground="White" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" Background="#3a3a4e"/>
+                                    <TextBox Template="{DynamicResource Irasosmezo}" x:Name="FeltettOsszeg" Grid.Column="0" Text="100" Foreground="White" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" Background="#3a3a4e"/>
                                     <Label Content="Ft" FontSize="20" Foreground="white" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                                 </StackPanel>
-                                
-                                <Button Grid.Column="1" Content="−" Width="36" Height="36" Margin="4,0" Background="#3a3a4e"  Foreground="White" FontSize="18" BorderThickness="0">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}" CornerRadius="8">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
 
-                                <Button Grid.Column="2" Content="+"  Width="36" Height="36"  Background="#3a3a4e"  Foreground="White"  FontSize="18" BorderThickness="0">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}" CornerRadius="8">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
+                                <Button Grid.Column="1" Content="−" Width="36" Height="36" Margin="4,0" Background="#3a3a4e"  Foreground="White" FontSize="18" BorderThickness="0" Template="{StaticResource Nagygombok}"/>
+
+
+
+                                <Button Grid.Column="2" Content="+"  Width="36" Height="36"  Background="#3a3a4e"  Foreground="White"  FontSize="18" BorderThickness="0" Template="{StaticResource Nagygombok}" />
+
                             </Grid>
 
                             <!-- /2 és x2 gombok -->
@@ -86,30 +105,12 @@
                                     <ColumnDefinition Width="8"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-
-                                <Button Grid.Column="0" Content="/2" Height="40"  Background="#3a3a4e" Foreground="#aaaaaa" FontSize="15" BorderThickness="0">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}" CornerRadius="8">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
-
-                                <Button Grid.Column="2" Content="x2" Height="40" Background="#3a3a4e" Foreground="#aaaaaa" FontSize="15" BorderThickness="0">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}" CornerRadius="8">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
+                                <Button x:Name="Osztas" Grid.Column="0" Content="/2" Height="40"  Background="#3a3a4e" Foreground="white" FontSize="15" BorderThickness="0" Template="{StaticResource Nagygombok}" Click="Osztas_Click"/>
+                                <Button x:Name="Szorzas" Grid.Column="2" Content="x2" Height="40" Background="#3a3a4e" Foreground="white" FontSize="15" BorderThickness="0" Template="{StaticResource Nagygombok}" Click="Szorzas_Click"/>
                             </Grid>
 
                             <!-- BET gomb -->
-                            <Button Content="Bet 🎲" Height="52" FontSize="18" FontWeight="Bold" Foreground="#1a1a1a" BorderThickness="0">
+                            <Button Content="Dobás!" Height="52" FontSize="18" FontWeight="Bold" Foreground="#1a1a1a" BorderThickness="0" Click="Dobas">
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
                                         <Border CornerRadius="10">
@@ -139,10 +140,10 @@
 
                                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0">
                                     <TextBlock Text="🎲" FontSize="16" VerticalAlignment="Center" Margin="0,0,4,0"/>
-                                    <TextBlock Text="50" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="Kisszam" Text="50" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
                                 </StackPanel>
 
-                                <Slider Grid.Column="1" Minimum="3" Maximum="99" Value="50" VerticalAlignment="Center" Height="20">
+                                <Slider x:Name="Slider" Grid.Column="1" Minimum="3" Maximum="99" Value="50" VerticalAlignment="Center" Height="20" ValueChanged="Szam_Slider" TickFrequency="1" IsSnapToTickEnabled="True">
                                     <Slider.Template>
                                         <ControlTemplate TargetType="Slider">
                                             <Grid>
@@ -189,25 +190,8 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Button Grid.Column="0" Content="⬇ Under" Height="42" Background="#3a3a4e" Foreground="#aaaaaa" FontSize="14" BorderThickness="0">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}" CornerRadius="8">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
-
-                                <Button Grid.Column="2" Content="⬆ Over" Height="42" Background="#3d3d50" Foreground="White" FontSize="14" FontWeight="SemiBold" BorderThickness="0">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}" CornerRadius="8">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
+                                <Button x:Name="Alatta" Template="{DynamicResource Nagygombok}" Grid.Column="0" Content="⬇ Alatta" Height="42" Background="#3a3a4e" Foreground="#aaaaaa" FontSize="14" BorderThickness="0" Click="Alatta_Click"/>
+                                <Button x:Name="Felette" Template="{DynamicResource Nagygombok}" Grid.Column="2" Content="⬆ Felette" Height="42" Background="#3d3d50" Foreground="White" FontSize="14" FontWeight="SemiBold" BorderThickness="0" Click="Felette_Click" />
                             </Grid>
                         </StackPanel>
                     </Border>
@@ -235,81 +219,13 @@
                                 <CheckBox Grid.Column="0" VerticalAlignment="Center" Margin="0,0,8,0"/>
                                 <TextBlock Grid.Column="1" Text="Autobet" Foreground="#aaaaaa" FontSize="14" VerticalAlignment="Center" Margin="0,0,12,0"/>
 
-                                <TextBox Grid.Column="2" Text="5" Background="#3a3a4e" Foreground="White" BorderThickness="0" FontSize="14"  Padding="8,6" MaxWidth="60" HorizontalAlignment="Left">
-                                    <TextBox.Resources>
-                                        <Style TargetType="TextBox">
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="TextBox">
-                                                        <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
-                                                            <ScrollViewer x:Name="PART_ContentHost"/>
-                                                        </Border>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </TextBox.Resources>
-                                </TextBox>
+                                <TextBox Template="{DynamicResource Irasosmezo}" Grid.Column="2" Text="5" Background="#3a3a4e" Foreground="White" BorderThickness="0" FontSize="14" FontWeight="Bold"  Padding="8,6" MaxWidth="60" HorizontalAlignment="Left"/>
 
-                                <Button Grid.Column="3" Content="5" Width="38" Height="32" Margin="4,0" Background="#3d3d50" Foreground="White" FontSize="13" BorderThickness="0">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}" CornerRadius="6">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
-
-                                <Button Grid.Column="4" Content="10" Width="38" Height="32" Margin="0,0,4,0"  Background="#3d3d50" Foreground="White" FontSize="13" BorderThickness="0">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}" CornerRadius="6">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
-
-                                <Button Grid.Column="5" Content="∞" Width="38" Height="32"
-                    Background="#3d3d50" Foreground="White" FontSize="16" BorderThickness="0">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}" CornerRadius="6">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
+                                <Button Template="{DynamicResource Kisgombok}" Grid.Column="3" Content="5" Width="38" Height="32" Margin="4,0" Background="#3d3d50" Foreground="White" FontSize="13" BorderThickness="0"/>
+                                <Button Template="{DynamicResource Kisgombok}" Grid.Column="4" Content="10" Width="38" Height="32" Margin="0,0,4,0"  Background="#3d3d50" Foreground="White" FontSize="13" BorderThickness="0"/>
+                                <Button Template="{DynamicResource Kisgombok}" Grid.Column="5" Content="∞" Width="38" Height="32" Background="#3d3d50" Foreground="White" FontSize="16" BorderThickness="0"/>
                             </Grid>
-
-                            <!-- Kocka ikon középen -->
-                            <Viewbox Grid.Row="1" Width="120" Height="120" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.3">
-                                <Canvas Width="100" Height="100">
-                                    <!-- Kocka pixel art (egyszerűsített) -->
-                                    <Rectangle Canvas.Left="10" Canvas.Top="10" Width="80" Height="80" Fill="#555566" RadiusX="8" RadiusY="8"/>
-                                    <Rectangle Canvas.Left="25" Canvas.Top="25" Width="20" Height="20" Fill="#333344"/>
-                                    <Rectangle Canvas.Left="55" Canvas.Top="25" Width="20" Height="20" Fill="#333344"/>
-                                    <Rectangle Canvas.Left="40" Canvas.Top="40" Width="20" Height="20" Fill="#333344"/>
-                                    <Rectangle Canvas.Left="25" Canvas.Top="55" Width="20" Height="20" Fill="#333344"/>
-                                    <Rectangle Canvas.Left="55" Canvas.Top="55" Width="20" Height="20" Fill="#333344"/>
-                                </Canvas>
-                            </Viewbox>
-
-                            <!-- Alul: Provably fair + RTP -->
-                            <Grid Grid.Row="2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-
-                                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                                    <TextBlock Text="🛡 Provably fair " Foreground="#777788" FontSize="12"/>
-                                    <TextBlock Text="protected" Foreground="#aaaaaa" FontSize="12" FontWeight="SemiBold"/>
-                                </StackPanel>
-
-                                <TextBlock Grid.Column="1" Text="RTP 98%" Foreground="#aaaaaa" FontSize="12" VerticalAlignment="Center"/>
-                            </Grid>
+                            
                         </Grid>
                     </Border>
                 </Grid>
@@ -332,7 +248,7 @@
 
                         <!-- Your number -->
                         <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <TextBlock Text="50" Foreground="White" FontSize="100" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="Nagyszam" Text="50" Foreground="White" FontSize="100" FontWeight="Bold" HorizontalAlignment="Center"/>
                             <TextBlock Text="Számod" Foreground="#888899" FontSize="16" HorizontalAlignment="Center"/>
                         </StackPanel>
 
@@ -355,7 +271,7 @@
 
                         <!-- Rolled number -->
                         <StackPanel Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <TextBlock x:Name="RolledNumber" Text="57" FontSize="100" FontWeight="Bold" HorizontalAlignment="Center">
+                            <TextBlock x:Name="Dobottszam" Text="?" FontSize="100" FontWeight="Bold" HorizontalAlignment="Center">
                                 <TextBlock.Foreground>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <GradientStop Color="#c8f040" Offset="0"/>
@@ -379,8 +295,8 @@
 
                                 <!-- Multiplier -->
                                 <StackPanel Grid.Column="0" HorizontalAlignment="Center">
-                                    <TextBlock Text="x1.96" Foreground="White" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Multiplier" Foreground="#888899" FontSize="13" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="Szorzo" Text="x1.96" Foreground="White" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Szorzó" Foreground="#888899" FontSize="13" HorizontalAlignment="Center"/>
                                 </StackPanel>
 
                                 <!-- Elválasztó -->
@@ -389,7 +305,7 @@
                                 <!-- Possible payout -->
                                 <StackPanel Grid.Column="2" HorizontalAlignment="Center">
                                     <TextBlock Text="0.39$" Foreground="White" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Possible payout" Foreground="#888899" FontSize="13" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Lehetséges kifizetés" Foreground="#888899" FontSize="13" HorizontalAlignment="Center"/>
                                 </StackPanel>
 
                                 <!-- Elválasztó -->
@@ -397,8 +313,8 @@
 
                                 <!-- Win chance -->
                                 <StackPanel Grid.Column="4" HorizontalAlignment="Center">
-                                    <TextBlock Text="50%" Foreground="White" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Win chance" Foreground="#888899" FontSize="13" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="Szazalek" Text="50%" Foreground="White" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Nyerési arány" Foreground="#888899" FontSize="13" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Grid>
                         </Border>
@@ -435,9 +351,9 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="Name / Bet USD" Foreground="#555566" FontSize="12"/>
-                                <TextBlock Grid.Column="1" Text="Multiplier" Foreground="#555566" FontSize="12" HorizontalAlignment="Center"/>
-                                <TextBlock Grid.Column="2" Text="Win USD" Foreground="#555566" FontSize="12" HorizontalAlignment="Right"/>
+                                <TextBlock Grid.Column="0" Text="Név / Fogadott Ft" Foreground="#555566" FontSize="12"/>
+                                <TextBlock Grid.Column="1" Text="Szorzó" Foreground="#555566" FontSize="12" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="2" Text="Nyeremény" Foreground="#555566" FontSize="12" HorizontalAlignment="Right"/>
                             </Grid>
 
                             <!-- Táblázat sorok -->

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -20,11 +21,17 @@ namespace casino
     /// </summary>
     public partial class dice : Page
     {
+        
+
+        
+
         public dice()
         {
             InitializeComponent();
+            egyenlegTB.Text = "Egyenleg: " + EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
             //BetSorHozzaad("pNOsFQ", "x1.96", "0.39");
- 
+            
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -115,6 +122,72 @@ namespace casino
             BetLista.Children.Add(sor);      // BetLista = a StackPanel x:Name-je
             BetLista.Children.Add(vonal);
         }
+        //Slider
+        private void Szam_Slider(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (Nagyszam == null) return;
+            if (Kisszam == null) return;
+            if (Szazalek == null) return;
+            Nagyszam.Text = Slider.Value.ToString("F0");
+            Kisszam.Text = Slider.Value.ToString("F0");
+            Szazalek.Text = (100-Slider.Value).ToString() + "%";
+        }
+        //Játékmenet
+        private void Dobas(object sender, RoutedEventArgs e)
+        {
 
+        }
+        //Gombok
+        bool Jobb = true;
+        private void Felette_Click(object sender, RoutedEventArgs e)
+        {
+            if (!Jobb)
+            {
+                Felette.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3d3d50"));
+                Felette.Foreground = Brushes.White;
+                Felette.FontWeight = FontWeights.SemiBold;
+                Alatta.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3a3a4e"));
+                Alatta.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#aaaaaa"));
+                Alatta.FontWeight = FontWeights.Normal;
+                Jobb = true;
+
+                
+
+
+
+
+            }
+        }
+
+        private void Alatta_Click(object sender, RoutedEventArgs e)
+        {
+            if (Jobb)
+            {
+                Alatta.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3d3d50"));
+                Alatta.Foreground = Brushes.White;
+                Alatta.FontWeight = FontWeights.SemiBold;
+                Felette.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3a3a4e"));
+                Felette.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#aaaaaa"));
+                Felette.FontWeight = FontWeights.Normal;
+                Jobb = false;
+
+               
+
+            }
+        }
+
+        private void Szorzas_Click(object sender, RoutedEventArgs e)
+        {
+            if ((int.Parse(FeltettOsszeg.Text) * 2) <= EgyenlegManager.Balance.Egyenleg) { 
+                FeltettOsszeg.Text = Convert.ToString(int.Parse(FeltettOsszeg.Text) * 2);
+            }
+        }
+
+        private void Osztas_Click(object sender, RoutedEventArgs e)
+        {
+            if ((int.Parse(FeltettOsszeg.Text) / 2) >= 100) {
+                FeltettOsszeg.Text = Convert.ToString(int.Parse(FeltettOsszeg.Text) / 2);
+            }
+        }
     }
 }
