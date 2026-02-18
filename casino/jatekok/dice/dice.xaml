@@ -34,8 +34,9 @@
       
     <Viewbox Stretch="Uniform">
         <Grid Width="1280" Height="720">
+
             <Grid.Background>
-                <ImageBrush ImageSource="dice_bg.png"  Stretch="UniformToFill" Opacity="0.4">
+                <ImageBrush ImageSource="dice_bg.png"  Stretch="UniformToFill" >
                     <ImageBrush.RelativeTransform>
                         <TransformGroup>
                             <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1" ScaleY="1"/>
@@ -46,6 +47,7 @@
                     </ImageBrush.RelativeTransform>
                 </ImageBrush>
             </Grid.Background>
+            
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="7*"/>
@@ -247,7 +249,7 @@
                         <!-- Your number -->
                         <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <TextBlock x:Name="Nagyszam" Text="50" Foreground="White" FontSize="100" FontWeight="Bold" HorizontalAlignment="Center"/>
-                            <TextBlock Text="Számod" Foreground="#888899" FontSize="16" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Számod" Foreground="#FF6A00" FontSize="16" HorizontalAlignment="Center"/>
                         </StackPanel>
 
                         <!-- Kocka ikon középen -->
@@ -274,7 +276,7 @@
                                     </LinearGradientBrush>
                                 </TextBlock.Foreground>
                             </TextBlock>
-                            <TextBlock Text="Dobott számod" Foreground="#888899" FontSize="16" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Dobott számod" Foreground="#FF6A00" FontSize="16" HorizontalAlignment="Center"/>
                         </StackPanel>
 
                         <!-- Multiplier / Payout / Win chance panel -->
