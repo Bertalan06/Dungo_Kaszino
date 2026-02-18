@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="chicken.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="feltoltesablak.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -72,8 +76,8 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="jatekok\chicken\chicken.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="jatekok\dice\dice.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -102,6 +106,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="chicken.xaml.cs">
+      <DependentUpon>chicken.xaml</DependentUpon>
     </Compile>
     <Compile Include="feltoltesablak.xaml.cs">
       <DependentUpon>feltoltesablak.xaml</DependentUpon>
@@ -249,6 +256,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="jatekok\chicken\csirke.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\chicken\plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\chicken\max.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\chicken\min.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

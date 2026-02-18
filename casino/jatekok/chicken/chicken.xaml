@@ -8,61 +8,297 @@
       d:DesignHeight="720" d:DesignWidth="1220"
       Title="chicken">
     <Page.Resources>
-        <!-- Templétek -->
-        <ControlTemplate x:Key="squareBtn" TargetType="{x:Type Button}">
-            <Border x:Name="border"
-                Background="{TemplateBinding Background}"
-                BorderBrush="Transparent"
-                BorderThickness="3"
-                CornerRadius="4">
-                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+        <!-- SZÍNEK -->
+        <Color x:Key="HatterSzinAlap">#1a1f3a</Color>
+        <Color x:Key="HatterSzinKozep">#252b4a</Color>
+        <Color x:Key="PanelSzin">#2e3560</Color>
+        <Color x:Key="KiemeloSzin">#f0c040</Color>
+        <Color x:Key="SzovegsZin">#e8eaf6</Color>
+        <Color x:Key="MasodlagosSzoveg">#9fa8da</Color>
+
+        <SolidColorBrush x:Key="HatterAlap" Color="{StaticResource HatterSzinAlap}"/>
+        <SolidColorBrush x:Key="HatterKozep" Color="{StaticResource HatterSzinKozep}"/>
+        <SolidColorBrush x:Key="PanelBrush" Color="{StaticResource PanelSzin}"/>
+        <SolidColorBrush x:Key="KiemeltBrush" Color="{StaticResource KiemeloSzin}"/>
+        <SolidColorBrush x:Key="FoSzovegBrush" Color="{StaticResource SzovegsZin}"/>
+        <SolidColorBrush x:Key="MasodSzovegBrush" Color="{StaticResource MasodlagosSzoveg}"/>
+
+        <!-- FŐ GOMB TEMPLATE -->
+        <ControlTemplate x:Key="foGombTemplate" TargetType="{x:Type Button}">
+            <Border x:Name="border" CornerRadius="8" BorderThickness="2" Padding="16,8">
+                <Border.BorderBrush>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#f0c040" Offset="0"/>
+                        <GradientStop Color="#c8960a" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#4a5296" Offset="0"/>
+                        <GradientStop Color="#2e3560" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.Effect>
+                    <DropShadowEffect Color="#f0c040" BlurRadius="8" ShadowDepth="0" Opacity="0.3"/>
+                </Border.Effect>
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="border" Property="BorderBrush" Value="#FF1E90FF" />
+                    <Setter TargetName="border" Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="#f0c040" BlurRadius="16" ShadowDepth="0" Opacity="0.6"/>
+                        </Setter.Value>
+                    </Setter>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter TargetName="border" Property="Opacity" Value="0.8" />
+                    <Setter TargetName="border" Property="Opacity" Value="0.8"/>
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="False">
-                    <Setter TargetName="border" Property="Opacity" Value="0.5" />
+                    <Setter TargetName="border" Property="Opacity" Value="0.4"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+
+        <!-- JÁTÉK GOMB (zöld) -->
+        <ControlTemplate x:Key="jatekGombTemplate" TargetType="{x:Type Button}">
+            <Border x:Name="border" CornerRadius="10" BorderThickness="2" Padding="20,10">
+                <Border.BorderBrush>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#2ecc71" Offset="0"/>
+                        <GradientStop Color="#27ae60" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#27ae60" Offset="0"/>
+                        <GradientStop Color="#1a7a42" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.Effect>
+                    <DropShadowEffect Color="#27ae60" BlurRadius="12" ShadowDepth="0" Opacity="0.5"/>
+                </Border.Effect>
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="border" Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="#2ecc71" BlurRadius="20" ShadowDepth="0" Opacity="0.8"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="border" Property="Opacity" Value="0.85"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="border" Property="Opacity" Value="0.4"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <!-- CASH OUT GOMB (narancs) -->
+        <ControlTemplate x:Key="cashoutGombTemplate" TargetType="{x:Type Button}">
+            <Border x:Name="border" CornerRadius="10" BorderThickness="2" Padding="20,10">
+                <Border.BorderBrush>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#f39c12" Offset="0"/>
+                        <GradientStop Color="#e67e22" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#e67e22" Offset="0"/>
+                        <GradientStop Color="#a04000" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.Effect>
+                    <DropShadowEffect Color="#e67e22" BlurRadius="12" ShadowDepth="0" Opacity="0.5"/>
+                </Border.Effect>
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="border" Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="#f39c12" BlurRadius="20" ShadowDepth="0" Opacity="0.8"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="border" Property="Opacity" Value="0.85"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="border" Property="Opacity" Value="0.4"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <!-- KEREK GOMB (+/- gombok) -->
         <ControlTemplate x:Key="roundBtn" TargetType="{x:Type Button}">
-            <Border x:Name="border"
-        Background="{TemplateBinding Background}"
-        BorderBrush="Transparent"
-        BorderThickness="3"
-        CornerRadius="90">
-                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Border x:Name="border" CornerRadius="90" BorderThickness="2" Width="44" Height="44">
+                <Border.BorderBrush>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#5c6bc0" Offset="0"/>
+                        <GradientStop Color="#3949ab" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#3d4878" Offset="0"/>
+                        <GradientStop Color="#252b4a" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.Effect>
+                    <DropShadowEffect Color="#000000" BlurRadius="6" ShadowDepth="2" Opacity="0.4"/>
+                </Border.Effect>
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="border" Property="BorderBrush" Value="#4E5787" />
+                    <Setter TargetName="border" Property="BorderBrush">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#f0c040" Offset="0"/>
+                                <GradientStop Color="#c8960a" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter TargetName="border" Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="#f0c040" BlurRadius="10" ShadowDepth="0" Opacity="0.5"/>
+                        </Setter.Value>
+                    </Setter>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter TargetName="border" Property="Opacity" Value="0.8" />
+                    <Setter TargetName="border" Property="Opacity" Value="0.8"/>
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="False">
-                    <Setter TargetName="border" Property="Opacity" Value="0.5" />
+                    <Setter TargetName="border" Property="Opacity" Value="0.4"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+
+        <!-- NEHÉZSÉG GOMB -->
+        <ControlTemplate x:Key="nehezsegGombTemplate" TargetType="{x:Type Button}">
+            <Border x:Name="border" CornerRadius="6" BorderThickness="2" Padding="18,8">
+                <Border.BorderBrush>
+                    <SolidColorBrush Color="#5c6bc0"/>
+                </Border.BorderBrush>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#3d4878" Offset="0"/>
+                        <GradientStop Color="#252b4a" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="border" Property="BorderBrush">
+                        <Setter.Value>
+                            <SolidColorBrush Color="#f0c040"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter TargetName="border" Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="#f0c040" BlurRadius="8" ShadowDepth="0" Opacity="0.4"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="border" Property="Opacity" Value="0.8"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="border" Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#f0c040" Offset="0"/>
+                                <GradientStop Color="#c8960a" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter TargetName="border" Property="BorderBrush">
+                        <Setter.Value>
+                            <SolidColorBrush Color="#f0c040"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <!-- VISSZA GOMB -->
+        <ControlTemplate x:Key="visszaGombTemplate" TargetType="{x:Type Button}">
+            <Border x:Name="border" CornerRadius="6" BorderThickness="2" Padding="12,6">
+                <Border.BorderBrush>
+                    <SolidColorBrush Color="#5c6bc0"/>
+                </Border.BorderBrush>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#3d4878" Offset="0"/>
+                        <GradientStop Color="#252b4a" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="border" Property="BorderBrush">
+                        <Setter.Value>
+                            <SolidColorBrush Color="#9fa8da"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="border" Property="Opacity" Value="0.8"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <!-- STÍLUSOK -->
+        <Style x:Key="TetSzovegStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="#f0c040"/>
+            <Setter Property="FontFamily" Value="Segoe UI Black"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="Black"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#f0c040" BlurRadius="8" ShadowDepth="0" Opacity="0.4"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="NehezsegSzovegStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="#9fa8da"/>
+            <Setter Property="FontFamily" Value="Segoe UI Semibold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
     </Page.Resources>
+
     <Viewbox Stretch="Uniform">
         <Grid Width="1280" Height="720" Margin="20">
             <Grid.Background>
-                <SolidColorBrush Color="#3e4464"/>
+                <SolidColorBrush Color="#1a1f3a"/>
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="10*"/>
                 <RowDefinition Height="50*"/>
                 <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
-            <Button x:Name="vissza" Content="Vissza" Height="40" Width="120" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20" FontSize="25" Click="vissza_Click"/>
+
+            <Button Template="{StaticResource visszaGombTemplate}" x:Name="vissza" Content="◀ Vissza" Height="40" Width="130" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20" FontSize="20" Foreground="White" Click="vissza_Click"/>
+            <TextBlock Grid.Column="2" x:Name="egyenlegTB" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20" Foreground="#f0c040" FontSize="22" FontWeight="Bold" Background="#80000000" Padding="12,6">
+                <Run Text="Egyenleg: " Foreground="#9fa8da"/>
+                <Run x:Name="egyenlegertek" Text="50 000 Ft" Foreground="#f0c040"/>
+            </TextBlock>
+            <local:ido Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20" Background="#80000000" Foreground="White"/>
+
             <Canvas Grid.Row="1" ClipToBounds="True">
-                <Image x:Name="hatter" Source="/jatekok/chicken/easy.png" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Bottom="0">
+                <Image x:Name="hatter" Source="/jatekok/chicken/easy.png" Canvas.Bottom="0" HorizontalAlignment="Center" Height="514" Canvas.Top="0" VerticalAlignment="Top">
                     <Image.RenderTransform>
                         <TranslateTransform x:Name="hatterTransform" X="0"/>
                     </Image.RenderTransform>
@@ -73,49 +309,58 @@
                     </Image.RenderTransform>
                 </Image>
             </Canvas>
+
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Template="{DynamicResource squareBtn}" Content="MIN" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                        <TextBlock x:Name="bet" Text="0" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,20,0"/>
-                        <Button Template="{DynamicResource squareBtn}" Content="MAX" FontSize="14" VerticalAlignment="Center"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                        <Button Template="{DynamicResource roundBtn}" Margin="5" Height="40" Width="40">
+                    <Label Style="{StaticResource TetSzovegStyle}" x:Name="bet" Content="0 Ft" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <StackPanel x:Name="tetkezelo" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button x:Name="min" Template="{StaticResource roundBtn}" Margin="5" Click="min_Click">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/jatekok/chicken/min.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="minusx" Template="{StaticResource roundBtn}" Margin="5" Click="minusx_Click">
                             <Button.Background>
                                 <ImageBrush ImageSource="/jatekok/chicken/minusx.png"/>
                             </Button.Background>
                         </Button>
-                        <Button Template="{DynamicResource roundBtn}" Margin="5" Height="40" Width="40">
+                        <Button x:Name="minus" Template="{StaticResource roundBtn}" Margin="5" Click="minus_Click">
                             <Button.Background>
-                                <ImageBrush ImageSource="/jatekok/chicken/minusx.png"/>
+                                <ImageBrush ImageSource="/jatekok/chicken/minus.png"/>
                             </Button.Background>
                         </Button>
-                        <Button Template="{DynamicResource roundBtn}" Margin="5" Height="40" Width="40">
+                        <Button x:Name="plus" Template="{StaticResource roundBtn}" Margin="5" Click="plus_Click">
                             <Button.Background>
-                                <ImageBrush ImageSource="/jatekok/chicken/minusx.png"/>
+                                <ImageBrush ImageSource="/jatekok/chicken/plus.png"/>
                             </Button.Background>
                         </Button>
-                        <Button Template="{DynamicResource roundBtn}" Margin="5" Height="40" Width="40">
+                        <Button x:Name="plusx" Template="{StaticResource roundBtn}" Margin="5" Click="plusx_Click">
                             <Button.Background>
-                                <ImageBrush ImageSource="/jatekok/chicken/minusx.png"/>
+                                <ImageBrush ImageSource="/jatekok/chicken/plusx.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="max" Template="{StaticResource roundBtn}" Margin="5" Click="max_Click">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/jatekok/chicken/max.png"/>
                             </Button.Background>
                         </Button>
                     </StackPanel>
                 </StackPanel>
+
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="40,0">
-                    <Label x:Name="nehezseg" Content="Nehézség: Könnyű" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="40,0"/>
+                    <Label Style="{StaticResource NehezsegSzovegStyle}" x:Name="nehezseg" Content="Nehézség: Könnyű" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="40,0"/>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="40,0">
-                        <Button Template="{DynamicResource squareBtn}" x:Name="Easy" Content="Könnyű" FontSize="20" Margin="10" Click="Easy_Click"/>
-                        <Button Template="{DynamicResource squareBtn}" x:Name="Normal" Content="Normál" FontSize="20" Margin="10" Click="Normal_Click"/>
-                        <Button Template="{DynamicResource squareBtn}" x:Name="Hard" Content="Nehéz" FontSize="20" Margin="10" Click="Hard_Click"/>
+                        <Button Template="{StaticResource nehezsegGombTemplate}" x:Name="Easy" Content="Könnyű" FontSize="20" Foreground="White" Margin="10" Click="Easy_Click"/>
+                        <Button Template="{StaticResource nehezsegGombTemplate}" x:Name="Hard" Content="Nehéz" FontSize="20" Foreground="White" Margin="10" Click="Hard_Click"/>
                     </StackPanel>
                 </StackPanel>
+
                 <StackPanel x:Name="kezelo" Orientation="Horizontal" Visibility="Hidden">
-                    <Button x:Name="cahsout" Template="{DynamicResource squareBtn}" Content="Cash out" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left" Click="cahsout_Click"/>
-                    <Button x:Name="go" Template="{DynamicResource squareBtn}" Content="Go" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Left" Click="go_Click"/>
+                    <Button x:Name="cahsout" Template="{StaticResource cashoutGombTemplate}" Content="Cash Out" FontSize="18" Foreground="White" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" Click="cahsout_Click"/>
+                    <Button x:Name="go" Template="{StaticResource foGombTemplate}" Content="Go" FontSize="18" Foreground="White" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" Click="go_Click"/>
                 </StackPanel>
-                    <Button x:Name="jatek" Visibility="Visible" Template="{DynamicResource squareBtn}" Content="Játék" Height="50" Width="150" Click="Jatek_Click"/>
+
+                <Button Template="{StaticResource jatekGombTemplate}" x:Name="jatek" Visibility="Visible" Content="Játék" Height="50" Width="150" Foreground="White" FontSize="18" FontWeight="Bold" Click="Jatek_Click"/>
             </StackPanel>
         </Grid>
     </Viewbox>
