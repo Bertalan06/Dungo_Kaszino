@@ -5,11 +5,363 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:casino"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="720" d:DesignWidth="1280"
       Title="dice">
+    <!-- Template-ek -->
+    <Page.Resources>
+        <ControlTemplate x:Key="Nagygombok" TargetType="{x:Type Button}">
+            <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="Kisgombok" TargetType="{x:Type Button}">
+            <Border Background="{TemplateBinding Background}" CornerRadius="6">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="Irasosmezo" TargetType="{x:Type TextBox}">
+            <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                <ScrollViewer x:Name="PART_ContentHost"/>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="VisszaGomb" TargetType="{x:Type Button}">
+            <Border Background="#3a3a4e" CornerRadius="8" >
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </ControlTemplate>
 
-    <Grid>
-        <Image Source="dice.png"/>
-        <Button Content="Vissza" Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Click="Button_Click" />
-    </Grid>
+    </Page.Resources>
+      
+    <Viewbox Stretch="Uniform">
+        <Grid Width="1280" Height="720">
+            <Grid.Background>
+                <ImageBrush ImageSource="dice_bg.png"  Stretch="UniformToFill" Opacity="0.4">
+                    <ImageBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1" ScaleY="1"/>
+                            <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                            <RotateTransform CenterX="0.5" CenterY="0.5"/>
+                            <TranslateTransform Y="0" X="0"/>
+                        </TransformGroup>
+                    </ImageBrush.RelativeTransform>
+                </ImageBrush>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+            <Button Template="{DynamicResource VisszaGomb}" Content="Vissza" Height="40" Width="120" Padding="12" Margin="20" VerticalAlignment="Top" HorizontalAlignment="Left"  FontSize="25" Click="Button_Click"  Background="Transparent" Foreground="White"/>
+            <Border Background="#2a2a3e"  CornerRadius="12"  Margin="10,10,10,5"  Padding="12" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <local:ido Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top"  Foreground="White"/>
+            </Border>
+            <Border Background="#2a2a3e"  CornerRadius="12"  Margin="10,10,10,5"  Padding="12" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <TextBlock x:Name="egyenlegTB" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="White" FontSize="25" FontWeight="Bold">
+                    <Run Text="Egyenleg: " Foreground="White"/>
+                    <Run x:Name="egyenlegertek" Text="50 000 Ft" Foreground="White"/>
+                </TextBlock>
+            </Border>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Bal oldal -->
+                <Grid Grid.Column="0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <!-- Bet összeg rész -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- Slider rész -->
+                        <RowDefinition Height="*"/>
+                        <!-- Autobet + kocka rész -->
+                    </Grid.RowDefinitions>
+
+                    <!-- ===== 1. RÉSZ: BET ÖSSZEG ===== -->
+                    <Border Grid.Row="0"  Background="#2a2a3e"  CornerRadius="12"  Margin="10,10,10,5"  Padding="12">
+                        <StackPanel>
+                            <!-- Összeg sor -->
+                            <Grid Margin="0,0,0,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox Template="{DynamicResource Irasosmezo}" x:Name="FeltettOsszeg" Grid.Column="0" Text="100" Foreground="White" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" Background="#3a3a4e" TextChanged="FeltettOsszeg_TextChanged"/>
+                                    <Label Content="Ft" FontSize="20" Foreground="white" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                </StackPanel>
+
+                                <Button x:Name="Minusz" Grid.Column="1" Content="−" Width="36" Height="36" Margin="4,0" Background="#3a3a4e"  Foreground="White" FontSize="18" BorderThickness="0" Template="{StaticResource Nagygombok}" Click="Minusz_Click"/>
+                                <Button x:Name="Plusz" Grid.Column="2" Content="+"  Width="36" Height="36"  Background="#3a3a4e"  Foreground="White"  FontSize="18" BorderThickness="0" Template="{StaticResource Nagygombok}" Click="Plusz_Click" />
+
+                            </Grid>
+
+                            <!-- /2 és x2 gombok -->
+                            <Grid Margin="0,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="8"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="Osztas" Grid.Column="0" Content="/2" Height="40"  Background="#3a3a4e" Foreground="white" FontSize="15" BorderThickness="0" Template="{StaticResource Nagygombok}" Click="Osztas_Click"/>
+                                <Button x:Name="Szorzas" Grid.Column="2" Content="x2" Height="40" Background="#3a3a4e" Foreground="white" FontSize="15" BorderThickness="0" Template="{StaticResource Nagygombok}" Click="Szorzas_Click"/>
+                            </Grid>
+
+                            <!-- BET gomb -->
+                            <Button x:Name="Dob" Content="Dobás!" Height="52" FontSize="18" FontWeight="Bold" Foreground="#1a1a1a" BorderThickness="0" Click="Dobas">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border CornerRadius="10">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                    <GradientStop Color="#a8e63d" Offset="0"/>
+                                                    <GradientStop Color="#c8f040" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ===== 2. RÉSZ: SLIDER (Under/Over) ===== -->
+                    <Border Grid.Row="1" Background="#2a2a3e" CornerRadius="12" Margin="10,5,10,5" Padding="12">
+                        <StackPanel>
+                            <!-- Szám + slider -->
+                            <Grid Margin="0,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0">
+                                    <TextBlock Text="🎲" FontSize="16" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                    <TextBlock x:Name="Kisszam" Text="50" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                                </StackPanel>
+
+                                <Slider x:Name="Slider" Grid.Column="1" Minimum="3" Maximum="99" Value="50" VerticalAlignment="Center" Height="20" ValueChanged="Szam_Slider" TickFrequency="1" IsSnapToTickEnabled="True">
+                                    <Slider.Template>
+                                        <ControlTemplate TargetType="Slider">
+                                            <Grid>
+                                                <Track x:Name="PART_Track">
+                                                    <Track.DecreaseRepeatButton>
+                                                        <RepeatButton Background="{DynamicResource BalSzin}" BorderThickness="0" Height="6">
+                                                            <RepeatButton.Template>
+                                                                <ControlTemplate TargetType="RepeatButton">
+                                                                    <Border Background="{TemplateBinding Background}" CornerRadius="3"/>
+                                                                </ControlTemplate>
+                                                            </RepeatButton.Template>
+                                                        </RepeatButton>
+                                                    </Track.DecreaseRepeatButton>
+                                                    <Track.IncreaseRepeatButton>
+                                                        <RepeatButton Background="{DynamicResource JobbSzin}" BorderThickness="0" Height="6">
+                                                            <RepeatButton.Template>
+                                                                <ControlTemplate TargetType="RepeatButton">
+                                                                    <Border Background="{TemplateBinding Background}" CornerRadius="3"/>
+                                                                </ControlTemplate>
+                                                            </RepeatButton.Template>
+                                                        </RepeatButton>
+                                                    </Track.IncreaseRepeatButton>
+                                                    <Track.Thumb>
+                                                        <Thumb>
+                                                            <Thumb.Template>
+                                                                <ControlTemplate TargetType="Thumb">
+                                                                    <Border Background="#dddddd" CornerRadius="4" Width="20" Height="20"/>
+                                                                </ControlTemplate>
+                                                            </Thumb.Template>
+                                                        </Thumb>
+                                                    </Track.Thumb>
+                                                </Track>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Slider.Template>
+                                </Slider>
+                            </Grid>
+
+                            <!-- Under / Over gombok -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="8"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button x:Name="Alatta" Template="{DynamicResource Nagygombok}" Grid.Column="0" Content="⬇ Alatta" Height="42" Background="#3a3a4e" Foreground="#aaaaaa" FontSize="14" BorderThickness="0" Click="Alatta_Click"/>
+                                <Button x:Name="Felette" Template="{DynamicResource Nagygombok}" Grid.Column="2" Content="⬆ Felette" Height="42" Background="#3d3d50" Foreground="White" FontSize="14" FontWeight="SemiBold" BorderThickness="0" Click="Felette_Click" />
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ===== 3. RÉSZ: AUTOBET + KOCKA ===== -->
+                    <Border Grid.Row="2" Background="#2a2a3e"  CornerRadius="12"  Margin="10,5,10,10"  Padding="12">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Autobet sor -->
+                            <Grid Grid.Row="0" Margin="0,0,0,12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <CheckBox x:Name="AutoBet" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,8,0" Checked="AutoBet_Checked"/>
+                                <TextBlock Grid.Column="1" Text="Autobet" Foreground="#aaaaaa" FontSize="14" VerticalAlignment="Center" Margin="0,0,12,0"/>
+
+                                <TextBox x:Name="AutoBetDB" Template="{DynamicResource Irasosmezo}" Grid.Column="2" Text="5" Background="#3a3a4e" Foreground="White" BorderThickness="0" FontSize="14" FontWeight="Bold"  Padding="8,6" MaxWidth="60" HorizontalAlignment="Left"/>
+
+                                <Button Template="{DynamicResource Kisgombok}" x:Name="Pluszot" Grid.Column="3" Content="5" Width="38" Height="32" Margin="4,0" Background="#3d3d50" Foreground="White" FontSize="13" BorderThickness="0" Click="Pluszot_Click"/>
+                                <Button Template="{DynamicResource Kisgombok}" x:Name="Plusztiz" Grid.Column="4" Content="10" Width="38" Height="32" Margin="0,0,4,0"  Background="#3d3d50" Foreground="White" FontSize="13" BorderThickness="0" Click="Plusztiz_Click"/>
+                                <Button Template="{DynamicResource Kisgombok}" x:Name="Vegtelen" Grid.Column="5" Content="∞" Width="38" Height="32" Background="#3d3d50" Foreground="White" FontSize="16" BorderThickness="0" Click="Vegtelen_Click"/>
+                            </Grid>
+                            
+                        </Grid>
+                    </Border>
+                </Grid>
+                <!-- Jobb oldal -->
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <!-- Számok + kocka -->
+                        <RowDefinition Height="2*"/>
+                        <!-- Live Bets táblázat -->
+                    </Grid.RowDefinitions>
+
+                    <!-- ===== FELSŐ RÉSZ: Your number / Rolled number ===== -->
+                    <Grid Grid.Row="0" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Your number -->
+                        <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock x:Name="Nagyszam" Text="50" Foreground="White" FontSize="100" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Számod" Foreground="#888899" FontSize="16" HorizontalAlignment="Center"/>
+                        </StackPanel>
+
+                        <!-- Kocka ikon középen -->
+                        <Viewbox Grid.Column="1" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Canvas Width="100" Height="100">
+                                <Ellipse Canvas.Left="10" Canvas.Top="10" Width="80" Height="80">
+                                    <Ellipse.Fill>
+                                        <RadialGradientBrush>
+                                            <GradientStop Color="#a8e63d" Offset="0"/>
+                                            <GradientStop Color="#6aaa00" Offset="1"/>
+                                        </RadialGradientBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                            </Canvas>
+                        </Viewbox>
+
+                        <!-- Rolled number -->
+                        <StackPanel Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock x:Name="Dobottszam" Text="?" FontSize="100" FontWeight="Bold" HorizontalAlignment="Center">
+                                <TextBlock.Foreground>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#c8f040" Offset="0"/>
+                                        <GradientStop Color="#a8e63d" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </TextBlock.Foreground>
+                            </TextBlock>
+                            <TextBlock Text="Dobott számod" Foreground="#888899" FontSize="16" HorizontalAlignment="Center"/>
+                        </StackPanel>
+
+                        <!-- Multiplier / Payout / Win chance panel -->
+                        <Border Grid.Column="0" Grid.ColumnSpan="3" Background="#2a2a3e" CornerRadius="12" Padding="20,14" Margin="80,0,80,20" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="1"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="1"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Multiplier -->
+                                <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                                    <TextBlock x:Name="Szorzo" Text="x1.96" Foreground="White" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Szorzó" Foreground="#888899" FontSize="13" HorizontalAlignment="Center"/>
+                                </StackPanel>
+
+                                <!-- Elválasztó -->
+                                <Rectangle Grid.Column="1" Fill="#444455" Width="1" Margin="0,4"/>
+
+                                <!-- Possible payout -->
+                                <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                                    <TextBlock x:Name="LehetFizet" Text="196 Ft" Foreground="White" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Lehetséges kifizetés" Foreground="#888899" FontSize="13" HorizontalAlignment="Center"/>
+                                </StackPanel>
+
+                                <!-- Elválasztó -->
+                                <Rectangle Grid.Column="3" Fill="#444455" Width="1" Margin="0,4"/>
+
+                                <!-- Win chance -->
+                                <StackPanel Grid.Column="4" HorizontalAlignment="Center">
+                                    <TextBlock x:Name="Szazalek" Text="50%" Foreground="White" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Nyerési arány" Foreground="#888899" FontSize="13" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                    <!-- ===== ALSÓ RÉSZ: Live Bets táblázat ===== -->
+                    <Border Grid.Row="1" Background="#1e1e2e" CornerRadius="12" Margin="10,0,10,10" Padding="16,12">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <!-- Fejléc -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- Oszlop fejlécek -->
+                                <RowDefinition Height="*"/>
+                                <!-- Sorok -->
+                            </Grid.RowDefinitions>
+
+                            <!-- "Live Bets" fejléc + gombok -->
+                            <Grid Grid.Row="0" Margin="0,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="Előzmények" Foreground="White" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                                
+                            </Grid>
+
+                            <!-- Oszlop fejlécek -->
+                            <Grid Grid.Row="1" Margin="0,0,0,6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="Név / Fogadott Ft" Foreground="#555566" FontSize="12"/>
+                                <TextBlock Grid.Column="1" Text="Szorzó" Foreground="#555566" FontSize="12" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Column="2" Text="Nyeremény" Foreground="#555566" FontSize="12" HorizontalAlignment="Right"/>
+                            </Grid>
+
+                            <!-- Táblázat sorok -->
+                            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                                <StackPanel x:Name="BetLista">
+                                    <!-- előzmények ide jönnek-->
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+            
+        </Grid>
+    </Viewbox>
 </Page>
