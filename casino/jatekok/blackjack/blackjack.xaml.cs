@@ -105,6 +105,15 @@ namespace casino
         {
             SetBetValue(500000);
         }
+        private void rebet_Click(object sender, RoutedEventArgs e)
+        {
+            OsztoKartyakOsszge.Content = "";
+            JatekosKartyakOsszge.Content = "";
+            bet.Content = rebet.Content;
+            chip.Content = rebet.Content;
+            //EgyenlegManager.Balance.Egyenleg -= Convert.ToDecimal(rebet.Content);
+            start();
+        }
 
         //játék indítása
         private void start()
@@ -131,7 +140,7 @@ namespace casino
             JatekosKartyakOsszge.Content = "";
 
             // update displayed balance to the actual balance after taking the bet
-            egyenlegTB.Text = "Egyenleg: " + home.Egyenleg.ToString("N0") + " Ft";
+            egyenlegTB.Text = "Egyenleg: " + EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
 
             int.TryParse(bet.Content.ToString().Replace(" Ft", ""), NumberStyles.AllowThousands, CultureInfo.CurrentCulture, out tet);
             if (tet !=0)
@@ -268,14 +277,7 @@ namespace casino
 
             x += 20;
         }
-        private void rebet_Click(object sender, RoutedEventArgs e)
-        {
-            OsztoKartyakOsszge.Content = "";
-            JatekosKartyakOsszge.Content = "";
-            bet.Content = rebet.Content;
-            chip.Content = rebet.Content;
-            start();
-        }
+        
 
         private void DealCardFromDeck(string path, string JatekosVOszto)
         {
@@ -364,8 +366,12 @@ namespace casino
             egyenlegTB.Text = "Egyenleg: " + EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
             JatekosKartyakOsszge.Content = CalculateHandValue(voltakJatekos);
             OsztoKartyakOsszge.Content = CalculateHandValue(voltakOszto);
-            rebet.Content = chip.Content;
-            rebet.Visibility = Visibility.Visible;
+            if (EgyenlegManager.Balance.Egyenleg > Convert.ToDecimal(chip.Content.ToString()))
+            {
+                rebet.Content = chip.Content;
+                rebet.Visibility = Visibility.Visible;
+            }
+            
             tetkezelo.Visibility = Visibility.Visible;
             vissza.Visibility = Visibility.Visible;
             kezelo.Visibility = Visibility.Hidden;
