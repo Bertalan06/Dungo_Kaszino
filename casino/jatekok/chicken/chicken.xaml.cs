@@ -27,6 +27,7 @@ namespace casino
         public chicken()
         {
             InitializeComponent();
+            egyenlegTB.Text = "Egyenleg: " + EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
         }
         string[] easy = { "1.03", "1.07", "1.12", "1.17", "1.23", "1.29", "1.36", "1.44", "1.53", "1.63", "1.75", "1.88", "2.04", "2.22", "2.45", "2.72", "3.06", "3.5", "4.08", "4.9", "6.13", "6.61", "9.81", "19.44" };
         string[] hard = { "1.23", "1.55", "1.98", "2.56", "3.36", "4.49", "5.49", "7.53", "10.56", "15.21", "22.59", "34.79", "55.97", "94.99", "172.42", "341.4", "760.46", "2007.63", "6956.47", "41321.43" };
@@ -49,12 +50,14 @@ namespace casino
             transform.BeginAnimation(TranslateTransform.XProperty, animation);
         }
         int kor, nehez, vege;
+        double tet;
         private double hattereltolas, csirkeeltolas, csirkelepeskoz, hatterlepeskoz;
 
         private void Jatek_Click(object sender, RoutedEventArgs e)
         {
             if (!(bet.Content.ToString() == "0 Ft"))
             {
+                tet = GetBetValue();
                 EgyenlegManager.Balance.Egyenleg -= GetBetValue();
                 egyenlegTB.Text = "Egyenleg: " + EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
                 switch (nehez)
@@ -101,9 +104,9 @@ namespace casino
         }
         private void cahsout_Click(object sender, RoutedEventArgs e)
         {
-            EgyenlegManager.Balance.Egyenleg += (int)(GetBetValue() * double.Parse(nehez == 0 ? easy[kor - 1] : hard[kor - 1], CultureInfo.InvariantCulture));
+            EgyenlegManager.Balance.Egyenleg += (int)(tet * double.Parse(nehez == 0 ? easy[kor - 1] : hard[kor - 1], CultureInfo.InvariantCulture));
             egyenlegTB.Text = "Egyenleg: " + EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
-            MessageBox.Show("Kifizetve: " + ((int)(GetBetValue() * double.Parse(nehez == 0 ? easy[kor - 1] : hard[kor - 1], CultureInfo.InvariantCulture))).ToString("N0") + " Ft");
+            MessageBox.Show("Kifizetve: " + ((int)(tet * double.Parse(nehez == 0 ? easy[kor - 1] : hard[kor - 1], CultureInfo.InvariantCulture))).ToString("N0") + " Ft");
             gameOver();
         }
         private void min_Click(object sender, RoutedEventArgs e)
@@ -231,11 +234,23 @@ namespace casino
         }
         private void alive(int aktualis)
         {
+            betFrissit();
             if (aktualis == halalmezo)
             {
                 MessageBox.Show("Meghaltál! A csirke a " + halalmezo + ". mezőn meghalt.");
                 gameOver();
                 nullazas();
+            }
+        }
+        private void betFrissit()
+        {
+            if (nehez == 0)
+            {
+                bet.Content = ((int)(tet * double.Parse(easy[kor - 1], CultureInfo.InvariantCulture))).ToString("N0") + " Ft";
+            }
+            else
+            {
+                bet.Content = ((int)(tet * double.Parse(easy[kor - 1], CultureInfo.InvariantCulture))).ToString("N0") + " Ft";
             }
         }
     }
