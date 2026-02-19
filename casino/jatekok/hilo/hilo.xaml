@@ -8,8 +8,441 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="hilo">
 
-    <Grid>
-        <Image Source="hilo.png"/>
-        <Button Content="Vissza" Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Click="Button_Click" />
-    </Grid>
+    <Page.Resources>
+
+        <!-- ===== KÉPES GOMB TEMPLATE (lekerekített, hover/press effekttel) ===== -->
+        <ControlTemplate x:Key="ImageButtonTemplate" TargetType="Button">
+            <Border x:Name="border"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="10">
+                <Border x:Name="overlay"
+                        CornerRadius="10"
+                        Background="Transparent">
+                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="overlay" Property="Background" Value="#33FFFFFF"/>
+                    <Setter TargetName="border" Property="BorderBrush" Value="#C9A84C"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="overlay" Property="Background" Value="#55000000"/>
+                    <Setter TargetName="border" Property="BorderBrush" Value="#F0D080"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="border" Property="Opacity" Value="0.35"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <!-- ===== TÉT GOMB STÍLUS (MIN, «, ‹, ›, », MAX) ===== -->
+        <Style x:Key="BetButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="65"/>
+            <Setter Property="Height" Value="65"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderBrush" Value="#7A5E22"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Template" Value="{StaticResource ImageButtonTemplate}"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" BlurRadius="8" ShadowDepth="3" Opacity="0.6"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ===== DEAL GOMB STÍLUS (kicsit kiemelve arannyal) ===== -->
+        <Style x:Key="DealButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="65"/>
+            <Setter Property="Margin" Value="10,5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderBrush" Value="#C9A84C"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Template" Value="{StaticResource ImageButtonTemplate}"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#C9A84C" BlurRadius="14" ShadowDepth="0" Opacity="0.45"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ===== REGENERATE GOMB STÍLUS (kör alakú) ===== -->
+        <ControlTemplate x:Key="CircleButtonTemplate" TargetType="Button">
+            <Border x:Name="border"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="32">
+                <Border x:Name="overlay" CornerRadius="32" Background="Transparent">
+                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="overlay" Property="Background" Value="#33FFFFFF"/>
+                    <Setter TargetName="border" Property="BorderBrush" Value="#C9A84C"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="overlay" Property="Background" Value="#55000000"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style x:Key="RegenerateButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="64"/>
+            <Setter Property="Height" Value="64"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderBrush" Value="#7A5E22"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Template" Value="{StaticResource CircleButtonTemplate}"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" BlurRadius="12" ShadowDepth="3" Opacity="0.7"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ===== VISSZA GOMB ===== -->
+        <ControlTemplate x:Key="VissszaTemplate" TargetType="Button">
+            <Border x:Name="border"
+                    CornerRadius="8"
+                    BorderThickness="1.5"
+                    BorderBrush="#7A5E22"
+                    Padding="14,0">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#CC000000" Offset="0"/>
+                        <GradientStop Color="#EE050505" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="◀  " Foreground="#C9A84C" FontSize="13" VerticalAlignment="Center"/>
+                    <ContentPresenter VerticalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="border" Property="BorderBrush" Value="#C9A84C"/>
+                    <Setter TargetName="border" Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#CC1a1500" Offset="0"/>
+                                <GradientStop Color="#EE0a0a00" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="border" Property="Opacity" Value="0.7"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style x:Key="VissszaStyle" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Foreground" Value="#C9A84C"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontFamily" Value="Georgia"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template" Value="{StaticResource VissszaTemplate}"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="3" Opacity="0.6"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ===== KISEBB / NAGYOBB ===== -->
+        <ControlTemplate x:Key="ActionButtonTemplate" TargetType="Button">
+            <Border x:Name="border"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="1.5"
+                    CornerRadius="10">
+                <Border x:Name="overlay" CornerRadius="10" Background="Transparent">
+                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="overlay" Property="Background" Value="#22FFFFFF"/>
+                    <Setter TargetName="border" Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="Black" BlurRadius="20" ShadowDepth="5" Opacity="0.7"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="overlay" Property="Background" Value="#44000000"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="border" Property="Opacity" Value="0.3"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style x:Key="LowerButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontFamily" Value="Georgia"/>
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#FFA0A0"/>
+            <Setter Property="BorderBrush" Value="#9e2d2d"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#BB6b1a1a" Offset="0"/>
+                        <GradientStop Color="#DD3d0f0f" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template" Value="{StaticResource ActionButtonTemplate}"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#6b1a1a" BlurRadius="14" ShadowDepth="4" Opacity="0.55"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="HigherButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontFamily" Value="Georgia"/>
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#80FFA8"/>
+            <Setter Property="BorderBrush" Value="#2d9e5a"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#BB1a6b3c" Offset="0"/>
+                        <GradientStop Color="#DD0f3d22" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template" Value="{StaticResource ActionButtonTemplate}"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#1a6b3c" BlurRadius="14" ShadowDepth="4" Opacity="0.55"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ===== TÉT KIJELZŐ LABEL ===== -->
+        <Style x:Key="BetLabelStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="#F0D080"/>
+            <Setter Property="FontFamily" Value="Georgia"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <!-- ===== INFOSÁV BORDER ===== -->
+        <Style x:Key="InfoBorderStyle" TargetType="Border">
+            <Setter Property="Background" Value="#AA000000"/>
+            <Setter Property="BorderBrush" Value="#7A5E22"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="12,5"/>
+        </Style>
+
+    </Page.Resources>
+
+    <Viewbox Stretch="Uniform">
+        <Grid Width="1280" Height="720">
+            <Grid.Background>
+                <ImageBrush ImageSource="/jatekok/hilo/hilo_bg.png"/>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="15*"/>
+            </Grid.RowDefinitions>
+
+            <!-- ===== FELSŐ SÁV ===== -->
+            <Button x:Name="vissza"
+                    Content="Vissza"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Margin="20,0,0,0"
+                    Style="{StaticResource VissszaStyle}"
+                    Click="vissza_Click"/>
+
+            <Border Style="{StaticResource InfoBorderStyle}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                <local:ido Foreground="#C9A84C" FontFamily="Georgia" FontSize="16"/>
+            </Border>
+
+            <Border Style="{StaticResource InfoBorderStyle}"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Margin="0,0,20,0">
+                <TextBlock x:Name="egyenlegTB" FontFamily="Georgia" FontSize="18">
+                    <Run Text="Egyenleg:  " Foreground="#7A5E22"/>
+                    <Run x:Name="egyenlegertek" Text="50 000 Ft" Foreground="#F0D080" FontWeight="Bold"/>
+                </TextBlock>
+            </Border>
+
+            <!-- ===== JÁTÉKTÉR ===== -->
+
+            <!-- Kártya -->
+            <Image x:Name="kartya"
+                   Grid.Row="1"
+                   Source="/jatekok/blackjack/cards/2C.png"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Width="200"
+                   Height="Auto"
+                   RenderOptions.BitmapScalingMode="HighQuality">
+                <Image.Effect>
+                    <DropShadowEffect Color="Black" BlurRadius="28" ShadowDepth="8" Opacity="0.85"/>
+                </Image.Effect>
+            </Image>
+
+            <!-- Regenerate gomb a kártya jobb felső sarka mellé -->
+            <Button x:Name="regenerate"
+                    Grid.Row="1"
+                    Style="{StaticResource RegenerateButtonStyle}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="696,57,0,0"
+                    Click="regenerate_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="/jatekok/hilo/rebet.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+
+            <!-- KISEBB gomb -->
+            <Button x:Name="lower"
+                    Grid.Row="1"
+                    Style="{StaticResource LowerButtonStyle}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Margin="0,0,420,0"
+                    Click="lower_Click">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="▼  " VerticalAlignment="Center" FontSize="15"/>
+                    <TextBlock Text="KISEBB" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <!-- NAGYOBB gomb -->
+            <Button x:Name="higher"
+                    Grid.Row="1"
+                    Style="{StaticResource HigherButtonStyle}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Margin="420,0,0,0"
+                    Click="higher_Click">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="NAGYOBB" VerticalAlignment="Center"/>
+                    <TextBlock Text="  ▲" VerticalAlignment="Center" FontSize="15"/>
+                </StackPanel>
+            </Button>
+
+            <!-- Tét kijelző a játéktér alján -->
+            <Border Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Margin="0,0,0,8"
+                    Background="#AA000000"
+                    BorderBrush="#7A5E22"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Padding="20,2">
+                    <Label x:Name="bet"
+                           Content="0 Ft"
+                           Style="{StaticResource BetLabelStyle}"
+                           Padding="0"/>
+            </Border>
+
+            <!-- ===== ALSÓ VEZÉRLŐ SÁV ===== -->
+            <Border Grid.Row="2"
+                    Margin="30,8"
+                    CornerRadius="14"
+                    BorderThickness="1">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#CC000000" Offset="0"/>
+                        <GradientStop Color="#EE050e09" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.BorderBrush>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="Transparent" Offset="0"/>
+                        <GradientStop Color="#7A5E22" Offset="0.2"/>
+                        <GradientStop Color="#C9A84C" Offset="0.5"/>
+                        <GradientStop Color="#7A5E22" Offset="0.8"/>
+                        <GradientStop Color="Transparent" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+
+                <StackPanel x:Name="tetkezelo"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+
+                    <Button x:Name="min" Style="{StaticResource RegenerateButtonStyle}" Click="min_Click">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/jatekok/hilo/min.png" Stretch="Uniform"/>
+                        </Button.Background>
+                    </Button>
+
+                    <Button x:Name="minusx" Style="{StaticResource RegenerateButtonStyle}" Click="minusx_Click">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/jatekok/hilo/minusx.png" Stretch="Uniform"/>
+                        </Button.Background>
+                    </Button>
+
+                    <Button x:Name="minus" Style="{StaticResource RegenerateButtonStyle}" Click="minus_Click">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/jatekok/hilo/minus.png" Stretch="Uniform"/>
+                        </Button.Background>
+                    </Button>
+
+                    <Button x:Name="deal"
+                            Style="{StaticResource DealButtonStyle}"
+                            VerticalAlignment="Center"
+                            ToolTip="Kiosztás"
+                            ToolTipService.Placement="Top"
+                            Click="deal_Click">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/jatekok/hilo/deal.png" Stretch="Uniform"/>
+                        </Button.Background>
+                    </Button>
+
+                    <Button x:Name="plus" Style="{StaticResource RegenerateButtonStyle}" Click="plus_Click">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/jatekok/hilo/plus.png" Stretch="Uniform"/>
+                        </Button.Background>
+                    </Button>
+
+                    <Button x:Name="plusx" Style="{StaticResource RegenerateButtonStyle}" Click="plusx_Click">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/jatekok/hilo/plusx.png" Stretch="Uniform"/>
+                        </Button.Background>
+                    </Button>
+
+                    <Button x:Name="max" Style="{StaticResource RegenerateButtonStyle}" Click="max_Click">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/jatekok/hilo/max.png" Stretch="Uniform"/>
+                        </Button.Background>
+                    </Button>
+
+                </StackPanel>
+            </Border>
+
+        </Grid>
+    </Viewbox>
 </Page>

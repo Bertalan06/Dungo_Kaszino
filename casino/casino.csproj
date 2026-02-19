@@ -262,5 +262,24 @@
   <ItemGroup>
     <Resource Include="jatekok\dice\dice_bg.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\hilo\min.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\hilo\max.png" />
+    <Resource Include="jatekok\hilo\minus.png" />
+    <Resource Include="jatekok\hilo\minusx.png" />
+    <Resource Include="jatekok\hilo\plus.png" />
+    <Resource Include="jatekok\hilo\plusx.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\hilo\hilo_bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\hilo\rebet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\hilo\deal.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
