@@ -250,7 +250,7 @@ namespace casino
             }
             else
             {
-                bet.Content = ((int)(tet * double.Parse(easy[kor - 1], CultureInfo.InvariantCulture))).ToString("N0") + " Ft";
+                bet.Content = ((int)(tet * double.Parse(hard[kor - 1], CultureInfo.InvariantCulture))).ToString("N0") + " Ft";
             }
         }
     }

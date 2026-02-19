@@ -137,13 +137,7 @@
 
         <!-- KEREK GOMB (+/- gombok) -->
         <ControlTemplate x:Key="roundBtn" TargetType="{x:Type Button}">
-            <Border x:Name="border" CornerRadius="90" BorderThickness="2" Width="44" Height="44">
-                <Border.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="Black"/>
-                        <GradientStop Color="White" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
+            <Border x:Name="border" CornerRadius="90" BorderThickness="2" Width="44" Height="44" Background="{TemplateBinding Background}">
                 <Border.BorderBrush>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                         <GradientStop Color="#5c6bc0" Offset="0"/>
