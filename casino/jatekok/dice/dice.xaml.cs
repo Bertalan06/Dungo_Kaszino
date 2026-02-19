@@ -46,9 +46,12 @@ namespace casino
         //előzményekhez hozzáadása
         private void BetSorHozzaad(string nev, string multiplier, string nyeremeny)
         {
-            
-            if (BetLista.Children.Count > 20)
-                BetLista.Children.RemoveAt(0);
+
+            while (BetLista.Children.Count > 40) // 20 pár = 40 elem
+            {
+                BetLista.Children.RemoveAt(BetLista.Children.Count - 1); // vonal
+                BetLista.Children.RemoveAt(BetLista.Children.Count - 1); // sor
+            }
 
             Grid sor = new Grid();
             sor.Margin = new Thickness(0, 6, 0, 6);
@@ -146,6 +149,7 @@ namespace casino
         Random rnd = new Random();
         private void Dobas(object sender, RoutedEventArgs e)
         {
+            
             int tet = int.Parse(FeltettOsszeg.Text);
             if (tet > EgyenlegManager.Balance.Egyenleg)
             {
@@ -160,10 +164,10 @@ namespace casino
 
             bool nyert = Irany ? dobas > szam : dobas < szam;
 
-            // Dobott szám megjelenítése
+            
             Dobottszam.Text = dobas.ToString();
 
-            // Szín: zöld ha nyert, piros ha veszített
+            
             Color nyertSzin = (Color)ColorConverter.ConvertFromString("#c8f040");
             Color veszitettSzin = (Color)ColorConverter.ConvertFromString("#e05555");
             var gradient = new LinearGradientBrush();
@@ -173,16 +177,17 @@ namespace casino
             gradient.GradientStops.Add(new GradientStop(nyert ? nyertSzin : veszitettSzin, 1));
             Dobottszam.Foreground = gradient;
 
-            // Nyeremény kiszámítása
+            
             double nyeremeny = nyert ? tet * szorzo : -tet;
 
-            // Előzmény hozzáadása
+            
             string nyeremenyStr = nyert  ? $"+{nyeremeny:F0} Ft" : $"-{tet:F0} Ft";
             
-            EgyenlegManager.Balance.Egyenleg += (int)nyeremeny; // Nyeremény hozzáadása az egyenleghez
+            EgyenlegManager.Balance.Egyenleg += (int)nyeremeny; 
             egyenlegTB.Text = "Egyenleg: " + EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
 
             BetSorHozzaad( "Játékos",  $"x{szorzo:F2}", nyeremenyStr);
+            
         }
                                 //szam =  slider értéke, irany = felette vagy alatta
         private double GetSzorzo(int szam, bool irany)
