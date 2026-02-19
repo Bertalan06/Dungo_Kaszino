@@ -36,7 +36,7 @@ namespace casino
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void vissza_Click(object sender, RoutedEventArgs e)
         {
             if (NavigationService.CanGoBack)
             {
@@ -403,6 +403,7 @@ namespace casino
             Dob.IsEnabled = true;
             Plusz.IsEnabled = true;
             Minusz.IsEnabled = true;
+            vissza.IsEnabled = true;
         }
         private void Letilt()
         {
@@ -417,6 +418,7 @@ namespace casino
             Dob.IsEnabled = false;
             Minusz.IsEnabled = false;
             Plusz.IsEnabled = false;
+            vissza.IsEnabled = false;
         }
     }
 }

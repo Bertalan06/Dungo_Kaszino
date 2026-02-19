@@ -22,9 +22,6 @@ namespace casino
     public class EgyenlegManager { public static EgyenlegManager Balance = new EgyenlegManager { Egyenleg = 50000 }; private decimal egyenleg; public decimal Egyenleg { get => egyenleg; set { egyenleg = value; OnEgyenlegChanged?.Invoke(this, EventArgs.Empty); } } public event EventHandler OnEgyenlegChanged; }
     public partial class home : Page
     {
-
-        public static decimal Egyenleg = 50000;
-
         public home()
         {
             InitializeComponent();
@@ -80,7 +77,7 @@ namespace casino
 
             if (kifizet.ShowDialog() == true)
             {
-                if (kifizet.KivettOsszeg > Egyenleg)
+                if (kifizet.KivettOsszeg > EgyenlegManager.Balance.Egyenleg)
                 {
                     MessageBox.Show("Nincs elég egyenleg a kifizetéshez!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;

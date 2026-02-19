@@ -259,5 +259,8 @@
   <ItemGroup>
     <Resource Include="jatekok\chicken\min.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\dice\dice_bg.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
