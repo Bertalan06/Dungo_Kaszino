@@ -27,6 +27,28 @@ namespace casino
             InitializeComponent();
             EgyenlegManager.Balance.OnEgyenlegChanged += (s, e) => FrissEgyenleg();
             FrissEgyenleg();
+            SizeChanged += Home_SizeChanged;
+        }
+        private void Home_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.NewSize.Width < 900)
+            {
+                jatekGrid.Columns = 2;
+                gombokPanel.Visibility = Visibility.Collapsed;
+                gombokPanel2.Visibility = Visibility.Visible;
+                egyenlegPanel2.Visibility = Visibility.Visible;
+                egyenlegPanel.Visibility = Visibility.Hidden;
+                masodikSor.Height = new GridLength(65);
+            }
+            else
+            {
+                jatekGrid.Columns = 3;
+                gombokPanel.Visibility = Visibility.Visible;
+                gombokPanel2.Visibility = Visibility.Collapsed;
+                egyenlegPanel2.Visibility = Visibility.Hidden;
+                egyenlegPanel.Visibility = Visibility.Visible;
+                masodikSor.Height = new GridLength(0);
+            }
         }
         private void blackjack_Click(object sender, RoutedEventArgs e)
         {
@@ -91,13 +113,23 @@ namespace casino
         public void FrissEgyenleg()
         {
             egyenlegertek.Text = $"{EgyenlegManager.Balance.Egyenleg:N0} Ft";
+            egyenlegertek2.Text = $"{EgyenlegManager.Balance.Egyenleg:N0} Ft";
 
             if (EgyenlegManager.Balance.Egyenleg <= 0)
+            {
                 egyenlegertek.Foreground = new SolidColorBrush(Colors.Red);
+                egyenlegertek2.Foreground = new SolidColorBrush(Colors.Red);
+            }
             else if (EgyenlegManager.Balance.Egyenleg <= 10000)
+            {
                 egyenlegertek.Foreground = new SolidColorBrush(Colors.Orange);
+                egyenlegertek2.Foreground = new SolidColorBrush(Colors.Orange);
+            }
             else
+            {
                 egyenlegertek.Foreground = new SolidColorBrush(Colors.Green);
+                egyenlegertek2.Foreground = new SolidColorBrush(Colors.Green);
+            }
         }
     }
 }

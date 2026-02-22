@@ -118,9 +118,6 @@ namespace casino
         //játék indítása
         private void start()
         {
-            eredmenyLabel.Background = null;
-            JatekosKartyakOsszge.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#80000000"));
-            OsztoKartyakOsszge.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#80000000"));
             int tet = GetBetValue();
             if (tet == 0) return;
             _lastBet = tet; // ← új
@@ -145,6 +142,9 @@ namespace casino
             int.TryParse(bet.Content.ToString().Replace(" Ft", ""), NumberStyles.AllowThousands, CultureInfo.CurrentCulture, out tet);
             if (tet !=0)
             {
+                eredmenyLabel.Background = null;
+                JatekosKartyakOsszge.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#80000000"));
+                OsztoKartyakOsszge.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#80000000"));
                 chip.Visibility = Visibility.Visible;
                 tetkezelo.Visibility = Visibility.Hidden;
                 vissza.Visibility = Visibility.Hidden;
