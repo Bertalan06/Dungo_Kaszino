@@ -56,19 +56,192 @@
 
         <!-- ===== DEAL GOMB STÍLUS (kicsit kiemelve arannyal) ===== -->
         <Style x:Key="DealButtonStyle" TargetType="Button">
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Height" Value="65"/>
-            <Setter Property="Margin" Value="10,5"/>
+            <Setter Property="Width" Value="64"/>
+            <Setter Property="Height" Value="48"/>
             <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="BorderBrush" Value="#C9A84C"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Template" Value="{StaticResource ImageButtonTemplate}"/>
-            <Setter Property="Effect">
+            <Setter Property="Template">
                 <Setter.Value>
-                    <DropShadowEffect Color="#C9A84C" BlurRadius="14" ShadowDepth="0" Opacity="0.45"/>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Border x:Name="OuterBorder"
+                     CornerRadius="6"
+                     Background="Transparent"
+                     BorderThickness="1">
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#FFD700" Offset="0"/>
+                                        <GradientStop Color="#8B6914" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
+                            </Border>
+
+                            <Border x:Name="InnerBorder"
+                     CornerRadius="5"
+                     Margin="1">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#5A3E0A" Offset="0"/>
+                                        <GradientStop Color="#2C1E04" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+
+                                <TextBlock x:Name="ButtonLabel"
+                                Text="{TemplateBinding Content}"
+                                FontSize="18"
+                                FontWeight="Bold"
+                                FontFamily="Georgia"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                                    <TextBlock.Foreground>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                <GradientStop Color="#FFE066" Offset="0"/>
+                                                <GradientStop Color="#B8860B" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </TextBlock.Foreground>
+                                    </TextBlock>
+                            </Border>
+
+                            <Border CornerRadius="5,5,0,0"
+                     Height="12"
+                     Margin="2,2,2,0"
+                     VerticalAlignment="Top">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#40FFFFFF" Offset="0"/>
+                                        <GradientStop Color="#00FFFFFF" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="InnerBorder" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#7A5510" Offset="0"/>
+                                            <GradientStop Color="#3D2A06" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="InnerBorder" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#1A0F02" Offset="0"/>
+                                            <GradientStop Color="#3A2808" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="InnerBorder" Property="Margin" Value="1,2,1,0"/>
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="InnerBorder" Property="Opacity" Value="0.4"/>
+                                <Setter TargetName="OuterBorder" Property="Opacity" Value="0.4"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <!-- tet gombok -->
+        <Style x:Key="TetButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Border x:Name="OuterBorder"
+              CornerRadius="90"
+              Background="Transparent"
+              BorderThickness="1">
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#FFD700" Offset="0"/>
+                                        <GradientStop Color="#8B6914" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
+                            </Border>
+
+                            <Border x:Name="InnerBorder"
+              CornerRadius="90"
+              Margin="1">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#5A3E0A" Offset="0"/>
+                                        <GradientStop Color="#2C1E04" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+
+                                <TextBlock x:Name="ButtonLabel"
+                         Text="{TemplateBinding Content}"
+                         FontSize="18"
+                         FontWeight="Bold"
+                         FontFamily="Georgia"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center">
+                                    <TextBlock.Foreground>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#FFE066" Offset="0"/>
+                                            <GradientStop Color="#B8860B" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </TextBlock.Foreground>
+                                </TextBlock>
+                            </Border>
+
+                            <Border CornerRadius="90"
+              Height="50"
+              Margin="2,2,2,0"
+              VerticalAlignment="Top">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#40FFFFFF" Offset="0"/>
+                                        <GradientStop Color="#00FFFFFF" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="InnerBorder" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#7A5510" Offset="0"/>
+                                            <GradientStop Color="#3D2A06" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="InnerBorder" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#1A0F02" Offset="0"/>
+                                            <GradientStop Color="#3A2808" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="InnerBorder" Property="Margin" Value="1,2,1,0"/>
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="InnerBorder" Property="Opacity" Value="0.4"/>
+                                <Setter TargetName="OuterBorder" Property="Opacity" Value="0.4"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
 
         <!-- ===== REGENERATE GOMB STÍLUS (kör alakú) ===== -->
         <ControlTemplate x:Key="CircleButtonTemplate" TargetType="Button">
@@ -266,7 +439,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="15*"/>
                 <RowDefinition Height="50*"/>
-                <RowDefinition Height="15*"/>
+                <RowDefinition Height="9*"/>
             </Grid.RowDefinitions>
 
             <!-- ===== FELSŐ SÁV ===== -->
@@ -288,9 +461,9 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Margin="0,0,20,0">
-                <TextBlock x:Name="egyenlegTB" FontFamily="Georgia" FontSize="18">
-                    <Run Text="Egyenleg:  " Foreground="#7A5E22"/>
-                    <Run x:Name="egyenlegertek" Text="50 000 Ft" Foreground="#F0D080" FontWeight="Bold"/>
+                <TextBlock x:Name="egyenlegTB" FontFamily="Georgia" FontSize="18" Foreground="#FF7A5E22">
+                    <Run Text="Egyenleg: " Foreground="#FF7A5E22"/>
+                    <Run x:Name="egyenlegertek" Text="50 000 Ft" Foreground="#FFF0D080" FontWeight="Bold"/>
                 </TextBlock>
             </Border>
 
@@ -323,34 +496,6 @@
                 </Button.Background>
             </Button>
 
-            <!-- KISEBB gomb -->
-            <Button x:Name="lower"
-                    Grid.Row="1"
-                    Style="{StaticResource LowerButtonStyle}"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Margin="0,0,420,0"
-                    Click="lower_Click">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="▼  " VerticalAlignment="Center" FontSize="15"/>
-                    <TextBlock Text="KISEBB" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
-
-            <!-- NAGYOBB gomb -->
-            <Button x:Name="higher"
-                    Grid.Row="1"
-                    Style="{StaticResource HigherButtonStyle}"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Margin="420,0,0,0"
-                    Click="higher_Click">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="NAGYOBB" VerticalAlignment="Center"/>
-                    <TextBlock Text="  ▲" VerticalAlignment="Center" FontSize="15"/>
-                </StackPanel>
-            </Button>
-
             <!-- Tét kijelző a játéktér alján -->
             <Border Grid.Row="1"
                     HorizontalAlignment="Center"
@@ -368,81 +513,39 @@
             </Border>
 
             <!-- ===== ALSÓ VEZÉRLŐ SÁV ===== -->
-            <Border Grid.Row="2"
-                    Margin="30,8"
-                    CornerRadius="14"
-                    BorderThickness="1">
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <GradientStop Color="#CC000000" Offset="0"/>
-                        <GradientStop Color="#EE050e09" Offset="1"/>
+            <StackPanel Grid.Row="2" Visibility="Visible">
+                <StackPanel.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,0">
+                        <GradientStop Color="#CC000000" Offset="1"/>
+                        <GradientStop Color="#EE050e09" Offset="0"/>
                     </LinearGradientBrush>
-                </Border.Background>
-                <Border.BorderBrush>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                        <GradientStop Color="Transparent" Offset="0"/>
-                        <GradientStop Color="#7A5E22" Offset="0.2"/>
-                        <GradientStop Color="#C9A84C" Offset="0.5"/>
-                        <GradientStop Color="#7A5E22" Offset="0.8"/>
-                        <GradientStop Color="Transparent" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.BorderBrush>
+                </StackPanel.Background>
 
-                <StackPanel x:Name="tetkezelo"
-                            Orientation="Horizontal"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center">
-
-                    <Button x:Name="min" Style="{StaticResource RegenerateButtonStyle}" Click="min_Click">
-                        <Button.Background>
-                            <ImageBrush ImageSource="/jatekok/hilo/min.png" Stretch="Uniform"/>
-                        </Button.Background>
-                    </Button>
-
-                    <Button x:Name="minusx" Style="{StaticResource RegenerateButtonStyle}" Click="minusx_Click">
-                        <Button.Background>
-                            <ImageBrush ImageSource="/jatekok/hilo/minusx.png" Stretch="Uniform"/>
-                        </Button.Background>
-                    </Button>
-
-                    <Button x:Name="minus" Style="{StaticResource RegenerateButtonStyle}" Click="minus_Click">
-                        <Button.Background>
-                            <ImageBrush ImageSource="/jatekok/hilo/minus.png" Stretch="Uniform"/>
-                        </Button.Background>
-                    </Button>
-
-                    <Button x:Name="deal"
-                            Style="{StaticResource DealButtonStyle}"
-                            VerticalAlignment="Center"
-                            ToolTip="Kiosztás"
-                            ToolTipService.Placement="Top"
-                            Click="deal_Click">
-                        <Button.Background>
-                            <ImageBrush ImageSource="/jatekok/hilo/deal.png" Stretch="Uniform"/>
-                        </Button.Background>
-                    </Button>
-
-                    <Button x:Name="plus" Style="{StaticResource RegenerateButtonStyle}" Click="plus_Click">
-                        <Button.Background>
-                            <ImageBrush ImageSource="/jatekok/hilo/plus.png" Stretch="Uniform"/>
-                        </Button.Background>
-                    </Button>
-
-                    <Button x:Name="plusx" Style="{StaticResource RegenerateButtonStyle}" Click="plusx_Click">
-                        <Button.Background>
-                            <ImageBrush ImageSource="/jatekok/hilo/plusx.png" Stretch="Uniform"/>
-                        </Button.Background>
-                    </Button>
-
-                    <Button x:Name="max" Style="{StaticResource RegenerateButtonStyle}" Click="max_Click">
-                        <Button.Background>
-                            <ImageBrush ImageSource="/jatekok/hilo/max.png" Stretch="Uniform"/>
-                        </Button.Background>
-                    </Button>
-
+                <StackPanel x:Name="tetkezelo" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible" Margin="0,10,0,0">
+                    <Button x:Name="min" Style="{StaticResource TetButtonStyle}" Content="MIN" Click="min_Click" Margin="5"/>
+                    <Button x:Name="minusx" Style="{StaticResource TetButtonStyle}" Content="«" Click="minusx_Click" Margin="5"/>
+                    <Button x:Name="minus" Style="{StaticResource TetButtonStyle}" Content="‹" Click="minus_Click" Margin="5"/>
+                    <Button x:Name="deal" Style="{StaticResource DealButtonStyle}" Content="DEAL" Click="deal_Click" Width="100" Margin="5"/>
+                    <Button x:Name="plus" Style="{StaticResource TetButtonStyle}" Content="›" Click="plus_Click" Margin="5"/>
+                    <Button x:Name="plusx" Style="{StaticResource TetButtonStyle}" Content="»" Click="plusx_Click" Margin="5"/>
+                    <Button x:Name="max" Style="{StaticResource TetButtonStyle}" Content="MAX" Click="max_Click" Margin="5"/>
                 </StackPanel>
-            </Border>
-
+                <StackPanel x:Name="kezelo" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0,10,0,0" VerticalAlignment="Center">
+                    <Button x:Name="lower" Style="{StaticResource LowerButtonStyle}" Click="dontes" Margin="0,0,20,0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="▼  " VerticalAlignment="Center" FontSize="15"/>
+                            <TextBlock Text="KISEBB" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="cashout" Style="{StaticResource DealButtonStyle}" Content="CASH OUT" Width="140" Margin="10" Click="cashout_Click"/>
+                    <Button x:Name="higher" Style="{StaticResource HigherButtonStyle}" Click="dontes" Margin="20,0,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="NAGYOBB" VerticalAlignment="Center"/>
+                            <TextBlock Text="  ▲" VerticalAlignment="Center" FontSize="15"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
         </Grid>
     </Viewbox>
 </Page>

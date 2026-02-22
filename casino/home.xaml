@@ -8,37 +8,314 @@
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="home">
 
-    <Grid Margin="35">
+    <Page.Resources>
+        <!-- Játék kártya gomb stílus -->
+        <Style x:Key="GameCardStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="CardBorder"
+                                CornerRadius="12"
+                                BorderThickness="1">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="#1E2A3A" Offset="0"/>
+                                    <GradientStop Color="#141E2B" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="#3A4A5A" Offset="0"/>
+                                    <GradientStop Color="#1A2A3A" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Játék képe -->
+                                <Border Grid.Row="0" CornerRadius="20" ClipToBounds="True" Height="200">
+                                    <ContentPresenter x:Name="ImagePresenter"/>
+                                </Border>
+
+                                <!-- Játék neve -->
+                                <TextBlock x:Name="GameName"
+                                           Grid.Row="1"
+                                           Text="{TemplateBinding Tag}"
+                                           FontSize="16"
+                                           FontWeight="Bold"
+                                           FontFamily="Georgia"
+                                           Foreground="White"
+                                           HorizontalAlignment="Center"
+                                           Margin="0,12,0,4"/>
+
+                                <!-- Játék gomb -->
+                                <Border Grid.Row="2"
+                                        Margin="20,4,20,16"
+                                        CornerRadius="6"
+                                        Height="36">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#C8960C" Offset="0"/>
+                                            <GradientStop Color="#8B6508" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <TextBlock Text="JÁTÉK"
+                                               FontSize="13"
+                                               FontWeight="Bold"
+                                               FontFamily="Georgia"
+                                               Foreground="White"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="CardBorder" Property="BorderBrush">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#FFD700" Offset="0"/>
+                                            <GradientStop Color="#8B6508" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="CardBorder" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#253545" Offset="0"/>
+                                            <GradientStop Color="#1A2535" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Fejléc gomb stílus -->
+        <Style x:Key="HeaderButtonStyle" TargetType="Button">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Width" Value="110"/>
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bg" CornerRadius="6" BorderThickness="1">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="#FFD700" Offset="0"/>
+                                    <GradientStop Color="#8B6508" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="#2A1F00" Offset="0"/>
+                                    <GradientStop Color="#1A1300" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <TextBlock Text="{TemplateBinding Content}"
+                                       FontSize="12"
+                                       FontWeight="Bold"
+                                       FontFamily="Georgia"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Foreground="#FFD700"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bg" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#3A2F00" Offset="0"/>
+                                            <GradientStop Color="#2A2000" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="#0A0F18" Offset="0"/>
+                <GradientStop Color="#0D1520" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- FEJLÉC -->
+        <Border Grid.Row="0" BorderThickness="0,0,0,1" MinHeight="80">
+    <Border.BorderBrush>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Color="Transparent" Offset="0"/>
+            <GradientStop Color="#FFD700" Offset="0.5"/>
+            <GradientStop Color="Transparent" Offset="1"/>
+        </LinearGradientBrush>
+    </Border.BorderBrush>
+    <Border.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#0F1A28" Offset="0"/>
+            <GradientStop Color="#0A1220" Offset="1"/>
+        </LinearGradientBrush>
+    </Border.Background>
+
+    <Grid x:Name="fejlecGrid" Margin="40,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition x:Name="masodikSor" Height="0"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="blackjack" Content="Játék!" Grid.Row="2" Grid.Column="0" Margin="53,0,53,0" Width="120" Click="blackjack_Click"/>
-        <Button x:Name="chickenroad" Content="Játék!" Grid.Row="2" Grid.Column="1" Margin="53,0,53,0" Width="120" Click="chickenroad_Click"/>
-        <Button x:Name="dice" Content="Játék!" Grid.Row="2" Grid.Column="2" Margin="53,0,53,0" Width="120" Click="dice_Click"/>
-        <Button x:Name="hilo" Content="Játék!" Grid.Row="4" Grid.Column="0" Margin="53,0,53,0" Width="120" Click="hilo_Click"/>
-        <Button x:Name="lezeus" Content="Játék!" Grid.Row="4" Grid.Column="1" Margin="53,0,53,0" Width="120" Click="lezeus_Click"/>
-        <Button x:Name="mines" Content="Játék!" Grid.Row="4" Grid.Column="2" Margin="53,0,53,0" Width="120" Click="mines_Click"/>
-        <Image Grid.Row="1" Grid.Column="0" Source="jatekok/blackjack/blackjack.png" Height="120" Width="200"/>
-        <Image Grid.Row="1" Grid.Column="1" Source="/chicken.png" Height="120" Width="200"/>
-        <Image Grid.Row="1" Grid.Column="2" Source="jatekok/dice/dice.png" Height="120" Width="200"/>
-        <Image Grid.Row="3" Grid.Column="0" Source="jatekok/hilo/hilo.png" Height="120" Width="200"/>
-        <Image Grid.Row="3" Grid.Column="1" Source="jatekok/lezeus/lezeus.png" Height="120" Width="200"/>
-        <Image Grid.Row="3" Grid.Column="2" Source="jatekok/mines/mines.png" Height="120" Width="200"/>
-        <TextBlock x:Name="egyenlegTB" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="Black" FontSize="14">
-            <Run Text="Egyenleg: " Foreground="Black"/>
-            <Run x:Name="egyenlegertek" Text="50 000 Ft" Foreground="Black"/>
-        </TextBlock>
-        <Button x:Name="feltoltes" Grid.Column="2" Content="Feltöltés" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="60" Height="25" Click="feltoltes_Click"/>
-        <Button x:Name="kifizetes" Grid.Column="2" Content="Kifizetés" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center" Width="60" Height="25" Click="kifizetes_Click"/>
-        <local:ido Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <!-- Egyenleg bal oldalon -->
+        <StackPanel x:Name="egyenlegPanel" Grid.Row="0" Grid.Column="0"
+                    Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock Text="Egyenleg:" FontSize="14" Foreground="#888"
+                       FontFamily="Georgia" VerticalAlignment="Center" Margin="0,0,8,0"/>
+            <TextBlock x:Name="egyenlegTB" FontSize="18" FontWeight="Bold"
+                       FontFamily="Georgia" VerticalAlignment="Center">
+                <Run x:Name="egyenlegertek" Text="50 000 Ft" Foreground="#00C853"/>
+            </TextBlock>
+        </StackPanel>
+
+        <!-- Cím középen -->
+        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="♠ DUNGÓ CASINO ♠"
+                       FontSize="26" FontWeight="Bold" FontFamily="Georgia"
+                       HorizontalAlignment="Center">
+                <TextBlock.Foreground>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#FFE066" Offset="0"/>
+                        <GradientStop Color="#B8860B" Offset="1"/>
+                    </LinearGradientBrush>
+                </TextBlock.Foreground>
+            </TextBlock>
+            <local:ido HorizontalAlignment="Center"/>
+        </StackPanel>
+
+        <!-- Gombok jobb oldalon (nagy képernyő) -->
+        <StackPanel x:Name="gombokPanel" Grid.Row="0" Grid.Column="2"
+                    Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Button x:Name="feltoltes" Content="Feltöltés"
+                    Style="{StaticResource HeaderButtonStyle}"
+                    Margin="0,0,10,0" Click="feltoltes_Click"/>
+            <Button x:Name="kifizetes" Content="Kifizetés"
+                    Style="{StaticResource HeaderButtonStyle}"
+                    Click="kifizetes_Click"/>
+        </StackPanel>
+
+                <!-- Gombok második sorban (kis képernyő) -->
+                <Grid x:Name="gombokPanel2" Grid.Row="1" Grid.Column="0"
+      Grid.ColumnSpan="3" Margin="0,8,0,10"
+      Visibility="Collapsed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Egyenleg bal oldalon -->
+                    <StackPanel x:Name="egyenlegPanel2" Grid.Column="0"
+                Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="Egyenleg:" FontSize="14" Foreground="#888"
+                   FontFamily="Georgia" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBlock x:Name="egyenlegTB2" FontSize="18" FontWeight="Bold"
+                   FontFamily="Georgia" VerticalAlignment="Center">
+            <Run x:Name="egyenlegertek2" Text="50 000 Ft" Foreground="#00C853"/>
+                        </TextBlock>
+                    </StackPanel>
+
+                    <!-- Gombok jobb oldalon -->
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <Button x:Name="feltoltes2" Content="Feltöltés"
+                Style="{StaticResource HeaderButtonStyle}"
+                Margin="0,0,10,0" Click="feltoltes_Click"/>
+                        <Button x:Name="kifizetes2" Content="Kifizetés"
+                Style="{StaticResource HeaderButtonStyle}"
+                Click="kifizetes_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+</Border>
+
+        <!-- JÁTÉKOK RÁCS -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Szekció cím -->
+                <TextBlock Text="Játékok"
+                           FontSize="26"
+                           FontFamily="Georgia"
+                           Foreground="#555"
+                           Margin="60,30,0,20"/>
+
+                <UniformGrid x:Name="jatekGrid" Columns="3" Margin="30,0,30,40">
+
+                    <!-- Kártyák -->
+
+                    <Button x:Name="blackjack" Tag="Blackjack"
+                            Style="{StaticResource GameCardStyle}"
+                            Height="280" Margin="15"
+                            Click="blackjack_Click">
+                        <Image Source="jatekok/blackjack/blackjack.png" Stretch="UniformToFill"/>
+                    </Button>
+
+                    <Button x:Name="chickenroad" Tag="Chicken Road"
+                            Style="{StaticResource GameCardStyle}"
+                            Height="280" Margin="15"
+                            Click="chickenroad_Click">
+                        <Image Source="/chicken.png" Stretch="UniformToFill"/>
+                    </Button>
+
+                    <Button x:Name="dice" Tag="Dice"
+                            Style="{StaticResource GameCardStyle}"
+                            Height="280" Margin="15"
+                            Click="dice_Click">
+                        <Image Source="jatekok/dice/dice.png" Stretch="UniformToFill"/>
+                    </Button>
+
+                    <Button x:Name="hilo" Tag="Hi-Lo"
+                            Style="{StaticResource GameCardStyle}"
+                            Height="280" Margin="15"
+                            Click="hilo_Click">
+                        <Image Source="jatekok/hilo/hilo.png" Stretch="UniformToFill"/>
+                    </Button>
+
+                    <Button x:Name="lezeus" Tag="Le Zeus"
+                            Style="{StaticResource GameCardStyle}"
+                            Height="280" Margin="15"
+                            Click="lezeus_Click">
+                        <Image Source="jatekok/lezeus/lezeus.png" Stretch="UniformToFill"/>
+                    </Button>
+
+                    <Button x:Name="mines" Tag="Mines"
+                            Style="{StaticResource GameCardStyle}"
+                            Height="280" Margin="15"
+                            Click="mines_Click">
+                        <Image Source="jatekok/mines/mines.png" Stretch="UniformToFill"/>
+                    </Button>
+                </UniformGrid>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
