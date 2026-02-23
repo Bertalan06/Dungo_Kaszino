@@ -174,7 +174,6 @@
     <Resource Include="jatekok\chicken\chicken.png" />
     <Resource Include="jatekok\dice\dice.png" />
     <Resource Include="jatekok\hilo\hilo.png" />
-    <Resource Include="jatekok\lezeus\lezeus.png" />
     <Resource Include="jatekok\mines\mines.png" />
   </ItemGroup>
   <ItemGroup>
@@ -280,6 +279,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="jatekok\hilo\deal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\lezeus\lezeus.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

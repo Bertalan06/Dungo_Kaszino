@@ -19,7 +19,8 @@
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="CardBorder"
                                 CornerRadius="12"
-                                BorderThickness="1">
+                                BorderThickness="1"
+                                ClipToBounds="True">
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                     <GradientStop Color="#1E2A3A" Offset="0"/>
@@ -34,19 +35,13 @@
                             </Border.BorderBrush>
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
-                                <!-- Játék képe -->
-                                <Border Grid.Row="0" CornerRadius="20" ClipToBounds="True" Height="200">
-                                    <ContentPresenter x:Name="ImagePresenter"/>
-                                </Border>
-
                                 <!-- Játék neve -->
-                                <TextBlock x:Name="GameName"
-                                           Grid.Row="1"
+                                <TextBlock Grid.Row="0"
                                            Text="{TemplateBinding Tag}"
                                            FontSize="16"
                                            FontWeight="Bold"
@@ -54,6 +49,14 @@
                                            Foreground="White"
                                            HorizontalAlignment="Center"
                                            Margin="0,12,0,4"/>
+                                
+                                <!-- Játék képe -->
+                                <Image Grid.Row="1"
+                                       Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}"
+                                       Stretch="Uniform"
+                                       MaxHeight="200"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Top"/>
 
                                 <!-- Játék gomb -->
                                 <Border Grid.Row="2"
@@ -164,105 +167,98 @@
 
         <!-- FEJLÉC -->
         <Border Grid.Row="0" BorderThickness="0,0,0,1" MinHeight="80">
-    <Border.BorderBrush>
-        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-            <GradientStop Color="Transparent" Offset="0"/>
-            <GradientStop Color="#FFD700" Offset="0.5"/>
-            <GradientStop Color="Transparent" Offset="1"/>
-        </LinearGradientBrush>
-    </Border.BorderBrush>
-    <Border.Background>
-        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Color="#0F1A28" Offset="0"/>
-            <GradientStop Color="#0A1220" Offset="1"/>
-        </LinearGradientBrush>
-    </Border.Background>
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="Transparent" Offset="0"/>
+                    <GradientStop Color="#FFD700" Offset="0.5"/>
+                    <GradientStop Color="Transparent" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#0F1A28" Offset="0"/>
+                    <GradientStop Color="#0A1220" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
 
-    <Grid x:Name="fejlecGrid" Margin="40,0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition x:Name="masodikSor" Height="0"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+            <Grid x:Name="fejlecGrid" Margin="40,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition x:Name="masodikSor" Height="0"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-        <!-- Egyenleg bal oldalon -->
-        <StackPanel x:Name="egyenlegPanel" Grid.Row="0" Grid.Column="0"
-                    Orientation="Horizontal" VerticalAlignment="Center">
-            <TextBlock Text="Egyenleg:" FontSize="14" Foreground="#888"
-                       FontFamily="Georgia" VerticalAlignment="Center" Margin="0,0,8,0"/>
-            <TextBlock x:Name="egyenlegTB" FontSize="18" FontWeight="Bold"
-                       FontFamily="Georgia" VerticalAlignment="Center">
-                <Run x:Name="egyenlegertek" Text="50 000 Ft" Foreground="#00C853"/>
-            </TextBlock>
-        </StackPanel>
+                <StackPanel x:Name="egyenlegPanel" Grid.Row="0" Grid.Column="0"
+                            Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="Egyenleg:" FontSize="14" Foreground="#888"
+                               FontFamily="Georgia" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <TextBlock x:Name="egyenlegTB" FontSize="18" FontWeight="Bold"
+                               FontFamily="Georgia" VerticalAlignment="Center">
+                        <Run x:Name="egyenlegertek" Text="50 000 Ft" Foreground="#00C853"/>
+                    </TextBlock>
+                </StackPanel>
 
-        <!-- Cím középen -->
-        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="♠ DUNGÓ CASINO ♠"
-                       FontSize="26" FontWeight="Bold" FontFamily="Georgia"
-                       HorizontalAlignment="Center">
-                <TextBlock.Foreground>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <GradientStop Color="#FFE066" Offset="0"/>
-                        <GradientStop Color="#B8860B" Offset="1"/>
-                    </LinearGradientBrush>
-                </TextBlock.Foreground>
-            </TextBlock>
-            <local:ido HorizontalAlignment="Center"/>
-        </StackPanel>
+                <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="♠ DUNGÓ CASINO ♠"
+                               FontSize="26" FontWeight="Bold" FontFamily="Georgia"
+                               HorizontalAlignment="Center">
+                        <TextBlock.Foreground>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#FFE066" Offset="0"/>
+                                <GradientStop Color="#B8860B" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                    <local:ido HorizontalAlignment="Center"/>
+                </StackPanel>
 
-        <!-- Gombok jobb oldalon (nagy képernyő) -->
-        <StackPanel x:Name="gombokPanel" Grid.Row="0" Grid.Column="2"
-                    Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-            <Button x:Name="feltoltes" Content="Feltöltés"
-                    Style="{StaticResource HeaderButtonStyle}"
-                    Margin="0,0,10,0" Click="feltoltes_Click"/>
-            <Button x:Name="kifizetes" Content="Kifizetés"
-                    Style="{StaticResource HeaderButtonStyle}"
-                    Click="kifizetes_Click"/>
-        </StackPanel>
+                <StackPanel x:Name="gombokPanel" Grid.Row="0" Grid.Column="2"
+                            Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button x:Name="feltoltes" Content="Feltöltés"
+                            Style="{StaticResource HeaderButtonStyle}"
+                            Margin="0,0,10,0" Click="feltoltes_Click"/>
+                    <Button x:Name="kifizetes" Content="Kifizetés"
+                            Style="{StaticResource HeaderButtonStyle}"
+                            Click="kifizetes_Click"/>
+                </StackPanel>
 
-                <!-- Gombok második sorban (kis képernyő) -->
                 <Grid x:Name="gombokPanel2" Grid.Row="1" Grid.Column="0"
-      Grid.ColumnSpan="3" Margin="0,8,0,10"
-      Visibility="Collapsed">
+                      Grid.ColumnSpan="3" Margin="0,8,0,10"
+                      Visibility="Collapsed">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- Egyenleg bal oldalon -->
                     <StackPanel x:Name="egyenlegPanel2" Grid.Column="0"
-                Orientation="Horizontal" VerticalAlignment="Center">
+                                Orientation="Horizontal" VerticalAlignment="Center">
                         <TextBlock Text="Egyenleg:" FontSize="14" Foreground="#888"
-                   FontFamily="Georgia" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                   FontFamily="Georgia" VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBlock x:Name="egyenlegTB2" FontSize="18" FontWeight="Bold"
-                   FontFamily="Georgia" VerticalAlignment="Center">
-            <Run x:Name="egyenlegertek2" Text="50 000 Ft" Foreground="#00C853"/>
+                                   FontFamily="Georgia" VerticalAlignment="Center">
+                            <Run x:Name="egyenlegertek2" Text="50 000 Ft" Foreground="#00C853"/>
                         </TextBlock>
                     </StackPanel>
 
-                    <!-- Gombok jobb oldalon -->
                     <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                         <Button x:Name="feltoltes2" Content="Feltöltés"
-                Style="{StaticResource HeaderButtonStyle}"
-                Margin="0,0,10,0" Click="feltoltes_Click"/>
+                                Style="{StaticResource HeaderButtonStyle}"
+                                Margin="0,0,10,0" Click="feltoltes_Click"/>
                         <Button x:Name="kifizetes2" Content="Kifizetés"
-                Style="{StaticResource HeaderButtonStyle}"
-                Click="kifizetes_Click"/>
+                                Style="{StaticResource HeaderButtonStyle}"
+                                Click="kifizetes_Click"/>
                     </StackPanel>
                 </Grid>
             </Grid>
-</Border>
+        </Border>
 
         <!-- JÁTÉKOK RÁCS -->
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <StackPanel>
-                <!-- Szekció cím -->
                 <TextBlock Text="Játékok"
                            FontSize="26"
                            FontFamily="Georgia"
@@ -271,49 +267,42 @@
 
                 <UniformGrid x:Name="jatekGrid" Columns="3" Margin="30,0,30,40">
 
-                    <!-- Kártyák -->
-
                     <Button x:Name="blackjack" Tag="Blackjack"
+                            Content="jatekok/blackjack/blackjack.png"
                             Style="{StaticResource GameCardStyle}"
                             Height="280" Margin="15"
-                            Click="blackjack_Click">
-                        <Image Source="jatekok/blackjack/blackjack.png" Stretch="UniformToFill"/>
-                    </Button>
+                            Click="blackjack_Click"/>
 
                     <Button x:Name="chickenroad" Tag="Chicken Road"
+                            Content="/chicken.png"
                             Style="{StaticResource GameCardStyle}"
                             Height="280" Margin="15"
-                            Click="chickenroad_Click">
-                        <Image Source="/chicken.png" Stretch="UniformToFill"/>
-                    </Button>
+                            Click="chickenroad_Click"/>
 
                     <Button x:Name="dice" Tag="Dice"
+                            Content="jatekok/dice/dice.png"
                             Style="{StaticResource GameCardStyle}"
                             Height="280" Margin="15"
-                            Click="dice_Click">
-                        <Image Source="jatekok/dice/dice.png" Stretch="UniformToFill"/>
-                    </Button>
+                            Click="dice_Click"/>
 
                     <Button x:Name="hilo" Tag="Hi-Lo"
+                            Content="jatekok/hilo/hilo.png"
                             Style="{StaticResource GameCardStyle}"
                             Height="280" Margin="15"
-                            Click="hilo_Click">
-                        <Image Source="jatekok/hilo/hilo.png" Stretch="UniformToFill"/>
-                    </Button>
+                            Click="hilo_Click"/>
 
                     <Button x:Name="lezeus" Tag="Le Zeus"
+                            Content="jatekok/lezeus/lezeus.png"
                             Style="{StaticResource GameCardStyle}"
                             Height="280" Margin="15"
-                            Click="lezeus_Click">
-                        <Image Source="jatekok/lezeus/lezeus.png" Stretch="UniformToFill"/>
-                    </Button>
+                            Click="lezeus_Click"/>
 
                     <Button x:Name="mines" Tag="Mines"
+                            Content="jatekok/mines/mines.png"
                             Style="{StaticResource GameCardStyle}"
                             Height="280" Margin="15"
-                            Click="mines_Click">
-                        <Image Source="jatekok/mines/mines.png" Stretch="UniformToFill"/>
-                    </Button>
+                            Click="mines_Click"/>
+
                 </UniformGrid>
             </StackPanel>
         </ScrollViewer>
