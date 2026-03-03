@@ -16,29 +16,50 @@ using System.Xml.Linq;
 
 namespace casino
 {
-    /// <summary>
-    /// Interaction logic for mines.xaml
-    /// </summary>
     public partial class mines : Page
     {
-        // ── Mezők ─────────────────────────────────────────────────────────
         private MinesGame _game;
-        private decimal _balance = 1000m;
         private const int GridSize = 5;
+        private int _currentMineCount = 1;
+        private const int MinMineCount = 1;
+        private const int MaxMineCount = 24;
 
-        // ── Konstruktor ───────────────────────────────────────────────────
         public mines()
         {
             InitializeComponent();
-            _game = new MinesGame(GridSize, 3);
+            _game = new MinesGame(GridSize, _currentMineCount);
             _game.CellRevealed += OnCellRevealed;
             _game.MultiplierUpdated += OnMultiplierUpdated;
             _game.GameStateChanged += OnGameStateChanged;
             BuildGrid();
             UpdateBalanceDisplay();
+            UpdateMineCountDisplay();
+            WinText.Text = "0 Ft";
         }
 
-        // ── Grid felépítése ───────────────────────────────────────────────
+        private void UpdateMineCountDisplay()
+        {
+            MineCountText.Text = _currentMineCount.ToString();
+        }
+
+        private void IncreaseMineCount_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentMineCount < MaxMineCount)
+            {
+                _currentMineCount++;
+                UpdateMineCountDisplay();
+            }
+        }
+
+        private void DecreaseMineCount_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentMineCount > MinMineCount)
+            {
+                _currentMineCount--;
+                UpdateMineCountDisplay();
+            }
+        }
+
         private void BuildGrid()
         {
             GameGrid.Children.Clear();
@@ -74,7 +95,6 @@ namespace casino
             return (Button)GameGrid.Children[row * GridSize + col];
         }
 
-        // ── Cella kattintás ───────────────────────────────────────────────
         private void CellButton_Click(object sender, RoutedEventArgs e)
         {
             var btn = (Button)sender;
@@ -82,21 +102,22 @@ namespace casino
             _game.Reveal(row, col);
         }
 
-        // ── Eseménykezelők ────────────────────────────────────────────────
         private void OnCellRevealed(int row, int col, bool isMine)
         {
             var btn = GetButton(row, col);
             if (isMine)
             {
                 btn.Content = "💣";
+                btn.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
                 btn.Background = new SolidColorBrush(Color.FromRgb(180, 30, 30));
-                btn.BorderBrush = new SolidColorBrush(Color.FromRgb(220, 50, 50));
+                btn.BorderBrush = new SolidColorBrush(Color.FromRgb(0, 0, 255));
             }
             else
             {
                 btn.Content = "💎";
+                btn.Foreground = new SolidColorBrush(Color.FromRgb(0, 100, 255));
                 btn.Background = new SolidColorBrush(Color.FromRgb(20, 100, 80));
-                btn.BorderBrush = new SolidColorBrush(Color.FromRgb(78, 204, 163));
+                btn.BorderBrush = new SolidColorBrush(Color.FromRgb(0, 0, 0));
             }
             btn.IsEnabled = false;
         }
@@ -104,7 +125,7 @@ namespace casino
         private void OnMultiplierUpdated(decimal multiplier)
         {
             MultiplierText.Text = $"{multiplier:F2}x";
-            WinText.Text = $"${_game.CurrentWin:F2}";
+            WinText.Text = $"{_game.CurrentWin:N0} Ft";
             CashoutButton.IsEnabled = true;
         }
 
@@ -123,9 +144,9 @@ namespace casino
                 SetGridEnabled(false);
                 CashoutButton.IsEnabled = false;
                 decimal win = _game.CurrentWin;
-                _balance += win;
+                EgyenlegManager.Balance.Egyenleg += win;
                 UpdateBalanceDisplay();
-                StatusText.Text = $"🎉 Nyertél! ${win:F2}";
+                StatusText.Text = $"🎉 Nyertél! {win:N0} Ft";
                 StatusText.Foreground = new SolidColorBrush(Color.FromRgb(78, 204, 163));
             }
             else if (state == GameState.Playing)
@@ -135,7 +156,6 @@ namespace casino
             }
         }
 
-        // ── Segédfüggvények ───────────────────────────────────────────────
         private void SetGridEnabled(bool enabled)
         {
             foreach (Button btn in GameGrid.Children)
@@ -149,21 +169,29 @@ namespace casino
         {
             for (int r = 0; r < GridSize; r++)
                 for (int c = 0; c < GridSize; c++)
-                    if (_game.IsMine(r, c) && _game.Board[r, c] != CellState.Mine)
+                    if (_game.IsMine(r, c))
                     {
                         var btn = GetButton(r, c);
                         btn.Content = "💣";
+                        btn.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
                         btn.Background = new SolidColorBrush(Color.FromRgb(100, 20, 20));
                         btn.BorderBrush = new SolidColorBrush(Color.FromRgb(150, 30, 30));
+                    }
+                    else if (!_game.IsMine(r, c) && _game.Board[r, c] == CellState.Hidden)
+                    {
+                        var btn = GetButton(r, c);
+                        btn.Content = "💎";
+                        btn.Foreground = new SolidColorBrush(Color.FromRgb(0, 100, 255));
+                        btn.Background = new SolidColorBrush(Color.FromRgb(20, 100, 80));
+                        btn.BorderBrush = new SolidColorBrush(Color.FromRgb(0, 0, 0));
                     }
         }
 
         private void UpdateBalanceDisplay()
         {
-            BalanceText.Text = $"${_balance:F2}";
+            BalanceText.Text = $"{EgyenlegManager.Balance.Egyenleg:N0} Ft";
         }
 
-        // ── Gomb eseménykezelők ───────────────────────────────────────────
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
             if (!decimal.TryParse(BetInput.Text, out decimal bet) || bet <= 0)
@@ -172,24 +200,24 @@ namespace casino
                 return;
             }
 
-            if (bet > _balance)
+            if (bet > EgyenlegManager.Balance.Egyenleg)
             {
                 MessageBox.Show("Nincs elég egyenleged!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            int mineCount = int.Parse(((ComboBoxItem)MineCountCombo.SelectedItem).Content.ToString());
-            _game.Configure(GridSize, mineCount);
+            _game.Configure(GridSize, _currentMineCount);
             _game.StartGame(bet);
 
-            _balance -= bet;
+            EgyenlegManager.Balance.Egyenleg -= bet;
             UpdateBalanceDisplay();
 
             BuildGrid();
             SetGridEnabled(true);
 
-            MultiplierText.Text = "1.00x";
-            WinText.Text = "$0.00";
+            MultiplierText.Text = $"{_game.CurrentMultiplier:F2}x";
+            WinText.Text = $"{_game.CurrentWin:F2}Ft";
+
             StartButton.Content = "🔄 Újrajáték";
             CashoutButton.IsEnabled = false;
         }
@@ -199,19 +227,14 @@ namespace casino
             try
             {
                 decimal win = _game.Cashout();
-                _balance += win;
+                EgyenlegManager.Balance.Egyenleg += win;
                 UpdateBalanceDisplay();
-                MessageBox.Show($"Kifizetve! Nyeremény: ${win:F2}", "Nyertél! 🎉", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Kifizetve! Nyeremény: {win:N0} Ft", "Nyertél! 🎉", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Hiba", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-        }
-
-        private void MineCountCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Üres, csak a XAML miatt kell
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -220,11 +243,9 @@ namespace casino
                 NavigationService.GoBack();
         }
 
-        // ── Enumok ────────────────────────────────────────────────────────
         public enum CellState { Hidden, Revealed, Mine, SafeHighlight }
         public enum GameState { Idle, Playing, Won, Lost }
 
-        // ── MinesGame osztály ─────────────────────────────────────────────
         public class MinesGame
         {
             public int GridSize { get; private set; }
@@ -262,7 +283,7 @@ namespace casino
                 if (bet <= 0) throw new ArgumentException("A tét pozitív szám kell legyen.");
                 Bet = bet;
                 RevealedCount = 0;
-                CurrentMultiplier = 1m;
+                CurrentMultiplier = CalculateMultiplier(0);
                 _minePositions.Clear();
                 for (int r = 0; r < GridSize; r++)
                     for (int c = 0; c < GridSize; c++)
@@ -313,16 +334,23 @@ namespace casino
             public decimal CalculateMultiplier(int revealed)
             {
                 if (revealed <= 0) return 1m;
+
                 decimal mult = 1m;
+
                 for (int i = 0; i < revealed; i++)
                 {
                     int remainingCells = TotalCells - i;
                     int remainingSafe = SafeCells - i;
                     decimal prob = (decimal)remainingSafe / remainingCells;
-                    mult *= (1m / prob) * 0.97m;
+
+                    // Az aknák száma befolyásolja a szorzót
+                    decimal mineInfluence = 1m + (MineCount * 0.2m);
+                    mult *= ((1m / prob) * 0.97m) * mineInfluence;
                 }
+
                 return Math.Round(mult, 2);
             }
+
 
             private void _revealAllMines()
             {

@@ -38,24 +38,30 @@
                 <!-- Tét -->
                 <StackPanel Grid.Column="0" Margin="5">
                     <TextBlock Text="Tét ($)" Foreground="#aaaaaa" FontSize="12" Margin="0,0,0,4"/>
-                    <TextBox x:Name="BetInput" Text="10" Background="#0f3460" Foreground="White"
-                             BorderThickness="0" Padding="8,6" FontSize="14"/>
+                    <TextBox x:Name="BetInput" Text="10" Background="#0f3460" Foreground="White" BorderThickness="0" Padding="8,6" FontSize="14"/>
                 </StackPanel>
-
+                
                 <!-- Akna szám -->
                 <StackPanel Grid.Column="1" Margin="5">
                     <TextBlock Text="Aknák száma" Foreground="#aaaaaa" FontSize="12" Margin="0,0,0,4"/>
-                    <ComboBox x:Name="MineCountCombo" Background="#0f3460" Foreground="White"
-                              BorderThickness="0" Padding="8,6" FontSize="14"
-                              SelectionChanged="MineCountCombo_SelectionChanged">
-                        <ComboBoxItem Content="1"/>
-                        <ComboBoxItem Content="3" IsSelected="True"/>
-                        <ComboBoxItem Content="5"/>
-                        <ComboBoxItem Content="10"/>
-                        <ComboBoxItem Content="15"/>
-                        <ComboBoxItem Content="20"/>
-                        <ComboBoxItem Content="24"/>
-                    </ComboBox>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="−" Click="DecreaseMineCount_Click"
+                                Background="#0f3460" Foreground="White" BorderThickness="1"
+                                BorderBrush="#30557d" Padding="8,6" FontSize="14" FontWeight="Bold"
+                                Width="35" Cursor="Hand"/>
+                        <TextBlock x:Name="MineCountText" Grid.Column="1" Text="3"
+                                   Foreground="White" FontSize="16" FontWeight="Bold"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Button Grid.Column="2" Content="+" Click="IncreaseMineCount_Click"
+                                Background="#0f3460" Foreground="White" BorderThickness="1"
+                                BorderBrush="#30557d" Padding="8,6" FontSize="14" FontWeight="Bold"
+                                Width="35" Cursor="Hand"/>
+                    </Grid>
                 </StackPanel>
 
                 <!-- Szorzó -->
@@ -68,8 +74,7 @@
                 <!-- Nyeremény -->
                 <StackPanel Grid.Column="3" Margin="5">
                     <TextBlock Text="Nyeremény" Foreground="#aaaaaa" FontSize="12" Margin="0,0,0,4"/>
-                    <TextBlock x:Name="WinText" Text="$0.00" Foreground="#4ecca3"
-                               FontSize="22" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="WinText" Text="0 Ft" Foreground="#4ecca3" FontSize="22" FontWeight="Bold" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <!-- Gombok -->
