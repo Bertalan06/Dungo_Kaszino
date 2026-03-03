@@ -7,12 +7,460 @@
         mc:Ignorable="d"
         MinHeight="480" MinWidth="704"
         Title="MainWindow" Height="720" Width="1280">
-    <Grid Margin="35">
-        <Frame x:Name="MainFrame"
-Grid.Row="0"
-Grid.Column="0"
-Grid.RowSpan="4"
-Grid.ColumnSpan="3"
-NavigationUIVisibility="Hidden"/>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/login_bg.png" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Fejléc sor -->
+        <Button x:Name="tovabb" Click="tovabb_Click" Grid.Row="0"
+                HorizontalAlignment="Left" Width="120" Height="35"
+                Content="tovabb" FontSize="20"/>
+        <Border Grid.Row="0" Width="400" CornerRadius="20" Margin="20">
+            <Border.Background>
+                <SolidColorBrush Color="Black" Opacity="0.6"/>
+            </Border.Background>
+            <StackPanel Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="♠ DUNGÓ CASINO ♠"
+                           FontSize="26" FontWeight="Bold" FontFamily="Georgia"
+                           HorizontalAlignment="Center">
+                    <TextBlock.Foreground>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#FFE066" Offset="0"/>
+                            <GradientStop Color="#B8860B" Offset="1"/>
+                        </LinearGradientBrush>
+                    </TextBlock.Foreground>
+                </TextBlock>
+                <local:ido HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
+        <!-- bejelentkezes -->
+        <Border x:Name="login" Grid.Row="1"
+        HorizontalAlignment="Center" VerticalAlignment="Center"
+        Width="400" Margin="20" CornerRadius="20">
+            <Border.Background>
+                <SolidColorBrush Color="#1A0A00" Opacity="0.92"/>
+            </Border.Background>
+            <Border.Effect>
+                <DropShadowEffect Color="#FFE066" BlurRadius="28" ShadowDepth="0" Opacity="0.18"/>
+            </Border.Effect>
+
+            <StackPanel Margin="36,30,36,30">
+
+                <!-- Cím -->
+                <TextBlock Text="✦ Bejelentkezés ✦"
+                   FontSize="24" FontWeight="Bold" FontFamily="Georgia"
+                   HorizontalAlignment="Center" Margin="0,0,0,6">
+                    <TextBlock.Foreground>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#FFE066" Offset="0"/>
+                            <GradientStop Color="#B8860B" Offset="1"/>
+                        </LinearGradientBrush>
+                    </TextBlock.Foreground>
+                </TextBlock>
+
+                <!-- Elválasztó vonal -->
+                <Rectangle Height="1" Margin="0,0,0,20">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                            <GradientStop Color="Transparent" Offset="0"/>
+                            <GradientStop Color="#B8860B" Offset="0.5"/>
+                            <GradientStop Color="Transparent" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <!-- Felhasználónév/Email -->
+                <TextBlock Text="Felhasználónév / E-mail" Foreground="#FFE066" FontSize="12" FontFamily="Georgia" Margin="2,0,0,4"/>
+                <Border BorderBrush="#B8860B" BorderThickness="1" CornerRadius="8" Margin="0,0,0,14">
+                    <TextBox x:Name="fnevemail" Height="36" FontSize="14" Padding="10,4"
+                     Background="#0D0500" Foreground="White" BorderThickness="0" CaretBrush="#FFE066">
+                        <TextBox.Template>
+                            <ControlTemplate TargetType="TextBox">
+                                <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                                    <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </TextBox.Template>
+                    </TextBox>
+                </Border>
+
+                <!-- Jelszó -->
+                <TextBlock Text="Jelszó" Foreground="#FFE066" FontSize="12" FontFamily="Georgia" Margin="2,0,0,4"/>
+                <Border BorderBrush="#B8860B" BorderThickness="1" CornerRadius="8" Margin="0,0,0,24">
+                    <PasswordBox x:Name="pbJelszo" Height="36" FontSize="14" Padding="10,4"
+                         Background="#0D0500" Foreground="White" BorderThickness="0">
+                        <PasswordBox.Template>
+                            <ControlTemplate TargetType="PasswordBox">
+                                <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                                    <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </PasswordBox.Template>
+                    </PasswordBox>
+                </Border>
+
+                <!-- Bejelentkezés gomb -->
+                <Button x:Name="btnBejelentkezes" Content="Bejelentkezés"
+                Height="44" FontSize="15" FontWeight="Bold"
+                FontFamily="Georgia" Cursor="Hand"
+                Click="btnBejelentkezes_Click" Margin="0,0,0,14">
+                    <Button.Foreground>
+                        <SolidColorBrush Color="#1A0A00"/>
+                    </Button.Foreground>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="10">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#FFE066" Offset="0"/>
+                                        <GradientStop Color="#B8860B" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Border.Effect>
+                                    <DropShadowEffect Color="#FFE066" BlurRadius="10" ShadowDepth="0" Opacity="0.4"/>
+                                </Border.Effect>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Opacity" Value="0.85"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Opacity" Value="0.7"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <!-- Elválasztó -->
+                <Rectangle Height="1" Margin="0,0,0,12">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                            <GradientStop Color="Transparent" Offset="0"/>
+                            <GradientStop Color="#B8860B" Offset="0.5"/>
+                            <GradientStop Color="Transparent" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <!-- Regisztráció link -->
+                <TextBlock HorizontalAlignment="Center" FontFamily="Georgia" FontSize="13">
+            <Run Foreground="#888888" Text="Még nincs fiókod? "/>
+            <Hyperlink x:Name="lnkRegisztracio" Foreground="#FFE066"
+                       Click="lnkRegisztracio_Click" TextDecorations="None">
+                Regisztrálj!
+            </Hyperlink>
+                </TextBlock>
+
+            </StackPanel>
+        </Border>
+
+        <!-- regisztracio -->
+        <Border x:Name="signup" Visibility="Collapsed" Grid.Row="1"
+        HorizontalAlignment="Center" VerticalAlignment="Center"
+        Width="400" Margin="20" MaxHeight="560"
+        CornerRadius="20">
+            <Border.Background>
+                <SolidColorBrush Color="#1A0A00" Opacity="0.92"/>
+            </Border.Background>
+            <Border.Effect>
+                <DropShadowEffect Color="#FFE066" BlurRadius="28" ShadowDepth="0" Opacity="0.18"/>
+            </Border.Effect>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" PreviewMouseWheel="signupScroll_PreviewMouseWheel">
+                <ScrollViewer.Resources>
+                    <Style TargetType="ScrollBar">
+                        <Setter Property="Width" Value="6"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ScrollBar">
+                                    <Grid Margin="0,8">
+                                        <Border Background="#2A1A00" CornerRadius="3"/>
+                                        <Track x:Name="PART_Track" IsDirectionReversed="True">
+                                            <Track.Thumb>
+                                                <Thumb>
+                                                    <Thumb.Template>
+                                                        <ControlTemplate TargetType="Thumb">
+                                                            <Border CornerRadius="3" Margin="1">
+                                                                <Border.Background>
+                                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                                        <GradientStop Color="#FFE066" Offset="0"/>
+                                                                        <GradientStop Color="#B8860B" Offset="1"/>
+                                                                    </LinearGradientBrush>
+                                                                </Border.Background>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Thumb.Template>
+                                                </Thumb>
+                                            </Track.Thumb>
+                                        </Track>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ScrollViewer.Resources>
+
+                <StackPanel Margin="36,30,36,30">
+
+                    <!-- Cím -->
+                    <TextBlock Text="✦ Regisztráció ✦"
+                       FontSize="24" FontWeight="Bold" FontFamily="Georgia"
+                       HorizontalAlignment="Center" Margin="0,0,0,6">
+                        <TextBlock.Foreground>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#FFE066" Offset="0"/>
+                                <GradientStop Color="#B8860B" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+
+                    <!-- Elválasztó vonal -->
+                    <Rectangle Height="1" Margin="0,0,0,20">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                <GradientStop Color="Transparent" Offset="0"/>
+                                <GradientStop Color="#B8860B" Offset="0.5"/>
+                                <GradientStop Color="Transparent" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <!-- Teljes név -->
+                    <TextBlock Text="Teljes név" Foreground="#FFE066" FontSize="12"
+                       FontFamily="Georgia" Margin="2,0,0,4"/>
+                    <Border BorderBrush="#B8860B" BorderThickness="1" CornerRadius="8" Margin="0,0,0,14">
+                        <TextBox x:Name="tnev" Height="36" FontSize="14" Padding="10,4"
+                         Background="#0D0500" Foreground="White"
+                         BorderThickness="0" CaretBrush="#FFE066">
+                            <TextBox.Resources>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="TextBox">
+                                                <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                                                    <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                    </Border>
+
+                    <!-- Email -->
+                    <TextBlock Text="E-mail cím" Foreground="#FFE066" FontSize="12"
+                       FontFamily="Georgia" Margin="2,0,0,4"/>
+                    <Border BorderBrush="#B8860B" BorderThickness="1" CornerRadius="8" Margin="0,0,0,14">
+                        <TextBox x:Name="email" Height="36" FontSize="14" Padding="10,4"
+                         Background="#0D0500" Foreground="White"
+                         BorderThickness="0" CaretBrush="#FFE066">
+                            <TextBox.Resources>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="TextBox">
+                                                <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                                                    <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                    </Border>
+
+                    <!-- Felhasználónév -->
+                    <TextBlock Text="Felhasználónév" Foreground="#FFE066" FontSize="12"
+                       FontFamily="Georgia" Margin="2,0,0,4"/>
+                    <Border BorderBrush="#B8860B" BorderThickness="1" CornerRadius="8" Margin="0,0,0,14">
+                        <TextBox x:Name="fnev" Height="36" FontSize="14" Padding="10,4"
+                         Background="#0D0500" Foreground="White"
+                         BorderThickness="0" CaretBrush="#FFE066">
+                            <TextBox.Resources>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="TextBox">
+                                                <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                                                    <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                    </Border>
+
+                    <!-- Telefonszam -->
+                    <TextBlock Text="Telefonszám" Foreground="#FFE066" FontSize="12"
+   FontFamily="Georgia" Margin="2,0,0,4"/>
+                    <Border BorderBrush="#B8860B" BorderThickness="1" CornerRadius="8" Margin="0,0,0,14">
+                        <TextBox x:Name="tszam" Height="36" FontSize="14" Padding="10,4"
+     Background="#0D0500" Foreground="White"
+     BorderThickness="0" CaretBrush="#FFE066">
+                            <TextBox.Resources>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="TextBox">
+                                                <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                                                    <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                    </Border>
+
+                    <!-- Jelszó -->
+                    <TextBlock Text="Jelszó" Foreground="#FFE066" FontSize="12"
+                       FontFamily="Georgia" Margin="2,0,0,4"/>
+                    <Border BorderBrush="#B8860B" BorderThickness="1" CornerRadius="8" Margin="0,0,0,14">
+                        <PasswordBox x:Name="psswrd" Height="36" FontSize="14" Padding="10,4"
+                             Background="#0D0500" Foreground="White" BorderThickness="0">
+                            <PasswordBox.Resources>
+                                <Style TargetType="PasswordBox">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="PasswordBox">
+                                                <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                                                    <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </PasswordBox.Resources>
+                        </PasswordBox>
+                    </Border>
+
+                    <!-- Jelszó újra -->
+                    <TextBlock Text="Jelszó újra" Foreground="#FFE066" FontSize="12"
+                       FontFamily="Georgia" Margin="2,0,0,4"/>
+                    <Border BorderBrush="#B8860B" BorderThickness="1" CornerRadius="8" Margin="0,0,0,14">
+                        <PasswordBox x:Name="psswrdUjra" Height="36" FontSize="14" Padding="10,4"
+                             Background="#0D0500" Foreground="White" BorderThickness="0">
+                            <PasswordBox.Resources>
+                                <Style TargetType="PasswordBox">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="PasswordBox">
+                                                <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                                                    <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </PasswordBox.Resources>
+                        </PasswordBox>
+                    </Border>
+
+                    <!-- Születési dátum -->
+                    <TextBlock Text="Születési dátum" Foreground="#FFE066" FontSize="12"
+                       FontFamily="Georgia" Margin="2,0,0,4"/>
+                    <Border BorderBrush="#B8860B" BorderThickness="1" CornerRadius="8" Margin="0,0,0,24">
+                        <DatePicker x:Name="szulDatum" Height="36" FontSize="14"
+                            Background="#0D0500" Foreground="White" 
+                            BorderThickness="0" Padding="6,4" IsHitTestVisible="True">
+                            <DatePicker.Resources>
+                                <Style TargetType="DatePickerTextBox">
+                                    <Setter Property="Background" Value="#0D0500"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="CaretBrush" Value="#FFE066"/>
+                                    <Setter Property="IsReadOnly" Value="True"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="DatePickerTextBox">
+                                                <Border Background="#0D0500" CornerRadius="8">
+                                                    <ScrollViewer x:Name="PART_ContentHost"
+                                          Margin="{TemplateBinding Padding}"
+                                          VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DatePicker.Resources>
+                        </DatePicker>
+                    </Border>
+
+                    <!-- Regisztráció gomb -->
+                    <Button x:Name="regisztracio"
+                    Content="Regisztráció"
+                    Height="44" FontSize="15" FontWeight="Bold"
+                    FontFamily="Georgia" Cursor="Hand"
+                    Click="regisztracio_Click" Margin="0,0,0,14">
+                        <Button.Foreground>
+                            <SolidColorBrush Color="#1A0A00"/>
+                        </Button.Foreground>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="10">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#FFE066" Offset="0"/>
+                                            <GradientStop Color="#B8860B" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="#FFE066" BlurRadius="10" ShadowDepth="0" Opacity="0.4"/>
+                                    </Border.Effect>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Opacity" Value="0.85"/>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter Property="Opacity" Value="0.7"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <!-- Elválasztó -->
+                    <Rectangle Height="1" Margin="0,0,0,12">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                <GradientStop Color="Transparent" Offset="0"/>
+                                <GradientStop Color="#B8860B" Offset="0.5"/>
+                                <GradientStop Color="Transparent" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <!-- Bejelentkezés link -->
+                    <TextBlock HorizontalAlignment="Center" FontFamily="Georgia" FontSize="13">
+                <Run Foreground="#888888" Text="Már van fiókod? "/>
+                <Hyperlink x:Name="lnkBejelentkezes" Foreground="#FFE066"
+                           Click="lnkBejelentkezes_Click"
+                           TextDecorations="None">
+                    Jelentkezz be!
+                </Hyperlink>
+                    </TextBlock>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Navigációs Frame -->
+        <Frame x:Name="MainFrame" Grid.Row="0" Grid.RowSpan="4"
+               NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
