@@ -99,6 +99,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Adatok.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -288,6 +289,7 @@
     <Resource Include="jatekok\hilo\deal.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="login_bg.png" />
     <Resource Include="jatekok\lezeus\lezeus.png" />
   </ItemGroup>
   <ItemGroup>
