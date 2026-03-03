@@ -131,5 +131,10 @@ namespace casino
                 egyenlegertek2.Foreground = new SolidColorBrush(Colors.Green);
             }
         }
+
+        private void profil_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new profile());
+        }
     }
 }

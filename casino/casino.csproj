@@ -138,8 +138,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="profile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="profile.xaml.cs">
+      <DependentUpon>profile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -175,7 +182,6 @@
     <Resource Include="jatekok\chicken\chicken.png" />
     <Resource Include="jatekok\dice\dice.png" />
     <Resource Include="jatekok\hilo\hilo.png" />
-    <Resource Include="jatekok\lezeus\lezeus.png" />
     <Resource Include="jatekok\mines\mines.png" />
   </ItemGroup>
   <ItemGroup>
@@ -284,6 +290,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="login_bg.png" />
+    <Resource Include="jatekok\lezeus\lezeus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
