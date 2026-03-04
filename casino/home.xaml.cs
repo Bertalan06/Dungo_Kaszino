@@ -19,7 +19,20 @@ namespace casino
     /// Interaction logic for home.xaml
     /// </summary>
 
-    public class EgyenlegManager { public static EgyenlegManager Balance = new EgyenlegManager { Egyenleg = 50000 }; private decimal egyenleg; public decimal Egyenleg { get => egyenleg; set { egyenleg = value; OnEgyenlegChanged?.Invoke(this, EventArgs.Empty); } } public event EventHandler OnEgyenlegChanged; }
+    public class EgyenlegManager { 
+        public static EgyenlegManager Balance = new EgyenlegManager { Egyenleg = 200000 }; 
+        public static EgyenlegManager Name = new EgyenlegManager { Nev = "" };
+        private string nev;
+        public string Nev
+        {
+            get => nev;
+            set => nev = value;
+        }
+
+        private decimal egyenleg; 
+        public decimal Egyenleg { get => egyenleg; set { egyenleg = value; OnEgyenlegChanged?.Invoke(this, EventArgs.Empty); } } 
+        public event EventHandler OnEgyenlegChanged; 
+    }
 public partial class home : Page
     {
         public home()
@@ -28,6 +41,8 @@ public partial class home : Page
             EgyenlegManager.Balance.OnEgyenlegChanged += (s, e) => FrissEgyenleg();
             FrissEgyenleg();
             SizeChanged += Home_SizeChanged;
+            nev.Text = EgyenlegManager.Name.Nev;
+            nev2.Text = EgyenlegManager.Name.Nev;
         }
         private void Home_SizeChanged(object sender, SizeChangedEventArgs e)
         {

@@ -147,11 +147,17 @@ namespace casino
         }
         //Játékmenet
         Random rnd = new Random();
+        int tet;
         private void Dobas(object sender, RoutedEventArgs e)
         {
-            
-            int tet = int.Parse(FeltettOsszeg.Text);
-            if (tet > EgyenlegManager.Balance.Egyenleg)
+            if (!int.TryParse(FeltettOsszeg.Text, out int parsedTet) || parsedTet <= 0)
+            {
+                FeltettOsszeg.Text = "100";
+                return;
+            }
+            tet = parsedTet;
+            FeltettOsszeg.Text = tet.ToString();
+            if (tet > EgyenlegManager.Balance.Egyenleg || EgyenlegManager.Balance.Egyenleg == 0)
             {
                 MessageBox.Show("Nincs elég egyenleged!");
                 return;
@@ -270,30 +276,52 @@ namespace casino
                 FeltettOsszeg.Text = Convert.ToString(int.Parse(FeltettOsszeg.Text) + 1);
             }
         }
+        private void FeltettOsszeg_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (!int.TryParse(FeltettOsszeg.Text, out int ertek) || ertek < 100)
+            {
+                FeltettOsszeg.Text = "100";
+            }
+        }
         private bool _frissites = false;
         private void FeltettOsszeg_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (_frissites) return;
-            if (!int.TryParse(FeltettOsszeg.Text, out int ertek)) return;
-
             _frissites = true;
 
-            if (string.IsNullOrEmpty(FeltettOsszeg.Text))
+            // Betűk eltávolítása
+            string csakSzamok = new string(FeltettOsszeg.Text.Where(char.IsDigit).ToArray());
+            if (csakSzamok != FeltettOsszeg.Text)
+            {
+                FeltettOsszeg.Text = csakSzamok;
+                FeltettOsszeg.CaretIndex = csakSzamok.Length;
+            }
+
+            // Ha üres vagy 0, állítsd 100-ra
+            if (string.IsNullOrEmpty(FeltettOsszeg.Text) || FeltettOsszeg.Text == "0")
             {
                 FeltettOsszeg.Text = "100";
+                FeltettOsszeg.CaretIndex = 3;
+                _frissites = false;
+                return;
             }
-            else if (ertek >= EgyenlegManager.Balance.Egyenleg)
+
+            if (!int.TryParse(FeltettOsszeg.Text, out int ertek))
+            {
+                _frissites = false;
+                return;
+            }
+
+            if (ertek >= EgyenlegManager.Balance.Egyenleg)
             {
                 FeltettOsszeg.Text = EgyenlegManager.Balance.Egyenleg.ToString();
             }
-            else if (ertek <= 0)
+
+            if (LehetFizet != null && int.TryParse(FeltettOsszeg.Text, out int tet))
             {
-                FeltettOsszeg.Text = FeltettOsszeg.Text.TrimStart('-');
-            }
-            
-            if (LehetFizet != null && int.TryParse(FeltettOsszeg.Text, out int tet)) { 
                 LehetFizet.Text = (tet * GetSzorzo((int)Slider.Value, Irany)).ToString("N0") + " Ft";
             }
+
             _frissites = false;
         }
         bool veg = false;

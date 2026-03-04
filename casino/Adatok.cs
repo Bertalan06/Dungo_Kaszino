@@ -16,6 +16,7 @@ namespace casino
         public string Telefonszam { get; set; }
         public string Jelszo { get; set; }
         public DateTime SzuletesiDatum { get; set; }
+        public decimal Egyenleg { get; set; }
         public Adatok(string sor)
         {
             string[] adatok = sor.Split(';');
@@ -32,6 +33,7 @@ namespace casino
             {
                 SzuletesiDatum = DateTime.Parse(adatok[5], new System.Globalization.CultureInfo("hu-HU"));
             }
+            Egyenleg = 0; 
         }
     }
 }

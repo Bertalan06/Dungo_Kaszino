@@ -20,12 +20,14 @@ namespace casino
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window 
     {
+        public static MainWindow Instance;
         List<Adatok> adatok = new List<Adatok>();
         public MainWindow()
         {
             InitializeComponent();
+            Instance = this;
             szulDatum.SelectedDate = DateTime.Now.AddYears(-18);
             szulDatum.DisplayDateEnd = DateTime.Now.AddYears(-18);
             if (File.Exists("adatok.txt"))
@@ -154,6 +156,8 @@ namespace casino
 
             if (found)
             {
+                EgyenlegManager.Balance.Egyenleg = adatok.Where(x=>(x.Email == fnevemail.Text || x.FelhasznaloNev == fnevemail.Text)).Select(x => x.Egyenleg).FirstOrDefault();
+                EgyenlegManager.Name.Nev = adatok.Where(x => (x.Email == fnevemail.Text || x.FelhasznaloNev == fnevemail.Text)).Select(x => x.FelhasznaloNev).FirstOrDefault();
                 MainFrame.Navigate(new home());
             }
             else
