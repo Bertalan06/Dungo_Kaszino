@@ -334,11 +334,11 @@
                             Height="280" Margin="15"
                             Click="hilo_Click"/>
 
-                    <Button x:Name="lezeus" Tag="Le Zeus"
-                            Content="jatekok/lezeus/lezeus.png"
+                    <Button x:Name="slot" Tag="Slot Machine"
+                            Content="jatekok/slot/slot.png"
                             Style="{StaticResource GameCardStyle}"
                             Height="280" Margin="15"
-                            Click="lezeus_Click"/>
+                            Click="slot_Click"/>
 
                     <Button x:Name="mines" Tag="Mines"
                             Content="jatekok/mines/mines.png"

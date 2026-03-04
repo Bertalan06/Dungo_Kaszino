@@ -74,7 +74,7 @@ namespace casino
                 Easy.IsEnabled = false;
                 Hard.IsEnabled = false;
                 nullazas();
-                halalSorsor(vege);
+                halalmezo = halalSorsor(vege);
                 csirkeeltolas += csirkelepeskoz;
                 Animate(csirkeTransform, csirkeeltolas);
                 jatek.Visibility = Visibility.Collapsed;
@@ -217,9 +217,33 @@ namespace casino
 
         private int halalSorsor(int max)
         {
-            halalmezo = _random.Next(1, max + 1);
-            return halalmezo;
+            double dobas = _random.NextDouble();
+            double tulelesiEsely;
+            if (max == 24)
+            {
+                tulelesiEsely = 0.001;
+            }
+            else
+            {
+                tulelesiEsely = 0.003;
+            }
+
+            if (dobas < tulelesiEsely)
+                return -1;
+            dobas -= tulelesiEsely;
+
+            for (int i = 1; i <= max; i++)
+            {
+                double valoszinuseg = (double)i / MezokOsszege(max) * (1.0 - tulelesiEsely);
+                if (dobas < valoszinuseg)
+                    return i;
+                dobas -= valoszinuseg;
+            }
+
+            return max;
         }
+
+        private int MezokOsszege(int n) => n * (n + 1) / 2;
         private void gameOver()
         {
             Animate(csirkeTransform, 0);

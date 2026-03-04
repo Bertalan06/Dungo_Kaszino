@@ -156,6 +156,7 @@ namespace casino
                 MessageBox.Show("Nincs elég egyenleged!");
                 return;
             }
+            EgyenlegManager.Balance.Egyenleg -= tet;
             int szam = (int)Slider.Value;
             double szorzo = GetSzorzo(szam, Irany);
 
@@ -178,12 +179,12 @@ namespace casino
             Dobottszam.Foreground = gradient;
 
             
-            double nyeremeny = nyert ? tet * szorzo : -tet;
+            double nyeremeny = nyert ? (tet * szorzo) : -tet;
 
             
             string nyeremenyStr = nyert  ? $"+{nyeremeny:F0} Ft" : $"-{tet:F0} Ft";
             
-            EgyenlegManager.Balance.Egyenleg += (int)nyeremeny; 
+            EgyenlegManager.Balance.Egyenleg += (int)Math.Round(nyeremeny,0); 
             egyenlegTB.Text = "Egyenleg: " + EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
 
             BetSorHozzaad( "Játékos",  $"x{szorzo:F2}", nyeremenyStr);

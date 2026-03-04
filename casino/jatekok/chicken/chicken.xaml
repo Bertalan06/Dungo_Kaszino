@@ -273,11 +273,11 @@
 
     </Page.Resources>
 
+            <Page.Background>
+                <SolidColorBrush Color="#1a1f3a"/>
+            </Page.Background>
     <Viewbox Stretch="Uniform">
         <Grid Width="1280" Height="720" Margin="20">
-            <Grid.Background>
-                <SolidColorBrush Color="#1a1f3a"/>
-            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="10*"/>
                 <RowDefinition Height="50*"/>

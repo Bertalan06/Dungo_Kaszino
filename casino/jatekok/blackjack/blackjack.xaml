@@ -58,10 +58,7 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </Page.Resources>
-    <Viewbox Stretch="Uniform">
-        <!-- Grid -->
-        <Grid Width="1280" Height="720">
-            <Grid.Background>
+            <Page.Background>
                 <ImageBrush ImageSource="bj_hatter.png" Stretch="UniformToFill">
                     <ImageBrush.RelativeTransform>
                         <TransformGroup>
@@ -72,7 +69,10 @@
                         </TransformGroup>
                     </ImageBrush.RelativeTransform>
                 </ImageBrush>
-            </Grid.Background>
+            </Page.Background>
+    <Viewbox Stretch="Uniform">
+        <!-- Grid -->
+        <Grid Width="1280" Height="720">
             <Grid.RowDefinitions>
                 <RowDefinition Height="90*"/>
                 <RowDefinition Height="108*"/>

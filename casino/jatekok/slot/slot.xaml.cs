@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace casino
 {
     /// <summary>
-    /// Interaction logic for lezeus.xaml
+    /// Interaction logic for slot.xaml
     /// </summary>
-    public partial class lezeus : Page
+    public partial class slot : Page
     {
-        public lezeus()
+        public slot()
         {
             InitializeComponent();
         }

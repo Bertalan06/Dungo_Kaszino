@@ -75,9 +75,7 @@
         </ControlTemplate>
     </Page.Resources>
 
-    <Viewbox Stretch="Uniform">
-        <Grid Width="1280" Height="720">
-            <Grid.Background>
+            <Page.Background>
                 <ImageBrush ImageSource="dice_bg.png" Stretch="UniformToFill">
                     <ImageBrush.RelativeTransform>
                         <TransformGroup>
@@ -88,7 +86,9 @@
                         </TransformGroup>
                     </ImageBrush.RelativeTransform>
                 </ImageBrush>
-            </Grid.Background>
+            </Page.Background>
+    <Viewbox Stretch="Uniform">
+        <Grid Width="1280" Height="720">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="7*"/>

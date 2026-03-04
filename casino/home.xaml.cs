@@ -20,7 +20,7 @@ namespace casino
     /// </summary>
 
     public class EgyenlegManager { public static EgyenlegManager Balance = new EgyenlegManager { Egyenleg = 50000 }; private decimal egyenleg; public decimal Egyenleg { get => egyenleg; set { egyenleg = value; OnEgyenlegChanged?.Invoke(this, EventArgs.Empty); } } public event EventHandler OnEgyenlegChanged; }
-    public partial class home : Page
+public partial class home : Page
     {
         public home()
         {
@@ -70,9 +70,9 @@ namespace casino
             NavigationService.Navigate(new hilo());
         }
 
-        private void lezeus_Click(object sender, RoutedEventArgs e)
+        private void slot_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new lezeus());
+            NavigationService.Navigate(new slot());
         }
 
         private void mines_Click(object sender, RoutedEventArgs e)

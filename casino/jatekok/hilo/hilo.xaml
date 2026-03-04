@@ -431,11 +431,11 @@
 
     </Page.Resources>
 
+            <Page.Background>
+                <ImageBrush ImageSource="/jatekok/hilo/hilo_bg.png"/>
+            </Page.Background>
     <Viewbox Stretch="Uniform">
         <Grid Width="1280" Height="720">
-            <Grid.Background>
-                <ImageBrush ImageSource="/jatekok/hilo/hilo_bg.png"/>
-            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="15*"/>
                 <RowDefinition Height="50*"/>

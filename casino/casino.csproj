@@ -83,7 +83,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="jatekok\lezeus\lezeus.xaml">
+    <Page Include="jatekok\slot\slot.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -125,8 +125,8 @@
     <Compile Include="jatekok\hilo\hilo.xaml.cs">
       <DependentUpon>hilo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="jatekok\lezeus\lezeus.xaml.cs">
-      <DependentUpon>lezeus.xaml</DependentUpon>
+    <Compile Include="jatekok\slot\slot.xaml.cs">
+      <DependentUpon>slot.xaml</DependentUpon>
     </Compile>
     <Compile Include="jatekok\mines\mines.xaml.cs">
       <DependentUpon>mines.xaml</DependentUpon>
@@ -290,7 +290,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="login_bg.png" />
-    <Resource Include="jatekok\lezeus\lezeus.png" />
+    <Resource Include="jatekok\slot\slot.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon.png" />
