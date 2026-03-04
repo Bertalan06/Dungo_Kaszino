@@ -38,7 +38,7 @@
                 <!-- Tét -->
                 <StackPanel Grid.Column="0" Margin="5">
                     <TextBlock Text="Tét ($)" Foreground="#aaaaaa" FontSize="12" Margin="0,0,0,4"/>
-                    <TextBox x:Name="BetInput" Text="10" Background="#0f3460" Foreground="White" BorderThickness="0" Padding="8,6" FontSize="14"/>
+                    <TextBox x:Name="BetInput" Text="10" Background="#0f3460" Foreground="White" BorderThickness="0" Padding="8,6" FontSize="14" TextChanged="BetInput_TextChanged"/>
                 </StackPanel>
                 
                 <!-- Akna szám -->
@@ -145,8 +145,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="Egyenleg:" Foreground="#aaaaaa" FontSize="13" VerticalAlignment="Center"/>
-                <TextBlock x:Name="BalanceText" Grid.Column="1" Text="$1000.00"
-                           Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                <TextBlock x:Name="BalanceText" Grid.Column="1" Text="" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
             </Grid>
         </Border>
     </Grid>

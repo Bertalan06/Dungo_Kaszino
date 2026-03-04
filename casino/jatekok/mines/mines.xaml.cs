@@ -169,22 +169,25 @@ namespace casino
         {
             for (int r = 0; r < GridSize; r++)
                 for (int c = 0; c < GridSize; c++)
+                {
+                    var btn = GetButton(r, c);
+
                     if (_game.IsMine(r, c))
                     {
-                        var btn = GetButton(r, c);
                         btn.Content = "💣";
                         btn.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
                         btn.Background = new SolidColorBrush(Color.FromRgb(100, 20, 20));
                         btn.BorderBrush = new SolidColorBrush(Color.FromRgb(150, 30, 30));
                     }
-                    else if (!_game.IsMine(r, c) && _game.Board[r, c] == CellState.Hidden)
+                    else
                     {
-                        var btn = GetButton(r, c);
                         btn.Content = "💎";
                         btn.Foreground = new SolidColorBrush(Color.FromRgb(0, 100, 255));
                         btn.Background = new SolidColorBrush(Color.FromRgb(20, 100, 80));
                         btn.BorderBrush = new SolidColorBrush(Color.FromRgb(0, 0, 0));
                     }
+                    btn.IsEnabled = false;
+                }
         }
 
         private void UpdateBalanceDisplay()
@@ -216,7 +219,9 @@ namespace casino
             SetGridEnabled(true);
 
             MultiplierText.Text = $"{_game.CurrentMultiplier:F2}x";
-            WinText.Text = $"{_game.CurrentWin:F2}Ft";
+            WinText.Text = $"{_game.CurrentWin:N0} Ft";
+
+            BetInput.Text = $"{bet:N0}";
 
             StartButton.Content = "🔄 Újrajáték";
             CashoutButton.IsEnabled = false;
@@ -243,6 +248,32 @@ namespace casino
                 NavigationService.GoBack();
         }
 
+        private bool _isUpdatingBetInput = false;
+
+        private void BetInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_isUpdatingBetInput) return;
+
+            var textBox = sender as TextBox;
+            string input = textBox.Text.Replace(" ", "").Replace(",", "");
+
+            if (decimal.TryParse(input, out decimal value))
+            {
+                _isUpdatingBetInput = true;
+                int cursorPos = textBox.SelectionStart;
+                textBox.Text = $"{value:N0}";
+                textBox.SelectionStart = Math.Min(cursorPos + 1, textBox.Text.Length);
+                _isUpdatingBetInput = false;
+            }
+            else if (input != "")
+            {
+                _isUpdatingBetInput = true;
+                textBox.Text = input.Substring(0, input.Length - 1);
+                textBox.SelectionStart = textBox.Text.Length;
+                _isUpdatingBetInput = false;
+            }
+        }
+
         public enum CellState { Hidden, Revealed, Mine, SafeHighlight }
         public enum GameState { Idle, Playing, Won, Lost }
 
@@ -255,6 +286,8 @@ namespace casino
             public int RevealedCount { get; private set; }
             public decimal Bet { get; private set; }
             public decimal CurrentMultiplier { get; private set; } = 1m;
+
+            public event Action GameCashedOut;
             public decimal CurrentWin => Bet * CurrentMultiplier;
 
             public event Action<int, int, bool> CellRevealed;
@@ -327,9 +360,16 @@ namespace casino
                     throw new InvalidOperationException("Nincs mit kifizetni.");
                 State = GameState.Won;
                 _revealAllMines();
+                //RevealAllMines();
                 GameStateChanged?.Invoke(State);
+                GameCashedOut?.Invoke();
                 return CurrentWin;
             }
+
+           /* private void OnGameCashedOut()
+            {
+                RevealAllMines();
+            }*/
 
             public decimal CalculateMultiplier(int revealed)
             {
@@ -343,9 +383,8 @@ namespace casino
                     int remainingSafe = SafeCells - i;
                     decimal prob = (decimal)remainingSafe / remainingCells;
 
-                    // Az aknák száma befolyásolja a szorzót
                     decimal mineInfluence = 1m + (MineCount * 0.2m);
-                    mult *= ((1m / prob) * 0.97m) * mineInfluence;
+                    mult += ((1m / prob) * 0.97m) * mineInfluence;
                 }
 
                 return Math.Round(mult, 2);
@@ -371,5 +410,7 @@ namespace casino
                  where Board[r, c] == CellState.Hidden
                  select 1).Count();
         }
+
+
     }
 }
