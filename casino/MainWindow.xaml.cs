@@ -30,6 +30,9 @@ namespace casino
             Instance = this;
             szulDatum.SelectedDate = DateTime.Now.AddYears(-18);
             szulDatum.DisplayDateEnd = DateTime.Now.AddYears(-18);
+        }
+        private void Beolvas()
+        {
             if (File.Exists("adatok.txt"))
             {
                 foreach (string sor in File.ReadAllLines("adatok.txt"))
@@ -38,6 +41,8 @@ namespace casino
                         adatok.Add(new Adatok(sor));
                 }
             }
+            EgyenlegManager.Balance.Egyenleg = adatok.Where(x => x.FelhasznaloNev == EgyenlegManager.Name.Nev).Select(x => x.Egyenleg).FirstOrDefault();
+            EgyenlegManager.Name.Nev = adatok.Where(x => (x.Email == fnevemail.Text || x.FelhasznaloNev == fnevemail.Text)).Select(x => x.FelhasznaloNev).FirstOrDefault();
         }
         private void signupScroll_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
@@ -130,9 +135,8 @@ namespace casino
                 MessageBox.Show("Ez a telefonszám már foglalt!");
                 return;
             }
-
             adatok.Add(new Adatok($"{tnev.Text};{email.Text};{fnev.Text};{tszam.Text};{psswrd.Password};{szulDatum.SelectedDate.Value.ToShortDateString()}"));
-            File.AppendAllLines("adatok.txt", new[] { $"{tnev.Text};{email.Text};{fnev.Text};{tszam.Text};{psswrd.Password};{szulDatum.SelectedDate.Value:yyyy-MM-dd}" });
+            File.AppendAllLines("adatok.txt", new[] { $"{tnev.Text};{email.Text};{fnev.Text};{tszam.Text};{psswrd.Password};{szulDatum.SelectedDate.Value:yyyy-MM-dd};0" });
             MessageBox.Show("Sikeres regisztráció!");
 
             tnev.Clear();
@@ -156,7 +160,7 @@ namespace casino
 
             if (found)
             {
-                EgyenlegManager.Balance.Egyenleg = adatok.Where(x=>(x.Email == fnevemail.Text || x.FelhasznaloNev == fnevemail.Text)).Select(x => x.Egyenleg).FirstOrDefault();
+                EgyenlegManager.Balance.Egyenleg = adatok.Where(x=>(x.Email == fnevemail.Text || x.FelhasznaloNev == fnevemail.Text)).FirstOrDefault().Egyenleg;
                 EgyenlegManager.Name.Nev = adatok.Where(x => (x.Email == fnevemail.Text || x.FelhasznaloNev == fnevemail.Text)).Select(x => x.FelhasznaloNev).FirstOrDefault();
                 MainFrame.Navigate(new home());
             }

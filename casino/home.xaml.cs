@@ -20,7 +20,7 @@ namespace casino
     /// </summary>
 
     public class EgyenlegManager { 
-        public static EgyenlegManager Balance = new EgyenlegManager { Egyenleg = 200000 }; 
+        public static EgyenlegManager Balance = new EgyenlegManager { Egyenleg = 0 }; 
         public static EgyenlegManager Name = new EgyenlegManager { Nev = "" };
         private string nev;
         public string Nev

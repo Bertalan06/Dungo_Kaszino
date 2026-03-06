@@ -34,7 +34,7 @@
                             <GradientStop Color="#B8860B" Offset="1"/>
                         </LinearGradientBrush>
                     </Border.Background>
-                    <TextBlock x:Name="avatarBetu" Text="J" FontSize="36" FontWeight="Bold"
+                    <TextBlock x:Name="avatarBetu" Text="" FontSize="36" FontWeight="Bold"
                                Foreground="#FF0f0f1a"
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
@@ -588,13 +588,6 @@
                     </Border>
                 </StackPanel>
             </ScrollViewer>
-
-            <!-- Üres állapot -->
-            <StackPanel x:Name="uresAllapot" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Text="♠" FontSize="64" Foreground="#22FFD700" HorizontalAlignment="Center"/>
-                <TextBlock Text="Válassz egy menüpontot a bal oldalon" FontSize="16"
-                           Foreground="#44FFFFFF" HorizontalAlignment="Center" Margin="0,12,0,0"/>
-            </StackPanel>
         </Grid>
     </Grid>
 </Page>

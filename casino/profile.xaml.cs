@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,10 +21,20 @@ namespace casino
     /// </summary>
     public partial class profile : Page
     {
+        List<Adatok> lista = new List<Adatok>();
         public profile()
         {
             InitializeComponent();
             BetoltAdatok();
+            if (File.Exists("adatok.txt"))
+            {
+                foreach (string sor in File.ReadAllLines("adatok.txt"))
+                {
+                    if (!string.IsNullOrWhiteSpace(sor))
+                        lista.Add(new Adatok(sor));
+
+                }
+            }
         }
         private void vissza_Click(object sender, RoutedEventArgs e)
         {
@@ -38,8 +49,9 @@ namespace casino
             egyenlegTB.Text = EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
             kifizetesEgyenlegTB.Text = EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
             adatEgyenlegTB.Text = EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
-
-            
+            avatarBetu.Text = EgyenlegManager.Name.Nev.Substring(0, 1).ToUpper();
+            usernameTB.Text = EgyenlegManager.Name.Nev;
+            adatokPanel.Visibility = Visibility.Visible;
         }
 
         private void MutaPanel(string panel)
@@ -47,7 +59,6 @@ namespace casino
             adatokPanel.Visibility = Visibility.Collapsed;
             feltoltesPanel.Visibility = Visibility.Collapsed;
             kifizetesPanel.Visibility = Visibility.Collapsed;
-            uresAllapot.Visibility = Visibility.Collapsed;
 
             switch (panel)
             {
@@ -60,9 +71,6 @@ namespace casino
                 case "kifizetes":
                     kifizetesEgyenlegTB.Text = EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
                     kifizetesPanel.Visibility = Visibility.Visible;
-                    break;
-                default:
-                    uresAllapot.Visibility = Visibility.Visible;
                     break;
             }
         }
@@ -105,6 +113,8 @@ namespace casino
             adatEgyenlegTB.Text = EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
             MessageBox.Show($"Sikeresen feltöltve: {osszeg:N0} Ft\nÚj egyenleg: {EgyenlegManager.Balance.Egyenleg:N0} Ft");
             feltoltesOsszegTB.Text = "0";
+            lista.Where(x => x.FelhasznaloNev == EgyenlegManager.Name.Nev).FirstOrDefault().Egyenleg = EgyenlegManager.Balance.Egyenleg;
+            faljbairas();
         }
 
         // Kifizetés végrehajtása
@@ -133,8 +143,18 @@ namespace casino
             kifizetesEgyenlegTB.Text = EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
             MessageBox.Show($"Kifizetési kérelem elküldve: {osszeg:N0} Ft");
             kifizetesOsszegTB.Text = "0";
+            lista.Where(x => x.FelhasznaloNev == EgyenlegManager.Name.Nev).FirstOrDefault().Egyenleg = EgyenlegManager.Balance.Egyenleg;
+            faljbairas();
         }
-
+        private void faljbairas()
+        {
+            StreamWriter sw = new StreamWriter("adatok.txt");
+            foreach (var item in lista)
+            {
+                sw.WriteLine($"{item.Nev};{item.Email};{item.FelhasznaloNev};{item.Telefonszam};{item.Jelszo};{item.SzuletesiDatum.ToString("yyyy-MM-dd")};{item.Egyenleg}");
+            }
+            sw.Close();
+        }
         private void kijelentkezes_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.Instance.MainFrame.Content = null;

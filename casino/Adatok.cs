@@ -33,7 +33,11 @@ namespace casino
             {
                 SzuletesiDatum = DateTime.Parse(adatok[5], new System.Globalization.CultureInfo("hu-HU"));
             }
-            Egyenleg = 0; 
+            Egyenleg = decimal.Parse(adatok[6]);
+        }
+        public override string ToString()
+        {
+            return $"{Nev};{Email};{FelhasznaloNev};{Telefonszam};{Jelszo};{SzuletesiDatum.ToString("yyyy-MM-dd")};{Egyenleg}";
         }
     }
 }
