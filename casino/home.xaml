@@ -334,7 +334,7 @@
                             Height="280" Margin="15"
                             Click="hilo_Click"/>
 
-                    <Button x:Name="slot" Tag="Slot Machine"
+                    <Button x:Name="slot" Tag="Fortune Fruits"
                             Content="jatekok/slot/slot.png"
                             Style="{StaticResource GameCardStyle}"
                             Height="280" Margin="15"
