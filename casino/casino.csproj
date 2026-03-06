@@ -284,5 +284,20 @@
   <ItemGroup>
     <Resource Include="jatekok\chicken\hard.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="stand.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="hit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bj_hatter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="deal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="double.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

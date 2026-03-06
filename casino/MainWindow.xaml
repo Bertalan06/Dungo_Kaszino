@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:casino"
         mc:Ignorable="d"
         MinHeight="480" MinWidth="704"
-        Title="MainWindow" Height="720" Width="1280">
+        Title="DUNGÓ CASINO" Height="720" Width="1280">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/login_bg.png" Stretch="UniformToFill"/>
