@@ -30,6 +30,7 @@ namespace casino
             Instance = this;
             szulDatum.SelectedDate = DateTime.Now.AddYears(-18);
             szulDatum.DisplayDateEnd = DateTime.Now.AddYears(-18);
+            Beolvas();
         }
         private void Beolvas()
         {
@@ -135,6 +136,7 @@ namespace casino
                 MessageBox.Show("Ez a telefonszám már foglalt!");
                 return;
             }
+            Beolvas();
             adatok.Add(new Adatok($"{tnev.Text};{email.Text};{fnev.Text};{tszam.Text};{psswrd.Password};{szulDatum.SelectedDate.Value.ToShortDateString()}"));
             File.AppendAllLines("adatok.txt", new[] { $"{tnev.Text};{email.Text};{fnev.Text};{tszam.Text};{psswrd.Password};{szulDatum.SelectedDate.Value:yyyy-MM-dd};0" });
             MessageBox.Show("Sikeres regisztráció!");
@@ -150,7 +152,8 @@ namespace casino
 
         private void btnBejelentkezes_Click(object sender, RoutedEventArgs e)
         {
-            if(string.IsNullOrEmpty(fnevemail.Text) || string.IsNullOrEmpty(pbJelszo.Password))
+            Beolvas();
+            if (string.IsNullOrEmpty(fnevemail.Text) || string.IsNullOrEmpty(pbJelszo.Password))
             {
                 MessageBox.Show("Minden mező kitöltése kötelező!");
                 return;

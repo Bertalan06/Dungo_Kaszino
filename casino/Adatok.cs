@@ -5,6 +5,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
+using System.IO;
 
 namespace casino
 {
@@ -33,7 +34,21 @@ namespace casino
             {
                 SzuletesiDatum = DateTime.Parse(adatok[5], new System.Globalization.CultureInfo("hu-HU"));
             }
-            Egyenleg = decimal.Parse(adatok[6]);
+            if (File.Exists("adatok.txt"))
+            {
+                if (decimal.TryParse(adatok[6], out decimal e))
+                {
+                    Egyenleg = e;
+                }
+                else
+                {
+                    Egyenleg = 0;
+                }
+            }
+            else
+            {
+                    Egyenleg = 0;
+            }
         }
         public override string ToString()
         {
