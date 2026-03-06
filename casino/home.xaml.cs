@@ -38,6 +38,7 @@ public partial class home : Page
         public home()
         {
             InitializeComponent();
+            EgyenlegManager.Balance.Egyenleg = MainWindow.adatok.Where(x => x.FelhasznaloNev == EgyenlegManager.Name.Nev).Select(x => x.Egyenleg).FirstOrDefault();
             EgyenlegManager.Balance.OnEgyenlegChanged += (s, e) => FrissEgyenleg();
             FrissEgyenleg();
             SizeChanged += Home_SizeChanged;
@@ -95,35 +96,6 @@ public partial class home : Page
             NavigationService.Navigate(new mines());
         }
 
-        private void feltoltes_Click(object sender, RoutedEventArgs e)
-        {
-            feltoltesablak feltolt = new feltoltesablak();
-            feltolt.Owner = Window.GetWindow(this);
-
-            if(feltolt.ShowDialog() == true)
-            {
-                EgyenlegManager.Balance.Egyenleg += feltolt.FeltoltottOsszeg;
-                FrissEgyenleg();
-            }
-        }
-
-        private void kifizetes_Click(object sender, RoutedEventArgs e)
-        {
-            kifizetes kifizet = new kifizetes();
-            kifizet.Owner = Window.GetWindow(this);
-
-            if (kifizet.ShowDialog() == true)
-            {
-                if (kifizet.KivettOsszeg > EgyenlegManager.Balance.Egyenleg)
-                {
-                    MessageBox.Show("Nincs elég egyenleg a kifizetéshez!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
-                EgyenlegManager.Balance.Egyenleg -= kifizet.KivettOsszeg;
-                FrissEgyenleg();
-            }
-        }
 
         public void FrissEgyenleg()
         {

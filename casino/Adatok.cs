@@ -9,7 +9,7 @@ using System.IO;
 
 namespace casino
 {
-    internal class Adatok
+    public class Adatok
     {
         public string Nev { get; set; }
         public string Email { get; set; }

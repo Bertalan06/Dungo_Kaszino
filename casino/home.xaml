@@ -69,13 +69,7 @@
                                             <GradientStop Color="#8B6508" Offset="1"/>
                                         </LinearGradientBrush>
                                     </Border.Background>
-                                    <TextBlock Text="JÁTÉK"
-                                               FontSize="13"
-                                               FontWeight="Bold"
-                                               FontFamily="Georgia"
-                                               Foreground="White"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"/>
+                                    <TextBlock Text="JÁTÉK" FontSize="13" FontWeight="Bold" FontFamily="Georgia" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
                             </Grid>
                         </Border>
@@ -197,9 +191,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock Text="♠ DUNGÓ CASINO ♠"
-                               FontSize="26" FontWeight="Bold" FontFamily="Georgia"
-                               HorizontalAlignment="Center">
+                    <TextBlock Text="♠ DUNGÓ CASINO ♠" FontSize="26" FontWeight="Bold" FontFamily="Georgia" HorizontalAlignment="Center">
                         <TextBlock.Foreground>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                 <GradientStop Color="#FFE066" Offset="0"/>
@@ -210,23 +202,16 @@
                     <local:ido HorizontalAlignment="Center"/>
                 </StackPanel>
 
-                <StackPanel x:Name="gombokPanel" Grid.Row="0" Grid.Column="0"
-                            Orientation="Horizontal" VerticalAlignment="Center">
-                    <Button x:Name="profil" HorizontalAlignment="Left"
-                            Style="{StaticResource HeaderButtonStyle}"
-                            Margin="0,0,10,0" Click="profil_Click">
+                <StackPanel x:Name="gombokPanel" Grid.Row="0" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="profil" HorizontalAlignment="Left" Style="{StaticResource HeaderButtonStyle}"  Margin="0,0,10,0" Click="profil_Click">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Image Source="/icon.png" Width="25" Height="25" Margin="0,0,6,0"/>
-                            <TextBlock x:Name="nev" Text="Nev" FontSize="18" FontWeight="Bold"
-                                       FontFamily="Georgia" Foreground="#FFD700"
-                                       VerticalAlignment="Center"/>
+                            <TextBlock x:Name="nev" Text="Nev" FontSize="18" FontWeight="Bold" FontFamily="Georgia" Foreground="#FFD700" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
 
-                <Grid x:Name="gombokPanel2" Grid.Row="1" Grid.Column="0"
-                      Grid.ColumnSpan="3" Margin="0,8,0,10"
-                      Visibility="Collapsed">
+                <Grid x:Name="gombokPanel2" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,8,0,10" Visibility="Collapsed">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
@@ -241,14 +226,10 @@
                             <Run x:Name="egyenlegertek2" Text="50 000 Ft" Foreground="#00C853"/>
                         </TextBlock>
                     </StackPanel>
-                    <Button x:Name="profil2" HorizontalAlignment="Left"
-                            Style="{StaticResource HeaderButtonStyle}"
-                            Margin="0,0,10,0" Click="profil_Click">
+                    <Button x:Name="profil2" HorizontalAlignment="Left" Style="{StaticResource HeaderButtonStyle}" Margin="0,0,10,0" Click="profil_Click">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Image Source="/icon.png" Width="25" Height="25" Margin="0,0,6,0"/>
-                            <TextBlock x:Name="nev2" Text="Nev" FontSize="18" FontWeight="Bold"
-                   FontFamily="Georgia" Foreground="#FFD700"
-                   VerticalAlignment="Center"/>
+                            <TextBlock x:Name="nev2" Text="Nev" FontSize="18" FontWeight="Bold" FontFamily="Georgia" Foreground="#FFD700" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </Grid>
@@ -301,12 +282,7 @@
                 </Style>
             </ScrollViewer.Resources>
             <StackPanel>
-                <TextBlock Text="Játékok"
-                           FontSize="26"
-                           FontFamily="Georgia"
-                           Foreground="#555"
-                           Margin="60,30,0,20"
-                           HorizontalAlignment="Center"/>
+                <TextBlock Text="Játékok" FontSize="26" FontFamily="Georgia" Foreground="#555" Margin="60,30,0,20" HorizontalAlignment="Center"/>
 
                 <UniformGrid x:Name="jatekGrid" Columns="3" Margin="30,0,30,40">
 

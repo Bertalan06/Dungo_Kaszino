@@ -23,7 +23,7 @@ namespace casino
     public partial class MainWindow : Window 
     {
         public static MainWindow Instance;
-        List<Adatok> adatok = new List<Adatok>();
+        public static List<Adatok> adatok = new List<Adatok>();
         public MainWindow()
         {
             InitializeComponent();
@@ -34,6 +34,7 @@ namespace casino
         }
         private void Beolvas()
         {
+            adatok.Clear();
             if (File.Exists("adatok.txt"))
             {
                 foreach (string sor in File.ReadAllLines("adatok.txt"))
@@ -62,6 +63,7 @@ namespace casino
             signup.Visibility = Visibility.Collapsed;
             pbJelszo.Clear();
             fnevemail.Clear();
+
         }
         private void lnkRegisztracio_Click(object sender, RoutedEventArgs e)
         {
@@ -78,12 +80,12 @@ namespace casino
         private void regisztracio_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(tnev.Text) ||
-        string.IsNullOrWhiteSpace(email.Text) ||
-        string.IsNullOrWhiteSpace(fnev.Text) ||
-        string.IsNullOrWhiteSpace(tszam.Text) ||
-        psswrd.Password.Length == 0 ||
-        psswrdUjra.Password.Length == 0 ||
-        szulDatum.SelectedDate == null)
+            string.IsNullOrWhiteSpace(email.Text) ||
+            string.IsNullOrWhiteSpace(fnev.Text) ||
+            string.IsNullOrWhiteSpace(tszam.Text) ||
+            psswrd.Password.Length == 0 ||
+            psswrdUjra.Password.Length == 0 ||
+            szulDatum.SelectedDate == null)
             {
                 MessageBox.Show("Minden mező kitöltése kötelező!");
                 return;
@@ -137,7 +139,7 @@ namespace casino
                 return;
             }
             Beolvas();
-            adatok.Add(new Adatok($"{tnev.Text};{email.Text};{fnev.Text};{tszam.Text};{psswrd.Password};{szulDatum.SelectedDate.Value.ToShortDateString()}"));
+            adatok.Add(new Adatok($"{tnev.Text};{email.Text};{fnev.Text};{tszam.Text};{psswrd.Password};{szulDatum.SelectedDate.Value.ToShortDateString()};0"));
             File.AppendAllLines("adatok.txt", new[] { $"{tnev.Text};{email.Text};{fnev.Text};{tszam.Text};{psswrd.Password};{szulDatum.SelectedDate.Value:yyyy-MM-dd};0" });
             MessageBox.Show("Sikeres regisztráció!");
 
