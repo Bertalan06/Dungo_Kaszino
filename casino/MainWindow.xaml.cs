@@ -32,6 +32,19 @@ namespace casino
             szulDatum.DisplayDateEnd = DateTime.Now.AddYears(-18);
             Beolvas();
         }
+        public static void FrissEgyenleg()
+        {
+            if (Instance != null)
+            {
+                var aktualisAdat = adatok.FirstOrDefault(x => x.FelhasznaloNev == EgyenlegManager.Name.Nev);
+                if (aktualisAdat != null)
+                {
+                    aktualisAdat.Egyenleg = EgyenlegManager.Balance.Egyenleg;
+                    adatok.Where(x => x.FelhasznaloNev == EgyenlegManager.Name.Nev).FirstOrDefault().Egyenleg = aktualisAdat.Egyenleg;
+                    File.WriteAllLines("adatok.txt", adatok.Select(x => $"{x.Nev};{x.Email};{x.FelhasznaloNev};{x.Telefonszam};{x.Jelszo};{x.SzuletesiDatum:yyyy-MM-dd};{x.Egyenleg}"));
+                }
+            }
+        }
         private void Beolvas()
         {
             adatok.Clear();
@@ -40,7 +53,9 @@ namespace casino
                 foreach (string sor in File.ReadAllLines("adatok.txt"))
                 {
                     if (!string.IsNullOrWhiteSpace(sor))
-                        adatok.Add(new Adatok(sor));
+                    { 
+                        adatok.Add(new Adatok(sor)); 
+                    }
                 }
             }
             EgyenlegManager.Balance.Egyenleg = adatok.Where(x => x.FelhasznaloNev == EgyenlegManager.Name.Nev).Select(x => x.Egyenleg).FirstOrDefault();

@@ -216,6 +216,7 @@ namespace casino
                 kezelo.Visibility = Visibility.Visible;
                 buttonEnabled();
                 EgyenlegManager.Balance.Egyenleg -= GetBetValue();
+                MainWindow.FrissEgyenleg();
                 egyenlegTB.Text = "Egyenleg: " + EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
             }
         }
@@ -227,6 +228,7 @@ namespace casino
             tetkezelo.Visibility = Visibility.Visible;
             kezelo.Visibility = Visibility.Collapsed;
             EgyenlegManager.Balance.Egyenleg += GetBetValue();
+            MainWindow.FrissEgyenleg();
             egyenlegTB.Text = "Egyenleg: " + EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
             bet.Content = "0 Ft";
         }

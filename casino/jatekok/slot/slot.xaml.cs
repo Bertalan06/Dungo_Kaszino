@@ -111,6 +111,7 @@ namespace casino
 
             _porgo = true;
             _egyenleg -= valósTét;
+            MainWindow.FrissEgyenleg();
             _porgesek++;
             TöröldKiemeléseket();
             tbUzenet.Text = "PÖRGETÉS...";
@@ -151,6 +152,7 @@ namespace casino
             if (nyeremény > 0)
             {
                 _egyenleg += nyeremény;
+                MainWindow.FrissEgyenleg();
                 _nyeresek++;
                 _osszes += nyeremény;
                 if (nyeremény > _legjobbNyeremeny) _legjobbNyeremeny = nyeremény;
@@ -347,7 +349,8 @@ namespace casino
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (NavigationService.CanGoBack) { 
-                EgyenlegManager.Balance.Egyenleg = _egyenleg; 
+                EgyenlegManager.Balance.Egyenleg = _egyenleg;
+                MainWindow.FrissEgyenleg();
                 NavigationService.GoBack();
             }
         }

@@ -59,6 +59,7 @@ namespace casino
             {
                 tet = GetBetValue();
                 EgyenlegManager.Balance.Egyenleg -= GetBetValue();
+                MainWindow.FrissEgyenleg();
                 egyenlegTB.Text = "Egyenleg: " + EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
                 switch (nehez)
                 {
@@ -106,6 +107,7 @@ namespace casino
         {
             EgyenlegManager.Balance.Egyenleg += (int)(tet * double.Parse(nehez == 0 ? easy[kor - 1] : hard[kor - 1], CultureInfo.InvariantCulture));
             egyenlegTB.Text = "Egyenleg: " + EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
+            MainWindow.FrissEgyenleg();
             MessageBox.Show("Kifizetve: " + ((int)(tet * double.Parse(nehez == 0 ? easy[kor - 1] : hard[kor - 1], CultureInfo.InvariantCulture))).ToString("N0") + " Ft");
             gameOver();
         }

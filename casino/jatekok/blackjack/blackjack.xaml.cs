@@ -31,6 +31,7 @@ namespace casino
         {
             InitializeComponent();
             egyenlegTB.Text = "Egyenleg: " + EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
+            
         }
 
         string[] suits = { "C", "D", "H", "S" };
@@ -124,6 +125,7 @@ namespace casino
 
             // take the bet from the player's balance immediately
             EgyenlegManager.Balance.Egyenleg -= _lastBet;
+            MainWindow.FrissEgyenleg();
 
             KartyakTorlese();
             voltakJatekos.Clear();
@@ -380,6 +382,7 @@ namespace casino
             bet.Content = "0 Ft";
             _cardOffsetX = -10;
             x = 325;
+            MainWindow.FrissEgyenleg();
 
         }
         private void KartyakTorlese()
