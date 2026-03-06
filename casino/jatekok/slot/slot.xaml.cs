@@ -23,12 +23,12 @@ namespace casino
 
         // Kifizetési szorzók (kredit, amit 3x nyerésnél kap a tét alapján)
         private static readonly int[] Kifizetés = {
-            300, 200, 100, 80, 80, 40, 40, 40, 40
+            1000, 500, 200, 150, 150, 80, 80, 80, 80
         };
 
         // Súlyozás: esélyek a Szimb tombhoz kepest (alacsonyabb = értékesebb)
         private static readonly int[] Sullyok = {
-            1, 2, 3, 3, 3, 4, 4, 4, 4
+            1, 2, 4, 4, 4, 6, 6, 6, 6
         };
 
         //  [vonalIdx][reelIdx] 
@@ -123,8 +123,12 @@ namespace casino
 
             // Tényleges eredmény
             for (int r = 0; r < 3; r++)
+            {
                 for (int sor = 0; sor < 3; sor++)
-                    _racs[r, sor] = VéletlenSzimb();
+                { 
+                    _racs[r, sor] = VéletlenSzimb(); 
+                }
+            }
             RacsKirajzol();
 
             await Task.Delay(_turbo ? 80 : 200);
@@ -140,7 +144,7 @@ namespace casino
                 if (sz0 == sz1 && sz1 == sz2)
                 {
                     nyeroVonalak.Add(v);
-                    nyeremény += Kifizetés[sz0] * valósTét / 100m;
+                    nyeremény += Kifizetés[sz0] * valósTét / 10m;
                 }
             }
 
@@ -211,9 +215,7 @@ namespace casino
             var tb = _szovegek[r, sor];
             tb.Text = Szimb[idx];
             // 7-es piroson marad, többi fehér
-            tb.Foreground = idx == 0
-                ? new SolidColorBrush(Color.FromRgb(0xFF, 0x33, 0x33))
-                : new SolidColorBrush(Colors.White);
+            tb.Foreground = idx == 0 ? new SolidColorBrush(Color.FromRgb(0xFF, 0x33, 0x33)) : new SolidColorBrush(Colors.White);
             tb.FontWeight = idx == 0 ? FontWeights.Bold : FontWeights.Normal;
         }
 
@@ -246,13 +248,21 @@ namespace casino
             {
                 // Ki
                 foreach (int v in vonalak)
+                {
                     for (int r = 0; r < 3; r++)
+                    { 
                         _cellak[r, Vonalak[v, r]].Opacity = 0.3;
+                    }
+                }
                 await Task.Delay(160);
                 // Be
                 foreach (int v in vonalak)
+                {
                     for (int r = 0; r < 3; r++)
-                        _cellak[r, Vonalak[v, r]].Opacity = 1.0;
+                        {
+                        _cellak[r, Vonalak[v, r]].Opacity = 1.0; 
+                    }
+                }
                 await Task.Delay(140);
             }
         }
@@ -279,8 +289,14 @@ namespace casino
             
             var pool = new List<int>();
             for (int i = 0; i < Szimb.Length; i++)
+            {
                 for (int j = 0; j < Sullyok[i]; j++)
+                {
                     pool.Add(i);
+                }
+                    
+            }
+                
             return pool[_rng.Next(pool.Count)];
         }
 
