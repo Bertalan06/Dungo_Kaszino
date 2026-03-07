@@ -10,7 +10,7 @@
 
     <Page.Resources>
 
-        <!-- ===== KÉPES GOMB TEMPLATE (lekerekített, hover/press effekttel) ===== -->
+        <!-- KÉPES GOMB TEMPLATE (lekerekített, hover/press effekttel) -->
         <ControlTemplate x:Key="ImageButtonTemplate" TargetType="Button">
             <Border x:Name="border"
                     Background="{TemplateBinding Background}"
@@ -38,7 +38,7 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
 
-        <!-- ===== TÉT GOMB STÍLUS (MIN, «, ‹, ›, », MAX) ===== -->
+        <!-- TÉT GOMB STÍLUS (MIN, «, ‹, ›, », MAX) -->
         <Style x:Key="BetButtonStyle" TargetType="Button">
             <Setter Property="Width" Value="65"/>
             <Setter Property="Height" Value="65"/>
@@ -54,7 +54,7 @@
             </Setter>
         </Style>
 
-        <!-- ===== DEAL GOMB STÍLUS (kicsit kiemelve arannyal) ===== -->
+        <!-- DEAL GOMB STÍLUS (kicsit kiemelve arannyal) -->
         <Style x:Key="DealButtonStyle" TargetType="Button">
             <Setter Property="Width" Value="64"/>
             <Setter Property="Height" Value="48"/>
@@ -243,7 +243,7 @@
         </Style>
 
 
-        <!-- ===== REGENERATE GOMB STÍLUS (kör alakú) ===== -->
+        <!-- REGENERATE GOMB STÍLUS (kör alakú) -->
         <ControlTemplate x:Key="CircleButtonTemplate" TargetType="Button">
             <Border x:Name="border"
                     Background="{TemplateBinding Background}"
@@ -357,7 +357,7 @@
             </Setter>
         </Style>
 
-        <!-- ===== VISSZA GOMB ===== -->
+        <!-- VISSZA GOMB -->
         <ControlTemplate x:Key="VissszaTemplate" TargetType="Button">
             <Border x:Name="border"
                     CornerRadius="8"
@@ -409,7 +409,7 @@
             </Setter>
         </Style>
 
-        <!-- ===== KISEBB / NAGYOBB ===== -->
+        <!-- KISEBB / NAGYOBB -->
         <ControlTemplate x:Key="ActionButtonTemplate" TargetType="Button">
             <Border x:Name="border"
                     Background="{TemplateBinding Background}"
@@ -488,7 +488,7 @@
             </Setter>
         </Style>
 
-        <!-- ===== TÉT KIJELZŐ LABEL ===== -->
+        <!-- TÉT KIJELZŐ LABEL -->
         <Style x:Key="BetLabelStyle" TargetType="Label">
             <Setter Property="Foreground" Value="#F0D080"/>
             <Setter Property="FontFamily" Value="Georgia"/>
@@ -498,7 +498,7 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
 
-        <!-- ===== INFOSÁV BORDER ===== -->
+        <!-- INFOSÁV BORDER -->
         <Style x:Key="InfoBorderStyle" TargetType="Border">
             <Setter Property="Background" Value="#AA000000"/>
             <Setter Property="BorderBrush" Value="#7A5E22"/>
@@ -520,7 +520,7 @@
                 <RowDefinition Height="9*"/>
             </Grid.RowDefinitions>
 
-            <!-- ===== FELSŐ SÁV ===== -->
+            <!-- FELSŐ SÁV -->
             <Button x:Name="vissza"
                     Content="Vissza"
                     VerticalAlignment="Center"
@@ -545,7 +545,7 @@
                 </TextBlock>
             </Border>
 
-            <!-- ===== JÁTÉKTÉR ===== -->
+            <!-- JÁTÉKTÉR -->
 
             <!-- Kártya -->
             <Image x:Name="kartya"
@@ -591,7 +591,7 @@
                            Padding="0"/>
             </Border>
 
-            <!-- ===== ALSÓ VEZÉRLŐ SÁV ===== -->
+            <!-- ALSÓ VEZÉRLŐ SÁV -->
             <StackPanel Grid.Row="2" Visibility="Visible">
                 <StackPanel.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,0">

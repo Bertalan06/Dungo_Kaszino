@@ -115,7 +115,6 @@ namespace casino
             tet = GetBetValue();
             if (tet == 0) return;
 
-            // take the bet from the player's balance immediately
             EgyenlegManager.Balance.Egyenleg -= tet;
             MainWindow.FrissEgyenleg();
 
@@ -130,7 +129,6 @@ namespace casino
             OsztoKartyakOsszge.Visibility = Visibility.Hidden;
             JatekosKartyakOsszge.Content = "";
 
-            // update displayed balance to the actual balance after taking the bet
             egyenlegTB.Text = "Egyenleg: " + EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
 
             int.TryParse(bet.Content.ToString().Replace(" Ft", ""), NumberStyles.AllowThousands, CultureInfo.CurrentCulture, out tet);
@@ -143,7 +141,6 @@ namespace casino
                 tetkezelo.Visibility = Visibility.Collapsed;
                 vissza.Visibility = Visibility.Hidden;
                 kezelo.Visibility = Visibility.Visible;
-                // removed the previous temporary subtraction display; actual balance already updated above
                 randomPathGenerator("Játékos");
                 randomPathGenerator("Osztó");
                 randomPathGenerator("Játékos");
