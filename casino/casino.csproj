@@ -161,10 +161,6 @@
   <ItemGroup>
     <Resource Include="jatekok\blackjack\bj_hatter.png" />
     <Resource Include="jatekok\blackjack\blackjack.png" />
-    <Resource Include="jatekok\blackjack\icon\deal.png" />
-    <Resource Include="jatekok\blackjack\icon\double.png" />
-    <Resource Include="jatekok\blackjack\icon\hit.png" />
-    <Resource Include="jatekok\blackjack\icon\stand.png" />
     <Resource Include="jatekok\chicken\chicken.png" />
     <Resource Include="jatekok\dice\dice.png" />
     <Resource Include="jatekok\hilo\hilo.png" />
@@ -196,46 +192,10 @@
     <Resource Include="jatekok\blackjack\chip.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="jatekok\blackjack\icon\chip.png" />
-    <Resource Include="jatekok\blackjack\icon\minus.png" />
-    <Resource Include="jatekok\blackjack\icon\minusx.png" />
-    <Resource Include="jatekok\blackjack\icon\plus.png" />
-    <Resource Include="jatekok\blackjack\icon\plusx.png" />
-    <Resource Include="jatekok\blackjack\icon\rebet.png" />
-    <Resource Include="jatekok\blackjack\icon\reset.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="jatekok\blackjack\deal.png" />
-    <Resource Include="jatekok\blackjack\double.png" />
-    <Resource Include="jatekok\blackjack\hit.png" />
-    <Resource Include="jatekok\blackjack\minus.png" />
-    <Resource Include="jatekok\blackjack\minusx.png" />
-    <Resource Include="jatekok\blackjack\plus.png" />
-    <Resource Include="jatekok\blackjack\plusx.png" />
-    <Resource Include="jatekok\blackjack\rebet.png" />
-    <Resource Include="jatekok\blackjack\reset.png" />
-    <Resource Include="jatekok\blackjack\stand.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="jatekok\blackjack\back.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="jatekok\blackjack\max.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="jatekok\blackjack\min.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="jatekok\chicken\easy.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="jatekok\chicken\minusx.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="jatekok\chicken\minus.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="jatekok\chicken\plusx.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="chicken.png" />
@@ -244,35 +204,13 @@
     <Resource Include="jatekok\chicken\csirke.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="jatekok\chicken\plus.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="jatekok\chicken\max.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="jatekok\chicken\min.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="jatekok\dice\dice_bg.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="jatekok\hilo\min.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="jatekok\hilo\max.png" />
-    <Resource Include="jatekok\hilo\minus.png" />
-    <Resource Include="jatekok\hilo\minusx.png" />
-    <Resource Include="jatekok\hilo\plus.png" />
-    <Resource Include="jatekok\hilo\plusx.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="jatekok\hilo\hilo_bg.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="jatekok\hilo\rebet.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="jatekok\hilo\deal.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="login_bg.png" />
@@ -298,6 +236,42 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="double.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\blackjack\cards\10C.png" />
+    <Resource Include="jatekok\blackjack\cards\10D.png" />
+    <Resource Include="jatekok\blackjack\cards\10H.png" />
+    <Resource Include="jatekok\blackjack\cards\10S.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="jatekok\blackjack\cards\7C.png" />
+    <Resource Include="jatekok\blackjack\cards\7D.png" />
+    <Resource Include="jatekok\blackjack\cards\7H.png" />
+    <Resource Include="jatekok\blackjack\cards\7S.png" />
+    <Resource Include="jatekok\blackjack\cards\8C.png" />
+    <Resource Include="jatekok\blackjack\cards\8D.png" />
+    <Resource Include="jatekok\blackjack\cards\8H.png" />
+    <Resource Include="jatekok\blackjack\cards\8S.png" />
+    <Resource Include="jatekok\blackjack\cards\9C.png" />
+    <Resource Include="jatekok\blackjack\cards\9D.png" />
+    <Resource Include="jatekok\blackjack\cards\9H.png" />
+    <Resource Include="jatekok\blackjack\cards\9S.png" />
+    <Resource Include="jatekok\blackjack\cards\AC.png" />
+    <Resource Include="jatekok\blackjack\cards\AD.png" />
+    <Resource Include="jatekok\blackjack\cards\AH.png" />
+    <Resource Include="jatekok\blackjack\cards\AS.png" />
+    <Resource Include="jatekok\blackjack\cards\JC.png" />
+    <Resource Include="jatekok\blackjack\cards\JD.png" />
+    <Resource Include="jatekok\blackjack\cards\JH.png" />
+    <Resource Include="jatekok\blackjack\cards\JS.png" />
+    <Resource Include="jatekok\blackjack\cards\KC.png" />
+    <Resource Include="jatekok\blackjack\cards\KD.png" />
+    <Resource Include="jatekok\blackjack\cards\KH.png" />
+    <Resource Include="jatekok\blackjack\cards\KS.png" />
+    <Resource Include="jatekok\blackjack\cards\QC.png" />
+    <Resource Include="jatekok\blackjack\cards\QD.png" />
+    <Resource Include="jatekok\blackjack\cards\QH.png" />
+    <Resource Include="jatekok\blackjack\cards\QS.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

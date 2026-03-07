@@ -96,14 +96,15 @@
                 <Rectangle.Fill>
                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                         <GradientStop Color="#CC000000" Offset="0"/>
-                        <GradientStop Color="#55000000" Offset="0.5"/>
+                        <GradientStop Color="#55000000" Offset="0.4"/>
+                        <GradientStop Color="#55000000" Offset="0.7"/>
                         <GradientStop Color="#EE000000" Offset="1"/>
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
 
             <!-- Arany vonal felul -->
-            <Rectangle Grid.Row="0" Height="1" VerticalAlignment="Bottom" Margin="60,0,60,0" Opacity="0.5">
+            <Rectangle Height="1" VerticalAlignment="Center" Margin="60,0,60,0" Opacity="0.5">
                 <Rectangle.Fill>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                         <GradientStop Color="Transparent" Offset="0"/>
@@ -116,7 +117,7 @@
             </Rectangle>
 
             <!-- Arany vonal alul -->
-            <Rectangle Grid.Row="3" Height="1" VerticalAlignment="Top" Margin="60,0,60,0" Opacity="0.4">
+            <Rectangle Grid.Row="3" Height="1" VerticalAlignment="Top" Margin="60,10,60,0" Opacity="0.4">
                 <Rectangle.Fill>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                         <GradientStop Color="Transparent" Offset="0"/>
@@ -148,7 +149,7 @@
                         Click="vissza_Click"
                         Foreground="#C9A84C"
                         Background="#1A1610"
-                        Content="&lt; VISSZA"/>
+                        Content="VISSZA"/>
 
                 <Border Grid.Column="1"
                         HorizontalAlignment="Center"
@@ -183,19 +184,18 @@
 
             <!-- ROW 1: Oszto -->
             <Canvas x:Name="OsztoCanva" Grid.Row="1">
-                <ItemsControl x:Name="OsztoLapjai" Canvas.Left="580" Canvas.Top="25">
+                <ItemsControl x:Name="OsztoLapjai" Canvas.Left="580" Canvas.Top="15">
                     <StackPanel Orientation="Horizontal" x:Name="OsztoKartyaSP"/>
                 </ItemsControl>
             </Canvas>
 
             <Label x:Name="OsztoKartyakOsszge"
-                   Grid.Row="1"
                    Content=""
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
                    FontSize="16"
                    FontFamily="Palatino Linotype"
-                   Foreground="#8A7A4A"/>
+                   Foreground="#8A7A4A" Margin="630,168,0,0" Grid.RowSpan="2"/>
 
             <!-- ROW 2: Jatekos -->
             <Canvas x:Name="JatekosCanva" Grid.Row="2">
@@ -210,10 +210,10 @@
                 </ItemsControl>
 
                 <Button Template="{DynamicResource ChipBtn}"
-                        Canvas.Top="80" Canvas.Left="410"
+                        Canvas.Top="82" Canvas.Left="426"
                         Visibility="Hidden"
                         Foreground="White" FontSize="18"
-                        x:Name="chip" Width="120" Height="120" Margin="20"
+                        x:Name="chip" Width="120" Height="120"
                         ToolTip="chip" ToolTipService.Placement="Top">
                     <Button.Background>
                         <ImageBrush ImageSource="/jatekok/blackjack/chip.png"/>
@@ -222,17 +222,16 @@
             </Canvas>
 
             <Label x:Name="JatekosKartyakOsszge"
-                   Grid.Row="2"
+                   Grid.Row="1"
                    Content=""
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
-                   Margin="0,4,0,0"
                    FontSize="16"
                    FontFamily="Palatino Linotype"
-                   Foreground="#C9A84C"/>
+                   Foreground="#C9A84C" Margin="0,205,0,0" Grid.RowSpan="2"/>
 
-            <Label x:Name="eredmenyLabel"
-                   Grid.Row="2"
+            <Label x:Name="eredmenyLabel" Visibility="Visible"
+                   Grid.Row="1"
                    Content=""
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
@@ -242,56 +241,6 @@
                    Foreground="#F0D080"
                    Padding="28,12"/>
 
-            <!-- HIT/STAND/DOUBLE -->
-            <StackPanel Grid.Row="2"
-                        Orientation="Horizontal"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Bottom"
-                        Margin="0,0,0,8">
-                <StackPanel x:Name="kezelo"
-                            Orientation="Horizontal"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Visibility="Hidden">
-
-                    <Button Template="{DynamicResource BJ_gombok}"
-                            x:Name="hit" Width="70" Height="50" Margin="8"
-                            ToolTip="Huzas" ToolTipService.Placement="Top"
-                            Click="hit_Click"
-                            Background="#1A1610"
-                            Foreground="#C9A84C">
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <TextBlock Text="+" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#C9A84C"/>
-                            <TextBlock Text="HIT" FontSize="11" FontFamily="Segoe UI Light" HorizontalAlignment="Center" Foreground="#C9A84C"/>
-                        </StackPanel>
-                    </Button>
-
-                    <Button Template="{DynamicResource BJ_gombok}"
-                            x:Name="stand" Width="70" Height="50" Margin="8"
-                            ToolTip="Megall" ToolTipService.Placement="Top"
-                            Click="stand_Click"
-                            Background="#1A1610"
-                            Foreground="#C9A84C">
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <TextBlock Text="||" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#C9A84C"/>
-                            <TextBlock Text="STAND" FontSize="11" FontFamily="Segoe UI Light" HorizontalAlignment="Center" Foreground="#C9A84C"/>
-                        </StackPanel>
-                    </Button>
-
-                    <Button Template="{DynamicResource BJ_gombok}"
-                            x:Name="double" Width="70" Height="50" Margin="8"
-                            ToolTip="Duplazas" ToolTipService.Placement="Top"
-                            Background="#1A1610"
-                            Foreground="#C9A84C">
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <TextBlock Text="x2" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#F0D080"/>
-                            <TextBlock Text="DOUBLE" FontSize="11" FontFamily="Segoe UI Light" HorizontalAlignment="Center" Foreground="#C9A84C"/>
-                        </StackPanel>
-                    </Button>
-
-                </StackPanel>
-            </StackPanel>
-
             <!-- Rebet -->
             <Button Template="{DynamicResource BetBtn}"
                     Grid.Row="2"
@@ -299,18 +248,18 @@
                     Foreground="#C9A84C"
                     x:Name="rebet"
                     Width="120" Height="120"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
                     ToolTip="rebet" ToolTipService.Placement="Top"
                     Click="rebet_Click"
-                    Background="#1A1610">
+                    Background="#1A1610" Margin="427,82,0,0">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock Text="&#x21BA;" FontSize="32" HorizontalAlignment="Center" Foreground="#C9A84C"/>
                     <TextBlock Text="REBET" FontSize="13" FontFamily="Segoe UI Light" HorizontalAlignment="Center" Foreground="#C9A84C"/>
                 </StackPanel>
             </Button>
 
-            <!-- ROW 3: Bet panel -->
+            <!-- ROW 3 -->
             <Border Grid.Row="3"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
@@ -319,9 +268,54 @@
                     BorderThickness="1"
                     CornerRadius="6"
                     Padding="8,6">
-                <StackPanel x:Name="tetkezelo" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <!-- HIT/STAND/DOUBLE -->
+                    <StackPanel x:Name="kezelo"
+            Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Visibility="Collapsed">
 
-                    <Button Template="{DynamicResource BJ_gombok}"
+                        <Button Template="{DynamicResource BJ_gombok}"
+            x:Name="hit" Width="70" Height="50" Margin="8"
+            ToolTip="Huzas" ToolTipService.Placement="Top"
+            Click="hit_Click"
+            Background="#1A1610"
+            Foreground="#C9A84C">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="+" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#C9A84C"/>
+                                <TextBlock Text="HIT" FontSize="11" FontFamily="Segoe UI Light" HorizontalAlignment="Center" Foreground="#C9A84C"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Template="{DynamicResource BJ_gombok}"
+            x:Name="stand" Width="70" Height="50" Margin="8"
+            ToolTip="Megall" ToolTipService.Placement="Top"
+            Click="stand_Click"
+            Background="#1A1610"
+            Foreground="#C9A84C">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="||" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#C9A84C"/>
+                                <TextBlock Text="STAND" FontSize="11" FontFamily="Segoe UI Light" HorizontalAlignment="Center" Foreground="#C9A84C"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Template="{DynamicResource BJ_gombok}"
+            x:Name="double" Width="70" Height="50" Margin="8"
+            ToolTip="Duplazas" ToolTipService.Placement="Top"
+            Background="#1A1610"
+            Foreground="#C9A84C" Click="double_Click">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="x2" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#F0D080"/>
+                                <TextBlock Text="DOUBLE" FontSize="11" FontFamily="Segoe UI Light" HorizontalAlignment="Center" Foreground="#C9A84C"/>
+                            </StackPanel>
+                        </Button>
+
+                    </StackPanel>
+                    <!-- BET PANEL -->
+                    <StackPanel x:Name="tetkezelo" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                        <Button Template="{DynamicResource BJ_gombok}"
                             x:Name="reset" Width="54" Height="44" Margin="6,0"
                             ToolTip="Reset" ToolTipService.Placement="Top"
                             Click="reset_Click"
@@ -329,7 +323,7 @@
                             Foreground="#C9A84C"
                             Content="&#x21BA;"/>
 
-                    <Button Template="{DynamicResource BetBtn}"
+                        <Button Template="{DynamicResource BetBtn}"
                             x:Name="min" Width="44" Height="44" Margin="4,0"
                             ToolTip="100" ToolTipService.Placement="Top"
                             Click="min_Click"
@@ -337,7 +331,7 @@
                             Foreground="#C9A84C"
                             Content="MIN"/>
 
-                    <Button Template="{DynamicResource BetBtn}"
+                        <Button Template="{DynamicResource BetBtn}"
                             x:Name="minusx" Width="44" Height="44" Margin="4,0"
                             ToolTip="-500" ToolTipService.Placement="Top"
                             Click="minusx_Click"
@@ -345,7 +339,7 @@
                             Foreground="#C9A84C"
                             Content="&lt;&lt;"/>
 
-                    <Button Template="{DynamicResource BetBtn}"
+                        <Button Template="{DynamicResource BetBtn}"
                             x:Name="minus" Width="44" Height="44" Margin="4,0"
                             ToolTip="-100" ToolTipService.Placement="Top"
                             Click="minus_Click"
@@ -353,14 +347,14 @@
                             Foreground="#C9A84C"
                             Content="&lt;"/>
 
-                    <Border Background="#0A0806"
+                        <Border Background="#0A0806"
                             BorderBrush="#4A3A1A"
                             BorderThickness="1"
                             CornerRadius="3"
                             Margin="8,0"
                             Padding="20,0"
                             MinWidth="110">
-                        <Label x:Name="bet"
+                            <Label x:Name="bet"
                                Content="0 Ft"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
@@ -369,9 +363,9 @@
                                FontFamily="Palatino Linotype"
                                Background="Transparent"
                                Padding="0,8"/>
-                    </Border>
+                        </Border>
 
-                    <Button Template="{DynamicResource BetBtn}"
+                        <Button Template="{DynamicResource BetBtn}"
                             x:Name="plus" Width="44" Height="44" Margin="4,0"
                             ToolTip="+100" ToolTipService.Placement="Top"
                             Click="plus_Click"
@@ -379,7 +373,7 @@
                             Foreground="#C9A84C"
                             Content="&gt;"/>
 
-                    <Button Template="{DynamicResource BetBtn}"
+                        <Button Template="{DynamicResource BetBtn}"
                             x:Name="plusx" Width="44" Height="44" Margin="4,0"
                             ToolTip="+500" ToolTipService.Placement="Top"
                             Click="plusx_Click"
@@ -387,7 +381,7 @@
                             Foreground="#C9A84C"
                             Content="&gt;&gt;"/>
 
-                    <Button Template="{DynamicResource BetBtn}"
+                        <Button Template="{DynamicResource BetBtn}"
                             x:Name="max" Width="44" Height="44" Margin="4,0"
                             ToolTip="500 000" ToolTipService.Placement="Top"
                             Click="max_Click"
@@ -395,7 +389,7 @@
                             Foreground="#C9A84C"
                             Content="MAX"/>
 
-                    <Button Template="{DynamicResource BJ_gombok}"
+                        <Button Template="{DynamicResource BJ_gombok}"
                             x:Name="deal" Width="90" Height="44" Margin="10,0,6,0"
                             ToolTip="Kioszt" ToolTipService.Placement="Top"
                             Click="deal_Click"
@@ -403,6 +397,7 @@
                             Foreground="#F0D080"
                             Content="DEAL"/>
 
+                    </StackPanel>
                 </StackPanel>
             </Border>
 

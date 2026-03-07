@@ -26,7 +26,6 @@ namespace casino
     /// </summary>
     public partial class blackjack : Page
     {
-        private int _lastBet = 0;
         public blackjack()
         {
             InitializeComponent();
@@ -53,15 +52,9 @@ namespace casino
         private void stand_Click(object sender, RoutedEventArgs e) => StandLogic();
         private void hit_Click(object sender, RoutedEventArgs e)
         {
-            randomPathGenerator("Játékos");
-            int ertek = CalculateHandValue(voltakJatekos);
-            if (ertek > 21)
-            {
-                eredmenyLabel.Content = "Bust! Vesztettél!";
-                GameOver(false);
-            }
-            else if (ertek == 21)
-                StandLogic();
+            rounds++;
+            randomPathGenerator("Játékos");            
+            StandLogic();
         }
         private void deal_Click(object sender, RoutedEventArgs e)
         {
@@ -115,16 +108,15 @@ namespace casino
             //EgyenlegManager.Balance.Egyenleg -= Convert.ToDecimal(rebet.Content);
             start();
         }
-
+        int tet = 0;
         //játék indítása
         private void start()
         {
-            int tet = GetBetValue();
+            tet = GetBetValue();
             if (tet == 0) return;
-            _lastBet = tet; // ← új
 
             // take the bet from the player's balance immediately
-            EgyenlegManager.Balance.Egyenleg -= _lastBet;
+            EgyenlegManager.Balance.Egyenleg -= tet;
             MainWindow.FrissEgyenleg();
 
             KartyakTorlese();
@@ -148,7 +140,7 @@ namespace casino
                 JatekosKartyakOsszge.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#80000000"));
                 OsztoKartyakOsszge.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#80000000"));
                 chip.Visibility = Visibility.Visible;
-                tetkezelo.Visibility = Visibility.Hidden;
+                tetkezelo.Visibility = Visibility.Collapsed;
                 vissza.Visibility = Visibility.Hidden;
                 kezelo.Visibility = Visibility.Visible;
                 // removed the previous temporary subtraction display; actual balance already updated above
@@ -156,6 +148,10 @@ namespace casino
                 randomPathGenerator("Osztó");
                 randomPathGenerator("Játékos");
                 randomPathGenerator("Osztó");
+                if (int.Parse(JatekosKartyakOsszge.Content.ToString()) == 21)
+                {
+                    stand_Click(null, null);
+                }
             }
         }
 
@@ -171,6 +167,7 @@ namespace casino
         }
         private void SetBetValue(int value)
         {
+            rebet.Visibility = Visibility.Hidden;
             if (value < 0)
                 value = 0;
 
@@ -312,7 +309,7 @@ namespace casino
                 if (voltakOszto.Count == 2)
                 {
                     animatedCard.Tag = bitmap;
-                    animatedCard.Source = new BitmapImage(new Uri(System.IO.Path.Combine(System.IO.Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName, "jatekok", "blackjack", "icon", $"back.png"), UriKind.Absolute));
+                    animatedCard.Source = new BitmapImage(new Uri(System.IO.Path.Combine(System.IO.Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName, "jatekok", "blackjack", $"back.png"), UriKind.Absolute));
                 }
                 OsztoCanva.Children.Add(animatedCard);
             }
@@ -361,9 +358,9 @@ namespace casino
             eredmenyLabel.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#80000000"));
             OsztoKartyakOsszge.Visibility = Visibility.Visible;
             if (nyert == true)
-                EgyenlegManager.Balance.Egyenleg += _lastBet * 2;
+                EgyenlegManager.Balance.Egyenleg += tet * 2;
             else if (nyert == null)
-                EgyenlegManager.Balance.Egyenleg += _lastBet;
+                EgyenlegManager.Balance.Egyenleg += tet;
 
             egyenlegTB.Text = "Egyenleg: " + EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
             JatekosKartyakOsszge.Content = CalculateHandValue(voltakJatekos);
@@ -376,7 +373,7 @@ namespace casino
             
             tetkezelo.Visibility = Visibility.Visible;
             vissza.Visibility = Visibility.Visible;
-            kezelo.Visibility = Visibility.Hidden;
+            kezelo.Visibility = Visibility.Collapsed;
             chip.Visibility = Visibility.Hidden;
             chip.Content = "0";
             bet.Content = "0 Ft";
@@ -403,7 +400,12 @@ namespace casino
             int jatekosErtek = CalculateHandValue(voltakJatekos);
             int osztoErtek = CalculateHandValue(voltakOszto);
 
-            if (osztoErtek > 21)
+            if (jatekosErtek > 21)
+            {
+                eredmenyLabel.Content = "Bust! Vesztettél!";
+                GameOver(false);
+            }
+            else if (osztoErtek > 21)
             {
                 eredmenyLabel.Content = "Osztó bust! Nyertél! 🎉";
                 GameOver(true);
@@ -422,6 +424,18 @@ namespace casino
             {
                 eredmenyLabel.Content = "Osztó nyert!";
                 GameOver(false);
+            }
+        }
+        int rounds = 0;
+        private void double_Click(object sender, RoutedEventArgs e)
+        {
+            if (rounds == 0 && EgyenlegManager.Balance.Egyenleg >= tet)
+            {
+                EgyenlegManager.Balance.Egyenleg -= tet;
+                MainWindow.FrissEgyenleg();
+                tet = tet * 2;
+                randomPathGenerator("Játékos");
+                StandLogic();
             }
         }
     }

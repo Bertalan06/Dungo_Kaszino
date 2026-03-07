@@ -266,15 +266,93 @@
         </ControlTemplate>
 
         <Style x:Key="RegenerateButtonStyle" TargetType="Button">
-            <Setter Property="Width" Value="64"/>
-            <Setter Property="Height" Value="64"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
             <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="BorderBrush" Value="#7A5E22"/>
-            <Setter Property="BorderThickness" Value="1.5"/>
-            <Setter Property="Template" Value="{StaticResource CircleButtonTemplate}"/>
-            <Setter Property="Effect">
+            <Setter Property="Template">
                 <Setter.Value>
-                    <DropShadowEffect Color="Black" BlurRadius="12" ShadowDepth="3" Opacity="0.7"/>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Border x:Name="OuterBorder"
+                                  CornerRadius="90"
+                                  Background="Transparent"
+                                  BorderThickness="1">
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#FFD700" Offset="0"/>
+                                        <GradientStop Color="#8B6914" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
+                            </Border>
+
+                            <Border x:Name="InnerBorder" CornerRadius="90" Margin="1">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#5A3E0A" Offset="0"/>
+                                        <GradientStop Color="#2C1E04" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+
+                                <TextBlock x:Name="ButtonLabel"
+                 Text="&#x21BA;"
+                 FontSize="40"
+                 FontWeight="Bold"
+                 FontFamily="Georgia"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 Margin="0,0,0,5">
+                                    <TextBlock.Foreground>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#FFE066" Offset="0"/>
+                                            <GradientStop Color="#B8860B" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </TextBlock.Foreground>
+                                </TextBlock>
+                            </Border>
+
+                            <Border CornerRadius="90"
+                                Height="50"
+                                Margin="2,2,2,0"
+                                VerticalAlignment="Top">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#40FFFFFF" Offset="0"/>
+                                        <GradientStop Color="#00FFFFFF" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="InnerBorder" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#7A5510" Offset="0"/>
+                                            <GradientStop Color="#3D2A06" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="InnerBorder" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#1A0F02" Offset="0"/>
+                                            <GradientStop Color="#3A2808" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="InnerBorder" Property="Margin" Value="1,2,1,0"/>
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="InnerBorder" Property="Opacity" Value="0.4"/>
+                                <Setter TargetName="OuterBorder" Property="Opacity" Value="0.4"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
@@ -484,18 +562,19 @@
             </Image>
 
             <!-- Regenerate gomb a kártya jobb felső sarka mellé -->
-            <Button x:Name="regenerate"
-                    Grid.Row="1"
-                    Style="{StaticResource RegenerateButtonStyle}"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Margin="696,57,0,0"
-                    Click="regenerate_Click">
-                <Button.Background>
-                    <ImageBrush ImageSource="/jatekok/hilo/rebet.png" Stretch="Uniform"/>
-                </Button.Background>
+            <Button Style="{StaticResource RegenerateButtonStyle}"
+                Grid.Row="1"
+                Visibility="Visible"
+                Foreground="#C9A84C"
+                x:Name="regenerate"
+                Width="70" Height="70"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="696,73,0,0"
+                ToolTip="regenerate" ToolTipService.Placement="Top"
+                Click="regenerate_Click"
+                Background="#1A1610">
             </Button>
-
             <!-- Tét kijelző a játéktér alján -->
             <Border Grid.Row="1"
                     HorizontalAlignment="Center"
