@@ -34,8 +34,10 @@ namespace casino
             BuildGrid();
             UpdateBalanceDisplay();
             UpdateMineCountDisplay();
+            UpdateMultiplierPreview();
             WinText.Text = "0 Ft";
         }
+
 
         private void UpdateMineCountDisplay()
         {
@@ -48,6 +50,7 @@ namespace casino
             {
                 _currentMineCount++;
                 UpdateMineCountDisplay();
+                UpdateMultiplierPreview();
             }
         }
 
@@ -57,7 +60,16 @@ namespace casino
             {
                 _currentMineCount--;
                 UpdateMineCountDisplay();
+                UpdateMultiplierPreview();
             }
+        }
+
+        private void UpdateMultiplierPreview()
+        {
+            // Ideiglenesen beállítjuk a játékot a szorzó kiszámításához
+            var tempGame = new MinesGame(GridSize, _currentMineCount);
+            decimal previewMultiplier = tempGame.CalculateMultiplier(0);
+            MultiplierText.Text = $"{previewMultiplier:F2}x";
         }
 
         private void BuildGrid()
@@ -143,10 +155,7 @@ namespace casino
             {
                 SetGridEnabled(false);
                 CashoutButton.IsEnabled = false;
-                decimal win = _game.CurrentWin;
-                EgyenlegManager.Balance.Egyenleg += win;
-                UpdateBalanceDisplay();
-                StatusText.Text = $"🎉 Nyertél! {win:N0} Ft";
+                StatusText.Text = $"🎉 Nyertél! {_game.CurrentWin:N0} Ft";
                 StatusText.Foreground = new SolidColorBrush(Color.FromRgb(78, 204, 163));
             }
             else if (state == GameState.Playing)
@@ -185,6 +194,35 @@ namespace casino
                         btn.Foreground = new SolidColorBrush(Color.FromRgb(0, 100, 255));
                         btn.Background = new SolidColorBrush(Color.FromRgb(20, 100, 80));
                         btn.BorderBrush = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+                    }
+                    btn.IsEnabled = false;
+                }
+        }
+
+        private void RevealAllCells()
+        {
+            for (int r = 0; r < GridSize; r++)
+                for (int c = 0; c < GridSize; c++)
+                {
+                    var btn = GetButton(r, c);
+
+                    // Az összes rejtett kártyát megjelenítjük
+                    if (_game.Board[r, c] == CellState.Hidden || _game.Board[r, c] == CellState.Mine)
+                    {
+                        if (_game.IsMine(r, c))
+                        {
+                            btn.Content = "💣";
+                            btn.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+                            btn.Background = new SolidColorBrush(Color.FromRgb(100, 20, 20));
+                            btn.BorderBrush = new SolidColorBrush(Color.FromRgb(150, 30, 30));
+                        }
+                        else
+                        {
+                            btn.Content = "💎";
+                            btn.Foreground = new SolidColorBrush(Color.FromRgb(0, 100, 255));
+                            btn.Background = new SolidColorBrush(Color.FromRgb(20, 100, 80));
+                            btn.BorderBrush = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+                        }
                     }
                     btn.IsEnabled = false;
                 }
@@ -232,8 +270,11 @@ namespace casino
             try
             {
                 decimal win = _game.Cashout();
+                RevealAllCells();
                 EgyenlegManager.Balance.Egyenleg += win;
                 UpdateBalanceDisplay();
+                StatusText.Text = $"💰 Kifizetve! Nyeremény: {win:N0} Ft";
+                StatusText.Foreground = new SolidColorBrush(Color.FromRgb(78, 204, 163));
                 MessageBox.Show($"Kifizetve! Nyeremény: {win:N0} Ft", "Nyertél! 🎉", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
@@ -366,16 +407,23 @@ namespace casino
                 return CurrentWin;
             }
 
-           /* private void OnGameCashedOut()
-            {
-                RevealAllMines();
-            }*/
+            /* private void OnGameCashedOut()
+             {
+                 RevealAllMines();
+             }*/
 
             public decimal CalculateMultiplier(int revealed)
             {
-                if (revealed <= 0) return 1m;
+                if (revealed <= 0)
+                {
+                    // Alap szorzó a bombák száma alapján
+                    decimal baseMult = 1m + (MineCount * 0.15m);
+                    return Math.Round(baseMult, 2);
+                }
 
-                decimal mult = 1m;
+                // Indulunk az alap szorzóval
+                decimal baseMult2 = 1m + (MineCount * 0.15m);
+                decimal mult = baseMult2;
 
                 for (int i = 0; i < revealed; i++)
                 {

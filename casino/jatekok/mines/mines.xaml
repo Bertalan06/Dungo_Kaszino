@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Background="#1a1a2e">
 
-    <Grid Margin="20">
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -12,7 +12,7 @@
         </Grid.RowDefinitions>
 
         <!-- Fejléc -->
-        <Grid Grid.Row="0" Margin="0,0,0,20">
+        <Grid Grid.Row="0" Margin="0,0,0,15">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -26,97 +26,99 @@
 
         <!-- Beállítások / Fogadás panel -->
         <Border Grid.Row="1" Background="#16213e" CornerRadius="10" Padding="15" Margin="0,0,0,15">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="200">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                <!-- Tét -->
-                <StackPanel Grid.Column="0" Margin="5">
-                    <TextBlock Text="Tét ($)" Foreground="#aaaaaa" FontSize="12" Margin="0,0,0,4"/>
-                    <TextBox x:Name="BetInput" Text="10" Background="#0f3460" Foreground="White" BorderThickness="0" Padding="8,6" FontSize="14" TextChanged="BetInput_TextChanged"/>
-                </StackPanel>
-                
-                <!-- Akna szám -->
-                <StackPanel Grid.Column="1" Margin="5">
-                    <TextBlock Text="Aknák száma" Foreground="#aaaaaa" FontSize="12" Margin="0,0,0,4"/>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Content="−" Click="DecreaseMineCount_Click"
-                                Background="#0f3460" Foreground="White" BorderThickness="1"
-                                BorderBrush="#30557d" Padding="8,6" FontSize="14" FontWeight="Bold"
-                                Width="35" Cursor="Hand"/>
-                        <TextBlock x:Name="MineCountText" Grid.Column="1" Text="3"
-                                   Foreground="White" FontSize="16" FontWeight="Bold"
-                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Button Grid.Column="2" Content="+" Click="IncreaseMineCount_Click"
-                                Background="#0f3460" Foreground="White" BorderThickness="1"
-                                BorderBrush="#30557d" Padding="8,6" FontSize="14" FontWeight="Bold"
-                                Width="35" Cursor="Hand"/>
-                    </Grid>
-                </StackPanel>
+                    <!-- Tét -->
+                    <StackPanel Grid.Column="0" Margin="5">
+                        <TextBlock Text="Tét ($)" Foreground="#aaaaaa" FontSize="12" Margin="0,0,0,4"/>
+                        <TextBox x:Name="BetInput" Text="10" Background="#0f3460" Foreground="White" BorderThickness="0" Padding="8,6" FontSize="14" TextChanged="BetInput_TextChanged"/>
+                    </StackPanel>
 
-                <!-- Szorzó -->
-                <StackPanel Grid.Column="2" Margin="5">
-                    <TextBlock Text="Szorzó" Foreground="#aaaaaa" FontSize="12" Margin="0,0,0,4"/>
-                    <TextBlock x:Name="MultiplierText" Text="1.00x" Foreground="#f0c040"
-                               FontSize="22" FontWeight="Bold" VerticalAlignment="Center"/>
-                </StackPanel>
+                    <!-- Akna szám -->
+                    <StackPanel Grid.Column="1" Margin="5">
+                        <TextBlock Text="Aknák száma" Foreground="#aaaaaa" FontSize="12" Margin="0,0,0,4"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="−" Click="DecreaseMineCount_Click"
+                                    Background="#0f3460" Foreground="White" BorderThickness="1"
+                                    BorderBrush="#30557d" Padding="8,6" FontSize="14" FontWeight="Bold"
+                                    Width="35" Cursor="Hand"/>
+                            <TextBlock x:Name="MineCountText" Grid.Column="1" Text="3"
+                                       Foreground="White" FontSize="16" FontWeight="Bold"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Button Grid.Column="2" Content="+" Click="IncreaseMineCount_Click"
+                                    Background="#0f3460" Foreground="White" BorderThickness="1"
+                                    BorderBrush="#30557d" Padding="8,6" FontSize="14" FontWeight="Bold"
+                                    Width="35" Cursor="Hand"/>
+                        </Grid>
+                    </StackPanel>
 
-                <!-- Nyeremény -->
-                <StackPanel Grid.Column="3" Margin="5">
-                    <TextBlock Text="Nyeremény" Foreground="#aaaaaa" FontSize="12" Margin="0,0,0,4"/>
-                    <TextBlock x:Name="WinText" Text="0 Ft" Foreground="#4ecca3" FontSize="22" FontWeight="Bold" VerticalAlignment="Center"/>
-                </StackPanel>
+                    <!-- Szorzó -->
+                    <StackPanel Grid.Column="2" Margin="5">
+                        <TextBlock Text="Szorzó" Foreground="#aaaaaa" FontSize="12" Margin="0,0,0,4"/>
+                        <TextBlock x:Name="MultiplierText" Text="1.00x" Foreground="#f0c040"
+                                   FontSize="22" FontWeight="Bold" VerticalAlignment="Center"/>
+                    </StackPanel>
 
-                <!-- Gombok -->
-                <StackPanel Grid.Column="4" Margin="5" VerticalAlignment="Bottom">
-                    <Button x:Name="StartButton" Content="▶ Játék" Click="StartButton_Click"
-                            Background="#e94560" Foreground="White" BorderThickness="0"
-                            Padding="15,8" FontSize="14" FontWeight="Bold" Cursor="Hand"
-                            Margin="0,0,0,5">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}" CornerRadius="5" Padding="{TemplateBinding Padding}">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-                    <Button x:Name="CashoutButton" Content="💰 Cashout" Click="CashoutButton_Click"
-                            Background="#4ecca3" Foreground="#1a1a2e" BorderThickness="0"
-                            Padding="15,8" FontSize="14" FontWeight="Bold" Cursor="Hand"
-                            IsEnabled="False">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}" CornerRadius="5" Padding="{TemplateBinding Padding}">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-                </StackPanel>
-            </Grid>
+                    <!-- Nyeremény -->
+                    <StackPanel Grid.Column="3" Margin="5">
+                        <TextBlock Text="Nyeremény" Foreground="#aaaaaa" FontSize="12" Margin="0,0,0,4"/>
+                        <TextBlock x:Name="WinText" Text="0 Ft" Foreground="#4ecca3" FontSize="22" FontWeight="Bold" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Gombok -->
+                    <StackPanel Grid.Column="4" Margin="5" VerticalAlignment="Bottom">
+                        <Button x:Name="StartButton" Content="▶ Játék" Click="StartButton_Click"
+                                Background="#e94560" Foreground="White" BorderThickness="0"
+                                Padding="15,8" FontSize="14" FontWeight="Bold" Cursor="Hand"
+                                Margin="0,0,0,5">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" CornerRadius="5" Padding="{TemplateBinding Padding}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <Button x:Name="CashoutButton" Content="💰 Cashout" Click="CashoutButton_Click"
+                                Background="#4ecca3" Foreground="#1a1a2e" BorderThickness="0"
+                                Padding="15,8" FontSize="14" FontWeight="Bold" Cursor="Hand"
+                                IsEnabled="False">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" CornerRadius="5" Padding="{TemplateBinding Padding}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
         </Border>
 
         <!-- Játéktér -->
@@ -130,10 +132,12 @@
                 <!-- Státusz -->
                 <TextBlock x:Name="StatusText" Grid.Row="0" Text="Add meg a tétet és nyomj Játék-ra!"
                            Foreground="#aaaaaa" FontSize="14" HorizontalAlignment="Center"
-                           Margin="0,0,0,10"/>
+                           Margin="0,0,0,10" TextWrapping="Wrap"/>
 
-                <!-- Grid -->
-                <UniformGrid x:Name="GameGrid" Grid.Row="1" Rows="5" Columns="5"/>
+                <!-- Grid - csak telefonon görgetődjön -->
+                <ScrollViewer x:Name="GridScrollViewer" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <UniformGrid x:Name="GameGrid" Rows="5" Columns="5"/>
+                </ScrollViewer>
             </Grid>
         </Border>
 
