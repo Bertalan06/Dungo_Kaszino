@@ -53,8 +53,11 @@ namespace casino
         private void hit_Click(object sender, RoutedEventArgs e)
         {
             rounds++;
-            randomPathGenerator("Játékos");            
-            StandLogic();
+            randomPathGenerator("Játékos");
+            if (CalculateHandValue(voltakJatekos) >= 21)
+            {
+                StandLogic();
+            }
         }
         private void deal_Click(object sender, RoutedEventArgs e)
         {
@@ -112,6 +115,7 @@ namespace casino
         //játék indítása
         private void start()
         {
+            rounds = 0;
             tet = GetBetValue();
             if (tet == 0) return;
 

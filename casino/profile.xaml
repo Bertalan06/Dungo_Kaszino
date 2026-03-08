@@ -77,8 +77,7 @@
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="border" Property="BorderBrush"
-                                        Value="#FFD700" />
+                                    <Setter TargetName="border" Property="BorderBrush" Value="#FFD700" />
                                     <Setter TargetName="border" Property="Background">
                                         <Setter.Value>
                                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -112,8 +111,7 @@
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="border" Property="BorderBrush"
-                                        Value="#FFD700" />
+                                    <Setter TargetName="border" Property="BorderBrush" Value="#FFD700" />
                                     <Setter TargetName="border" Property="Background">
                                         <Setter.Value>
                                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -147,8 +145,7 @@
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="border" Property="BorderBrush"
-                                        Value="#FFD700" />
+                                    <Setter TargetName="border" Property="BorderBrush" Value="#FFD700" />
                                     <Setter TargetName="border" Property="Background">
                                         <Setter.Value>
                                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -190,10 +187,8 @@
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="border" Property="Background"
-                                            Value="#55FF0000" />
-                                        <Setter TargetName="border" Property="BorderBrush"
-                                            Value="#FFFF0000" />
+                                        <Setter TargetName="border" Property="Background" Value="#55FF0000" />
+                                        <Setter TargetName="border" Property="BorderBrush" Value="#FFFF0000" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -215,10 +210,8 @@
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="border" Property="Background"
-                                            Value="#33FFFFFF" />
-                                        <Setter TargetName="border" Property="BorderBrush"
-                                            Value="#AAAACC" />
+                                        <Setter TargetName="border" Property="Background" Value="#33FFFFFF" />
+                                        <Setter TargetName="border" Property="BorderBrush" Value="#AAAACC" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -231,14 +224,12 @@
         <!-- tartalom -->
         <Grid Grid.Column="1" Margin="30,30,30,30">
 
-            <!-- adatok panel -->
-            <ScrollViewer x:Name="adatokPanel" Visibility="Collapsed"
-                VerticalScrollBarVisibility="Auto">
+            <!-- ADATOK panel -->
+            <ScrollViewer x:Name="adatokPanel" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch">
                 <StackPanel>
                     <TextBlock Text="Felhasználói adatok" FontSize="24" FontWeight="Bold"
                         Foreground="#FFD700" Margin="0,0,0,24" />
 
-                    <!-- kártyák -->
                     <Border CornerRadius="12" Padding="24" Margin="0,0,0,16">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -253,65 +244,52 @@
                             </LinearGradientBrush>
                         </Border.BorderBrush>
                         <Border.BorderThickness>1</Border.BorderThickness>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
 
-                            <!-- Felhasználónév -->
-                            <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,16,20">
+                        <UniformGrid x:Name="adatokGrid" Columns="2">
+                            <StackPanel Margin="0,0,12,20">
                                 <TextBlock Text="TELJES NÉV" FontSize="11" FontWeight="Bold"
                                     Foreground="#888899" Margin="0,0,0,6" />
                                 <Border CornerRadius="6" Padding="12,10" Background="#22FFFFFF">
                                     <TextBlock x:Name="adatFullNameTB" Text="—" FontSize="15"
-                                        Foreground="White" />
+                                        Foreground="White" TextWrapping="Wrap" />
                                 </Border>
                             </StackPanel>
 
-                            <!-- E-mail -->
-                            <StackPanel Grid.Row="0" Grid.Column="1" Margin="0,0,0,20">
+                            <StackPanel Margin="0,0,12,20">
                                 <TextBlock Text="E-MAIL" FontSize="11" FontWeight="Bold"
                                     Foreground="#888899" Margin="0,0,0,6" />
                                 <Border CornerRadius="6" Padding="12,10" Background="#22FFFFFF">
                                     <TextBlock x:Name="adatEmailTB" Text="—" FontSize="15"
-                                        Foreground="White" />
+                                        Foreground="White" TextWrapping="Wrap" />
                                 </Border>
                             </StackPanel>
 
-                            <!-- Születési dátum -->
-                            <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,16,20">
+                            <StackPanel Margin="0,0,12,20">
                                 <TextBlock Text="SZÜLETÉSI DÁTUM" FontSize="11" FontWeight="Bold"
                                     Foreground="#888899" Margin="0,0,0,6" />
                                 <Border CornerRadius="6" Padding="12,10" Background="#22FFFFFF">
                                     <TextBlock x:Name="adatSzulTB" Text="—" FontSize="15"
-                                        Foreground="White" />
+                                        Foreground="White" TextWrapping="Wrap" />
                                 </Border>
                             </StackPanel>
 
-                            <!-- Telefonszám -->
-                            <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,0,16,20">
+                            <StackPanel Margin="0,0,12,20">
                                 <TextBlock Text="TELEFONSZÁM" FontSize="11" FontWeight="Bold"
                                     Foreground="#888899" Margin="0,0,0,6" />
                                 <Border CornerRadius="6" Padding="12,10" Background="#22FFFFFF">
                                     <TextBlock x:Name="adatTelefonTB" Text="—" FontSize="15"
-                                        Foreground="White" />
+                                        Foreground="White" TextWrapping="Wrap" />
                                 </Border>
                             </StackPanel>
-                        </Grid>
+                        </UniformGrid>
                     </Border>
                 </StackPanel>
             </ScrollViewer>
 
             <!-- FELTÖLTÉS panel -->
             <ScrollViewer x:Name="feltoltesPanel" Visibility="Collapsed"
-                VerticalScrollBarVisibility="Auto">
+                VerticalScrollBarVisibility="Auto"
+                HorizontalScrollBarVisibility="Disabled">
                 <StackPanel>
                     <TextBlock Text="Egyenleg feltöltése" FontSize="24" FontWeight="Bold"
                         Foreground="#FFD700" Margin="0,0,0,24" />
@@ -331,28 +309,23 @@
                         </Border.BorderBrush>
                         <Border.BorderThickness>1</Border.BorderThickness>
                         <StackPanel>
-                            <!-- Összeg kiválasztás -->
                             <TextBlock Text="FELTÖLTÉSI ÖSSZEG" FontSize="11" FontWeight="Bold"
                                 Foreground="#888899" Margin="0,0,0,12" />
                             <WrapPanel Margin="0,0,0,20">
                                 <Button x:Name="felt1000" Content="1 000 Ft" Width="110" Height="44"
                                     Margin="0,0,10,10"
                                     Click="FeltoltesOsszeg_Click" Tag="1000"
-                                    FontSize="14" FontWeight="SemiBold" Foreground="White"
-                                    Cursor="Hand">
+                                    FontSize="14" FontWeight="SemiBold" Foreground="White" Cursor="Hand">
                                     <Button.Template>
                                         <ControlTemplate TargetType="Button">
                                             <Border x:Name="b" CornerRadius="8" BorderThickness="1"
                                                 BorderBrush="#33FFD700" Background="#22FFD700">
-                                                <ContentPresenter HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center" />
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                             </Border>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="b" Property="BorderBrush"
-                                                        Value="#FFD700" />
-                                                    <Setter TargetName="b" Property="Background"
-                                                        Value="#44FFD700" />
+                                                    <Setter TargetName="b" Property="BorderBrush" Value="#FFD700" />
+                                                    <Setter TargetName="b" Property="Background" Value="#44FFD700" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
@@ -361,67 +334,55 @@
                                 <Button x:Name="felt5000" Content="5 000 Ft" Width="110" Height="44"
                                     Margin="0,0,10,10"
                                     Click="FeltoltesOsszeg_Click" Tag="5000"
-                                    FontSize="14" FontWeight="SemiBold" Foreground="White"
-                                    Cursor="Hand">
+                                    FontSize="14" FontWeight="SemiBold" Foreground="White" Cursor="Hand">
                                     <Button.Template>
                                         <ControlTemplate TargetType="Button">
                                             <Border x:Name="b" CornerRadius="8" BorderThickness="1"
                                                 BorderBrush="#33FFD700" Background="#22FFD700">
-                                                <ContentPresenter HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center" />
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                             </Border>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="b" Property="BorderBrush"
-                                                        Value="#FFD700" />
-                                                    <Setter TargetName="b" Property="Background"
-                                                        Value="#44FFD700" />
+                                                    <Setter TargetName="b" Property="BorderBrush" Value="#FFD700" />
+                                                    <Setter TargetName="b" Property="Background" Value="#44FFD700" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
                                     </Button.Template>
                                 </Button>
-                                <Button x:Name="felt10000" Content="10 000 Ft" Width="110"
-                                    Height="44" Margin="0,0,10,10"
+                                <Button x:Name="felt10000" Content="10 000 Ft" Width="110" Height="44"
+                                    Margin="0,0,10,10"
                                     Click="FeltoltesOsszeg_Click" Tag="10000"
-                                    FontSize="14" FontWeight="SemiBold" Foreground="White"
-                                    Cursor="Hand">
+                                    FontSize="14" FontWeight="SemiBold" Foreground="White" Cursor="Hand">
                                     <Button.Template>
                                         <ControlTemplate TargetType="Button">
                                             <Border x:Name="b" CornerRadius="8" BorderThickness="1"
                                                 BorderBrush="#33FFD700" Background="#22FFD700">
-                                                <ContentPresenter HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center" />
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                             </Border>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="b" Property="BorderBrush"
-                                                        Value="#FFD700" />
-                                                    <Setter TargetName="b" Property="Background"
-                                                        Value="#44FFD700" />
+                                                    <Setter TargetName="b" Property="BorderBrush" Value="#FFD700" />
+                                                    <Setter TargetName="b" Property="Background" Value="#44FFD700" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
                                     </Button.Template>
                                 </Button>
-                                <Button x:Name="felt50000" Content="50 000 Ft" Width="110"
-                                    Height="44" Margin="0,0,10,10"
+                                <Button x:Name="felt50000" Content="50 000 Ft" Width="110" Height="44"
+                                    Margin="0,0,10,10"
                                     Click="FeltoltesOsszeg_Click" Tag="50000"
-                                    FontSize="14" FontWeight="SemiBold" Foreground="White"
-                                    Cursor="Hand">
+                                    FontSize="14" FontWeight="SemiBold" Foreground="White" Cursor="Hand">
                                     <Button.Template>
                                         <ControlTemplate TargetType="Button">
                                             <Border x:Name="b" CornerRadius="8" BorderThickness="1"
                                                 BorderBrush="#33FFD700" Background="#22FFD700">
-                                                <ContentPresenter HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center" />
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                             </Border>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="b" Property="BorderBrush"
-                                                        Value="#FFD700" />
-                                                    <Setter TargetName="b" Property="Background"
-                                                        Value="#44FFD700" />
+                                                    <Setter TargetName="b" Property="BorderBrush" Value="#FFD700" />
+                                                    <Setter TargetName="b" Property="Background" Value="#44FFD700" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
@@ -429,7 +390,6 @@
                                 </Button>
                             </WrapPanel>
 
-                            <!-- Egyéni összeg -->
                             <TextBlock Text="EGYÉNI ÖSSZEG" FontSize="11" FontWeight="Bold"
                                 Foreground="#888899" Margin="0,0,0,8" />
                             <Grid Margin="0,0,0,20">
@@ -439,20 +399,17 @@
                                 </Grid.ColumnDefinitions>
                                 <Border Grid.Column="0" CornerRadius="8,0,0,8"
                                     BorderThickness="1,1,0,1" BorderBrush="#33FFD700"
-                                    Background="#22FFFFFF" Margin="0,0,0,0">
+                                    Background="#22FFFFFF">
                                     <TextBox x:Name="feltoltesOsszegTB" Background="Transparent"
-                                        Foreground="White"
-                                        FontSize="16" BorderThickness="0" Padding="12,10"
-                                        CaretBrush="White" Text="0" />
+                                        Foreground="White" FontSize="16" BorderThickness="0"
+                                        Padding="12,10" CaretBrush="White"/>
                                 </Border>
                                 <Border Grid.Column="0" IsHitTestVisible="False"
-                                    HorizontalAlignment="Right" VerticalAlignment="Center"
-                                    Margin="0,0,12,0">
+                                    HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0">
                                     <TextBlock Text="Ft" Foreground="#888899" FontSize="14" />
                                 </Border>
                                 <Button Grid.Column="1" x:Name="feltoltesGomb" Content="Feltöltés"
-                                    Height="44"
-                                    Click="FeltoltesVegrehajt_Click" Cursor="Hand"
+                                    Height="44" Click="FeltoltesVegrehajt_Click" Cursor="Hand"
                                     FontSize="14" FontWeight="Bold" Foreground="#FF0f0f1a">
                                     <Button.Background>
                                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -464,13 +421,11 @@
                                         <ControlTemplate TargetType="Button">
                                             <Border x:Name="b" CornerRadius="0,8,8,0"
                                                 Background="{TemplateBinding Background}">
-                                                <ContentPresenter HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center" />
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                             </Border>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="b" Property="Opacity"
-                                                        Value="0.85" />
+                                                    <Setter TargetName="b" Property="Opacity" Value="0.85" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
@@ -478,54 +433,49 @@
                                 </Button>
                             </Grid>
 
-                            <!-- Fizetési mód -->
                             <TextBlock Text="FIZETÉSI MÓD" FontSize="11" FontWeight="Bold"
                                 Foreground="#888899" Margin="0,0,0,12" />
                             <WrapPanel Margin="0,0,0,8">
-                                <RadioButton x:Name="rbKartya" Content="💳  Bankkártya"
-                                    GroupName="fizmod"
-                                    Foreground="White" FontSize="14" Margin="0,0,20,8"
-                                    IsChecked="True">
+                                <RadioButton x:Name="rbFeltKartya" Content="💳  Bankkártya"
+                                    GroupName="fizmod" Foreground="White" FontSize="14"
+                                    Margin="0,0,20,8" IsChecked="True">
                                     <RadioButton.Template>
                                         <ControlTemplate TargetType="RadioButton">
                                             <Border x:Name="b" CornerRadius="8" Padding="16,10"
-                                                BorderThickness="1" BorderBrush="#33FFD700"
-                                                Background="#22FFFFFF">
+                                                BorderThickness="1" BorderBrush="#33FFD700" Background="#22FFFFFF">
                                                 <ContentPresenter />
                                             </Border>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsChecked" Value="True">
-                                                    <Setter TargetName="b" Property="BorderBrush"
-                                                        Value="#FFD700" />
-                                                    <Setter TargetName="b" Property="Background"
-                                                        Value="#33FFD700" />
+                                                    <Setter TargetName="b" Property="BorderBrush" Value="#FFD700" />
+                                                    <Setter TargetName="b" Property="Background" Value="#33FFD700" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
                                     </RadioButton.Template>
                                 </RadioButton>
-                                <RadioButton x:Name="rbUtalas" Content="🏦  Banki átutalás"
-                                    GroupName="fizmod"
-                                    Foreground="White" FontSize="14" Margin="0,0,20,8">
+                                <RadioButton x:Name="rbFeltUtalas" Content="🏦  Banki átutalás"
+                                    GroupName="fizmod" Foreground="White" FontSize="14" Margin="0,0,20,8">
                                     <RadioButton.Template>
                                         <ControlTemplate TargetType="RadioButton">
                                             <Border x:Name="b" CornerRadius="8" Padding="16,10"
-                                                BorderThickness="1" BorderBrush="#33FFD700"
-                                                Background="#22FFFFFF">
+                                                BorderThickness="1" BorderBrush="#33FFD700" Background="#22FFFFFF">
                                                 <ContentPresenter />
                                             </Border>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsChecked" Value="True">
-                                                    <Setter TargetName="b" Property="BorderBrush"
-                                                        Value="#FFD700" />
-                                                    <Setter TargetName="b" Property="Background"
-                                                        Value="#33FFD700" />
+                                                    <Setter TargetName="b" Property="BorderBrush" Value="#FFD700" />
+                                                    <Setter TargetName="b" Property="Background" Value="#33FFD700" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
                                     </RadioButton.Template>
                                 </RadioButton>
                             </WrapPanel>
+                            <TextBlock Text="BANKSZÁMLASZÁM / KÁRTYASZÁM" FontSize="11" FontWeight="Bold" Foreground="#888899" Margin="0,0,0,8" />
+                            <Border CornerRadius="8" BorderThickness="1" BorderBrush="#33FFD700" Background="#22FFFFFF" Margin="0,0,0,4">
+                                <TextBox x:Name="feltoltesIbanTB" Background="Transparent" Foreground="White" FontSize="15" BorderThickness="0" Padding="12,10" CaretBrush="White" />
+                            </Border>
                         </StackPanel>
                     </Border>
                 </StackPanel>
@@ -533,7 +483,8 @@
 
             <!-- KIFIZETÉS panel -->
             <ScrollViewer x:Name="kifizetesPanel" Visibility="Collapsed"
-                VerticalScrollBarVisibility="Auto">
+                VerticalScrollBarVisibility="Auto"
+                HorizontalScrollBarVisibility="Disabled">
                 <StackPanel>
                     <TextBlock Text="Egyenleg kifizetése" FontSize="24" FontWeight="Bold"
                         Foreground="#FFD700" Margin="0,0,0,24" />
@@ -553,9 +504,7 @@
                         </Border.BorderBrush>
                         <Border.BorderThickness>1</Border.BorderThickness>
                         <StackPanel>
-                            <!-- Elérhető egyenleg -->
-                            <Border CornerRadius="8" Padding="16" Background="#22FFD700"
-                                Margin="0,0,0,20">
+                            <Border CornerRadius="8" Padding="16" Background="#22FFD700" Margin="0,0,0,20">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Elérhető egyenleg: " FontSize="15"
                                         Foreground="#AAAACC" VerticalAlignment="Center" />
@@ -565,7 +514,6 @@
                                 </StackPanel>
                             </Border>
 
-                            <!-- Összeg -->
                             <TextBlock Text="KIFIZETÉSI ÖSSZEG" FontSize="11" FontWeight="Bold"
                                 Foreground="#888899" Margin="0,0,0,8" />
                             <Grid Margin="0,0,0,20">
@@ -574,16 +522,13 @@
                                     <ColumnDefinition Width="120" />
                                 </Grid.ColumnDefinitions>
                                 <Border Grid.Column="0" CornerRadius="8,0,0,8"
-                                    BorderThickness="1,1,0,1" BorderBrush="#33FFD700"
-                                    Background="#22FFFFFF">
+                                    BorderThickness="1,1,0,1" BorderBrush="#33FFD700" Background="#22FFFFFF">
                                     <TextBox x:Name="kifizetesOsszegTB" Background="Transparent"
-                                        Foreground="White"
-                                        FontSize="16" BorderThickness="0" Padding="12,10"
-                                        CaretBrush="White" Text="0" />
+                                        Foreground="White" FontSize="16" BorderThickness="0"
+                                        Padding="12,10" CaretBrush="White"/>
                                 </Border>
                                 <Border Grid.Column="0" IsHitTestVisible="False"
-                                    HorizontalAlignment="Right" VerticalAlignment="Center"
-                                    Margin="0,0,12,0">
+                                    HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0">
                                     <TextBlock Text="Ft" Foreground="#888899" FontSize="14" />
                                 </Border>
                                 <Button Grid.Column="1" Content="Kifizetés" Height="44"
@@ -599,13 +544,11 @@
                                         <ControlTemplate TargetType="Button">
                                             <Border x:Name="b" CornerRadius="0,8,8,0"
                                                 Background="{TemplateBinding Background}">
-                                                <ContentPresenter HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center" />
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                             </Border>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="b" Property="Opacity"
-                                                        Value="0.85" />
+                                                    <Setter TargetName="b" Property="Opacity" Value="0.85" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
@@ -613,48 +556,39 @@
                                 </Button>
                             </Grid>
 
-                            <!-- Kifizetési mód -->
                             <TextBlock Text="KIFIZETÉSI MÓD" FontSize="11" FontWeight="Bold"
                                 Foreground="#888899" Margin="0,0,0,12" />
                             <WrapPanel Margin="0,0,0,20">
                                 <RadioButton x:Name="rbKifKartya" Content="💳  Bankkártya"
-                                    GroupName="kifmod"
-                                    Foreground="White" FontSize="14" Margin="0,0,20,8"
-                                    IsChecked="True">
+                                    GroupName="kifmod" Foreground="White" FontSize="14"
+                                    Margin="0,0,20,8" IsChecked="True" Click="rbKifKartya_Click">
                                     <RadioButton.Template>
                                         <ControlTemplate TargetType="RadioButton">
                                             <Border x:Name="b" CornerRadius="8" Padding="16,10"
-                                                BorderThickness="1" BorderBrush="#33FFD700"
-                                                Background="#22FFFFFF">
+                                                BorderThickness="1" BorderBrush="#33FFD700" Background="#22FFFFFF">
                                                 <ContentPresenter />
                                             </Border>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsChecked" Value="True">
-                                                    <Setter TargetName="b" Property="BorderBrush"
-                                                        Value="#FFD700" />
-                                                    <Setter TargetName="b" Property="Background"
-                                                        Value="#33FFD700" />
+                                                    <Setter TargetName="b" Property="BorderBrush" Value="#FFD700" />
+                                                    <Setter TargetName="b" Property="Background" Value="#33FFD700" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
                                     </RadioButton.Template>
                                 </RadioButton>
                                 <RadioButton x:Name="rbKifUtalas" Content="🏦  Banki átutalás"
-                                    GroupName="kifmod"
-                                    Foreground="White" FontSize="14" Margin="0,0,20,8">
+                                    GroupName="kifmod" Foreground="White" FontSize="14" Margin="0,0,20,8" Click="rbKifUtalas_Click">
                                     <RadioButton.Template>
                                         <ControlTemplate TargetType="RadioButton">
                                             <Border x:Name="b" CornerRadius="8" Padding="16,10"
-                                                BorderThickness="1" BorderBrush="#33FFD700"
-                                                Background="#22FFFFFF">
+                                                BorderThickness="1" BorderBrush="#33FFD700" Background="#22FFFFFF">
                                                 <ContentPresenter />
                                             </Border>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsChecked" Value="True">
-                                                    <Setter TargetName="b" Property="BorderBrush"
-                                                        Value="#FFD700" />
-                                                    <Setter TargetName="b" Property="Background"
-                                                        Value="#33FFD700" />
+                                                    <Setter TargetName="b" Property="BorderBrush" Value="#FFD700" />
+                                                    <Setter TargetName="b" Property="Background" Value="#33FFD700" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
@@ -662,16 +596,13 @@
                                 </RadioButton>
                             </WrapPanel>
 
-                            <!-- kártyaszám -->
                             <TextBlock Text="BANKSZÁMLASZÁM / KÁRTYASZÁM" FontSize="11"
-                                FontWeight="Bold"
-                                Foreground="#888899" Margin="0,0,0,8" />
+                                FontWeight="Bold" Foreground="#888899" Margin="0,0,0,8" />
                             <Border CornerRadius="8" BorderThickness="1" BorderBrush="#33FFD700"
                                 Background="#22FFFFFF" Margin="0,0,0,4">
                                 <TextBox x:Name="kifizetesIbanTB" Background="Transparent"
-                                    Foreground="White"
-                                    FontSize="15" BorderThickness="0" Padding="12,10"
-                                    CaretBrush="White" />
+                                    Foreground="White" FontSize="15" BorderThickness="0"
+                                    Padding="12,10" CaretBrush="White" />
                             </Border>
                         </StackPanel>
                     </Border>

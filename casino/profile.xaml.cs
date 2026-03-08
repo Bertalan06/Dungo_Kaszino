@@ -26,7 +26,24 @@ namespace casino
         {
             InitializeComponent();
             BetoltAdatok();
-            
+            this.Loaded += Profile_Loaded;
+        }
+        private void Profile_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Ablak SizeChanged eseményére iratkozunk fel
+            Window parentWindow = Window.GetWindow(this);
+            if (parentWindow != null)
+            {
+                parentWindow.SizeChanged += ParentWindow_SizeChanged;
+                // Azonnal beállítjuk
+                adatokGrid.Columns = parentWindow.ActualWidth < 900 ? 1 : 2;
+            }
+        }
+
+        private void ParentWindow_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (adatokGrid != null)
+                adatokGrid.Columns = e.NewSize.Width < 900 ? 1 : 2;
         }
         private void vissza_Click(object sender, RoutedEventArgs e)
         {
@@ -102,11 +119,12 @@ namespace casino
                 MessageBox.Show("Kérjük adj meg érvényes összeget!");
                 return;
             }
-
+            if (!IbanEllenorzes(feltoltesIbanTB, rbFeltKartya, rbFeltUtalas))
+                return;
             EgyenlegManager.Balance.Egyenleg += osszeg;
             egyenlegTB.Text = EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
             MessageBox.Show($"Sikeresen feltöltve: {osszeg:N0} Ft\nÚj egyenleg: {EgyenlegManager.Balance.Egyenleg:N0} Ft");
-            feltoltesOsszegTB.Text = "0";
+            feltoltesOsszegTB.Clear();
             MainWindow.adatok.Where(x => x.FelhasznaloNev == EgyenlegManager.Name.Nev).FirstOrDefault().Egyenleg = EgyenlegManager.Balance.Egyenleg;
             faljbairas();
         }
@@ -125,20 +143,64 @@ namespace casino
                 MessageBox.Show("Nincs elegendő egyenleged!");
                 return;
             }
-
-            if (string.IsNullOrWhiteSpace(kifizetesIbanTB.Text))
-            {
-                MessageBox.Show("Kérjük add meg a bankszámlaszámodat!");
+            if (!IbanEllenorzes(kifizetesIbanTB, rbKifKartya, rbKifUtalas))
                 return;
-            }
-
             EgyenlegManager.Balance.Egyenleg -= osszeg;
             egyenlegTB.Text = EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
             kifizetesEgyenlegTB.Text = EgyenlegManager.Balance.Egyenleg.ToString("N0") + " Ft";
             MessageBox.Show($"Kifizetési kérelem elküldve: {osszeg:N0} Ft");
-            kifizetesOsszegTB.Text = "0";
+            kifizetesOsszegTB.Clear();
+            kifizetesIbanTB.Clear();
             MainWindow.adatok.Where(x => x.FelhasznaloNev == EgyenlegManager.Name.Nev).FirstOrDefault().Egyenleg = EgyenlegManager.Balance.Egyenleg;
             faljbairas();
+        }
+        private bool IbanEllenorzes(TextBox szoveg, RadioButton kartya, RadioButton utalas)
+        {
+            string szamlaszam = szoveg.Text.Trim().Replace(" ", "").Replace("-", "");
+
+            if (string.IsNullOrWhiteSpace(szamlaszam))
+            {
+                MessageBox.Show("Kérjük add meg a bankszámlaszámodat vagy a kártyaszámodat!");
+                return false;
+            }
+
+            if (kartya.IsChecked == true)
+            {
+                if (!szamlaszam.All(char.IsDigit) || szamlaszam.Length != 16)
+                {
+                    MessageBox.Show("Érvénytelen kártyaszám! A kártyaszámnak 16 számjegyből kell állnia.");
+                    return false;
+                }
+            }
+
+            if (utalas.IsChecked == true)
+            {
+                if (szamlaszam.Length >= 2 && char.IsLetter(szamlaszam[0]) && char.IsLetter(szamlaszam[1]))
+                {
+                    if (szamlaszam.Length < 15 || szamlaszam.Length > 34)
+                    {
+                        MessageBox.Show("Érvénytelen IBAN! Az IBAN 15-34 karakter hosszú lehet.\nPélda: HU42117730161111101800000000");
+                        return false;
+                    }
+                    if (!szamlaszam.Skip(2).All(char.IsDigit))
+                    {
+                        MessageBox.Show("Érvénytelen IBAN! Az országkód után csak számok állhatnak.");
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (!szamlaszam.All(char.IsDigit) || (szamlaszam.Length != 16 && szamlaszam.Length != 24))
+                    {
+                        MessageBox.Show("Érvénytelen bankszámlaszám!\n" +
+                            "- Magyar formátum: 16 vagy 24 számjegy (pl. 12345678-12345678)\n" +
+                            "- Nemzetközi IBAN (pl. HU42117730161111101800000000)");
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
         private void faljbairas()
         {
@@ -152,6 +214,16 @@ namespace casino
         private void kijelentkezes_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.Instance.MainFrame.Content = null;
+        }
+
+        private void rbKifUtalas_Click(object sender, RoutedEventArgs e)
+        {
+            kifizetesIbanTB.Clear();
+        }
+
+        private void rbKifKartya_Click(object sender, RoutedEventArgs e)
+        {
+            kifizetesIbanTB.Clear();
         }
     }
 }
