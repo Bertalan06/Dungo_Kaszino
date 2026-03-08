@@ -251,6 +251,7 @@ namespace casino
             _game.StartGame(bet);
 
             EgyenlegManager.Balance.Egyenleg -= bet;
+            MainWindow.FrissEgyenleg();
             UpdateBalanceDisplay();
 
             BuildGrid();
@@ -272,6 +273,7 @@ namespace casino
                 decimal win = _game.Cashout();
                 RevealAllCells();
                 EgyenlegManager.Balance.Egyenleg += win;
+                MainWindow.FrissEgyenleg();
                 UpdateBalanceDisplay();
                 StatusText.Text = $"💰 Kifizetve! Nyeremény: {win:N0} Ft";
                 StatusText.Foreground = new SolidColorBrush(Color.FromRgb(78, 204, 163));

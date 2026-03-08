@@ -38,7 +38,7 @@
 
                     <!-- Tét -->
                     <StackPanel Grid.Column="0" Margin="5">
-                        <TextBlock Text="Tét ($)" Foreground="#aaaaaa" FontSize="12" Margin="0,0,0,4"/>
+                        <TextBlock Text="Tét" Foreground="#aaaaaa" FontSize="12" Margin="0,0,0,4"/>
                         <TextBox x:Name="BetInput" Text="10" Background="#0f3460" Foreground="White" BorderThickness="0" Padding="8,6" FontSize="14" TextChanged="BetInput_TextChanged"/>
                     </StackPanel>
 
