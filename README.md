@@ -1,6 +1,6 @@
 # 🎰 Dungó Casino
 
-> [**Prezentáció**](https://www.canva.com/design/DAHDWWsCggQ/ZfUOtvqy4ct4OdBvvVqGHg/edit?utm_content=DAHDWWsCggQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+> [**Prezentáció**](https://www.canva.com/design/DAHDWWsCggQ/ZfUOtvqy4ct4OdBvvVqGHg/edit?utm_content=DAHDWWsCggQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton){:target="_blank"}
 
 Dungó Casino egy WPF-alapú asztali szerencsejáték alkalmazás, amely 6 különböző játékot, felhasználói fiókkezelést, egyenlegfeltöltést és kifizetést kínál.
 
@@ -217,6 +217,11 @@ Kovács János;kovacsjanos@gmail.hu;kovacsjanos;+36201234567;Janos2000!;2000-01-
 
 ## 📸 Képernyőképek
 
-| Bejelentkezés | Főoldal | Profil |
-|---|---|---|
-| ![login](screenshots/login.png) | ![home](screenshots/home.png) | ![profile](screenshots/profile.png) |
+**Bejelentkezés**<br>
+<img src="screenshots/login.png" width="800"/><br><br>
+
+**Főoldal**<br>
+<img src="screenshots/home.png" width="800"/><br><br>
+
+**Profil**<br>
+<img src="screenshots/profile.png" width="800"/>
