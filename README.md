@@ -36,23 +36,6 @@ Dungó Casino egy WPF-alapú asztali szerencsejáték alkalmazás, amely 6 kül�
 
 ---
 
-## 🚀 Telepítés
-
-1. Klónozd a repót:
-   ```
-   git clone https://github.com/felhasznalonev/dungo-casino.git
-   ```
-2. Nyisd meg Visual Studióban (`.sln` fájl)
-3. Build & Run (F5)
-4. Az `adatok.txt` fájl automatikusan létrejön az első regisztrációkor
-
-**Követelmények:**
-- Windows 10/11
-- .NET Framework / .NET (WPF)
-- Visual Studio 2022
-
----
-
 ## 👤 Fiókkezelés
 
 ### Regisztráció
@@ -174,7 +157,30 @@ Klasszikus 3×3-as nyerőgép 5 nyervonallal és 9 különböző szimbólummal.
 
 ### Mines
 
-*(Hamarosan részletes leírás)*
+Egy 5×5-ös rácson rejtett aknák és gyémántok találhatók. Minél több gyémántot találsz, annál nagyobb a szorzó – de ha aknára lépsz, mindent elveszítesz!
+
+**Játékmenet:**
+1. Állítsd be a tétet és az aknák számát (1–24)
+2. Nyomd meg a **Start** gombot
+3. Kattints a cellákra – 💎 gyémánt = nyerés, 💣 akna = vesztés
+4. **Cash Out** gombbal bármikor kiveheted az aktuális nyereményed
+
+**Aknák száma:**
+- Minimum: 1 akna (25 cellából 24 biztonságos)
+- Maximum: 24 akna (25 cellából csak 1 biztonságos)
+- Minél több az akna, annál nagyobb a szorzó – de annál nagyobb a kockázat
+
+**Szorzó számítás:**
+- Alap szorzó: `1 + (aknák száma × 0.15)`
+- Minden felfedett gyémánt után a szorzó növekszik a fennmaradó cellák arányában
+- Képlet: `szorzó += (1 / valószínűség × 0.97) × (1 + aknák × 0.2)`
+
+**Példák:**
+| Aknák | Alap szorzó | 5 gyémánt után |
+|-------|------------|----------------|
+| 1 | 1.15× | ~2× |
+| 5 | 1.75× | ~8× |
+| 15 | 3.25× | ~50× |
 
 ---
 
@@ -196,17 +202,15 @@ Ugyanazok az opciók mint a feltöltésnél, de csak az elérhető egyenlegig fi
 
 | Technológia | Leírás |
 |-------------|--------|
-| **C# / WPF** | Asztali alkalmazás fejlesztése |
-| **XAML** | UI definíció |
-| **.NET** | Runtime |
-| **Fájl alapú DB** | `adatok.txt` – pontosvesszővel elválasztott adatok |
-| **EgyenlegManager** | Statikus singleton az egyenleg és felhasználónév kezelésére |
+| **Fájl alapú adattárolás** | `adatok.txt` – pontosvesszővel elválasztott adatok |
+| **EgyenlegManager** | Publikus osztály az egyenleg és felhasználónév kezelésére |
 | **NavigationService** | Oldalak közötti navigáció Frame-en belül |
 | **Regex validáció** | Név, email, telefonszám, jelszó ellenőrzés regisztrációnál |
 
 ### Adatfájl formátuma (`adatok.txt`)
 ```
-Teljes Név;email@cim.hu;felhasznalonev;+36201234567;Jelszo1!;2000-01-01;10000
+Teljes név;Email cím;Felhasználónév;Telefonszám;Jelszó;Születési dátum;Egyenleg
+Kovács János;kovacsjanos@gmail.hu;kovacsjanos;+36201234567;Janos2000!;2000-01-01;10000
 ```
 
 ---
